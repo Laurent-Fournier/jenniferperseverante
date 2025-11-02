@@ -1,0 +1,15 @@
+{% extends 'jenniferperseverante_dev_viz/base.html' %}
+
+{% block language_code %}{{language_code}}{% endblock %}
+
+{% block title %}JenniferPerseverante - Page non trouvée{% endblock %}
+
+{% block html_description %}Page non trouvée{% endblock %}
+
+{% block body %}
+{% include "./row_hero.html" with language_code=language_code %}
+{% include "./row_404.html" with language_code=language_code %}
+{% endblock %}
+
+</body>
+</html>
