@@ -1,15 +1,18 @@
-{% extends 'jenniferperseverante_dev_viz/base.html' %}
-
-{% block language_code %}{{language_code}}{% endblock %}
-
-{% block title %}JenniferPerseverante - Page non trouvée{% endblock %}
-
-{% block html_description %}Page non trouvée{% endblock %}
+{% extends 'base.html' %}
+{% block lg %}{{lg}}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+{% block description %}{{description}}{% endblock %}
 
 {% block body %}
-{% include "./row_hero.html" with language_code=language_code %}
-{% include "./row_404.html" with language_code=language_code %}
+<header class="section page-header">
+  {% include "navbar.html" with lg='fr'  %}
+</header>
+{% include "row_home_hero.html" %}
+<section class="section section-md bg-default">
+ <div class="container">
+    <h2>Page non trouvée (404)</h2>
+    <p>Oups ! La page que vous cherchez n’existe pas.</p>
+ </div>  
+</section>
+{% include "./footer.html" %}
 {% endblock %}
-
-</body>
-</html>

@@ -10,6 +10,20 @@ from .pattern_class import *
 from .navbar_class import Navbar
 
 # ------------
+# Error 404
+# ------------
+def custom_404(request, exception):
+    """
+    Vue personnalisée pour les erreurs 404
+    """
+    return render(request, '404.html', status=404)
+
+def test_404(request):
+    response = render(request, '404.html')
+    response.status_code = 404
+    return response
+
+# ------------
 # Home page
 # ------------
 def index(request):
