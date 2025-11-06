@@ -1,0 +1,18 @@
+<!-- Row Text | Image -->
+<section class="section section-lg bg-default bg-gray-light">
+  <div class="container">
+    <div class="row row-50">
+      <div class="col-lg-6">
+        <h3>{{section.titles.0}}</h3>
+        {% if section.subtitles.0 %}
+        <div class="text-with-divider">
+          <div class="divider"></div>
+          <h4 class="font-italic text-opacity-black">{{section.subtitles.0}}</h4>
+        </div>
+        {% endif %}
+        <p>{% autoescape off %}{{section.htmls.0}}{% endautoescape %}</p>
+      </div>
+      <div class="col-lg-6 pr-xl-5"><img src="/images/480/{{section.images.0.url}}" alt="{{section.images.0.alt}}" width="480"/></div>
+    </div>
+  </div>
+</section> 

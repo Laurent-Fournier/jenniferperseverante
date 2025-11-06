@@ -1,0 +1,57 @@
+<!-- RD Navbar-->
+<div class="rd-navbar-wrap">
+  <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+    <div class="rd-navbar-main-outer">
+      <div class="rd-navbar-main">
+        <!-- RD Navbar Panel-->
+        <div class="rd-navbar-panel">
+          <!-- RD Navbar Toggle-->
+          <button id="navbar-toggle-button" aria-label="Responsive Navbar" class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+          <!-- RD Navbar Brand-->
+          <div class="rd-navbar-brand"><a href="/"><img class="brand-logo-light" src="/static/images/logo-jennifer-perseverante-maquilleuse-professionnelle.png" alt="Jennifer Perseverante, maquilleuse professionnelle" width="243" height="41"/></a></div>
+        </div>
+        <div class="rd-navbar-main-element"> 
+          <div class="rd-navbar-nav-wrap">
+            <!-- RD Navbar Nav-->
+            <ul class="rd-navbar-nav">
+              <li class="rd-nav-item{% if active == 'home' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/">{{ navbar.home.nav }}</a></li>
+
+              <li class="rd-nav-item"><a class="rd-nav-link" href="#">{{ navbar.services.nav }}</a>
+                <ul class="rd-menu rd-navbar-dropdown">
+                  <li class="rd-dropdown-item{% if active == 'wedding' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.wedding.slug }}">{{ navbar.wedding.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'lesson' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.lesson.slug }}">{{ navbar.lesson.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'evjf' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.evjf.slug }}">{{ navbar.evjf.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'shooting' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.shooting.slug }}">{{ navbar.shooting.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'party' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.party.slug }}">{{ navbar.party.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'business' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.business.slug }}">{{ navbar.business.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'gift' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.gift.slug }}">{{ navbar.gift.nav }}</a></li>
+                </ul>
+              </li>
+              <li class="rd-nav-item{% if active == 'studio' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.studio.slug }}">{{ navbar.studio.nav }}</a>
+              <li class="rd-nav-item{% if active == 'about' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.about.slug }}">{{ navbar.about.nav }}</a>
+
+              {% if lg == 'fr' %}
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{translated_slugs.en}}" aria-label="version anglaise">EN</a></li>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{translated_slugs.es}}" aria-label="version espagnole">ES</a></li>
+              {% elif lg == 'en' %}
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{translated_slugs.fr}}" aria-label="French version">FR</a></li>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{translated_slugs.es}}" aria-label="Spanish version">ES</a></li>
+              {% elif lg == 'es' %}
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{translated_slugs.fr}}" aria-label="versión francesa">FR</a></li>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{translated_slugs.en}}" aria-label="versión en inglés">EN</a></li>
+              {% endif %}
+
+              <li class="rd-nav-item{% if active == 'demo' %} active{% endif %}"><a class="rd-nav-link" href="/demo">Demo</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+{% comment %}
+Active: {{ active }}<br/>
+Navbar: {{ navbar }}<br/><br/>
+Article: {{ article }}<br/><br/>
+{% endcomment %}
+

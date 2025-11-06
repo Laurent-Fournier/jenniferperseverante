@@ -1,4 +1,4 @@
-<!-- Privilege-->
+<!-- Who I am -->
 <section class="section section-lg text-center">
   <div class="container">
     <div class="row row-50">
@@ -11,7 +11,20 @@
         <div>(+33) 06.60.64.86.26</div>
         <div>jennifer.perseverante@gmail.com</div>
         <div>
-          <a href="/fr/jennifer-perseverante-maquilleuse-professionnelle">Qui suis-je ?</a><br>
+          {% if lg == 'es' %}
+            <a href="/es/jennifer-perseverante-maquilladora-profesional">
+            ¿Quién soy yo?
+            </a>
+          {% elif lg == 'en' %}
+            <a href="/en/jennifer-perseverante-professional-makeup-artist">
+            Who am I?
+            </a>
+          {% else %}
+            <a href="/fr/jennifer-perseverante-maquilleuse-professionnelle">
+            Qui suis-je ?
+            </a>
+          {% endif %}
+          <br>
           <a href="https://www.facebook.com/jenniferperseverante/" aria-label="Facebook">{% include "./widget_icon.html" with icon="facebook" size=30 %}</a>
           <a href="https://www.instagram.com/jenniferperseverante/" aria-label="Instagram">{% include "./widget_icon.html" with icon="instagram" size=30 %}</a>
           <a href="https://www.youtube.com/channel/UCypPiuUYTPCPGUn5n_rXYcQ" aria-label="Youtube">{% include "./widget_icon.html" with icon="youtube" size=30 %}</a>
