@@ -27,7 +27,13 @@
           <div class="row row-30">
             <div class="col-12"><img class="brand-logo-light" src="/static/images/logo-jennifer-perseverante-maquilleuse-professionnelle.png" alt="Jennifer Perseverante, maquilleuse professionnelle" width="243" height="41"/></div>
             <div class="col-12">
+              {% if lg == 'en' %}
+              <p>Jennifer Persévérante offers makeup sessions for weddings, hen parties, evenings, birthdays, makeup lessons at home or in the studio, and photo shoots.</p>
+              {% elif lg == 'es' %}
+              <p>Jennifer Persévérante ofrece sesiones de maquillaje para bodas, despedidas de soltera, eventos nocturnos, cumpleaños, clases de maquillaje a domicilio o en el estudio y sesiones fotográficas.</p>
+              {% else %}
               <p>Jennifer Persévérante propose des séances de maquillage pour les mariages, enterrements de vie de jeune fille, soirées, anniversaires, cours de maquillage à domicile ou en studio, et séances photo.</p>
+              {% endif %}
               <div class="footer-divider"></div>
               <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span><span>&nbsp;</span><span>Jennifer Perseverante</span><span>.&nbsp;</span></p>
             </div>
