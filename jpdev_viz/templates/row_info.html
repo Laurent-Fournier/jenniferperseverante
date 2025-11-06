@@ -1,0 +1,31 @@
+<!-- Privilege-->
+<section class="section section-lg text-center">
+  <div class="container">
+    <div class="row row-50">
+      <div class="col-md-6 col-lg-2 wow-outer">
+        <div class="box-icon-classic">
+          <img class="rounded-circle" src="/static/images/portait-jennifer-perseverante-maquilleuse-professionnelle-paris.avif" width="110" height="110" alt="Jennifer Perseverante, maquilleuse professionnelle">
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 wow-outer text-start">
+        <div>(+33) 06.60.64.86.26</div>
+        <div>jennifer.perseverante@gmail.com</div>
+        <div>
+          <a href="/fr/jennifer-perseverante-maquilleuse-professionnelle">Qui suis-je ?</a><br>
+          <a href="https://www.facebook.com/jenniferperseverante/" aria-label="Facebook">{% include "./widget_icon.html" with icon="facebook" size=30 %}</a>
+          <a href="https://www.instagram.com/jenniferperseverante/" aria-label="Instagram">{% include "./widget_icon.html" with icon="instagram" size=30 %}</a>
+          <a href="https://www.youtube.com/channel/UCypPiuUYTPCPGUn5n_rXYcQ" aria-label="Youtube">{% include "./widget_icon.html" with icon="youtube" size=30 %}</a>
+          <a href="https://g.co/kgs/HYYwjja" aria-label="Google">{% include "./widget_icon.html" with icon="google" size=30 %}</a>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 wow-outer">
+        <div class="box-icon-classic">
+            <form class="d-flex" role="search" method="get" action="/{{lg}}/search">
+                <input class="form-control" id="p" name="p" type="search" placeholder="{% if lg == 'es' %}Buscar{% elif lg == 'en' %}Search{% else %}Rechercher{% endif %}..." aria-label="Search">
+                <button class="btn mb-4" type="submit" aria-label="submit">{% include "./widget_icon.html" with icon="search" size=16 %}</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>  

@@ -20,7 +20,10 @@ urlpatterns = [
 
     # Home page
     path('<str:lg>/', views.article),
-    
+
+    # Search Page
+    path('<str:lg>/search', views.search),
+
     # Article page
     path('<str:lg>/<slug:slug>', views_article.article),
 

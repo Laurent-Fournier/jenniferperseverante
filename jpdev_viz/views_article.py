@@ -16,6 +16,7 @@ from .navbar_class import Navbar
 # Markdow source: https://github.com/trentm/python-markdown2
 # ------------------------------------------------------------
 def article(request, lg, slug):
+    #return HttpResponse(f"[DEBUG] le language est : {lg}")
 
     # Read article data from database
     hero, article = get_article_by_slug(lg, slug)
@@ -39,6 +40,10 @@ def article(request, lg, slug):
         request,
         'article.html',
         {
+            "html": {
+                "title": article['title'],
+                "description": article['description'],
+            },            
             'lg': lg,
             'other_languages': other_languages,
             'navbar': Navbar(lg).to_json(),      
@@ -135,8 +140,6 @@ def get_article_by_slug(lg, slug):
         "translated_slugs": get_slugs(data["id"]),
         "sections": sections,
     }
-
-
     return hero, article
 
 
