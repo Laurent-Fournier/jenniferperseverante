@@ -422,3 +422,70 @@ def getRelatedArticles(article, language_code, no_section):
         i += 1
 
     return related_articles
+
+
+
+# ------------------
+# Search Page
+# ------------------
+def search(request, lg):
+
+    # Read parameters
+    pattern = request.GET.get("p").strip()
+
+    if len(pattern)<2:
+        rows = []
+    else:  # TODO à protéger contre les injections SQL
+        rows = Article.objects.raw(
+            f"""
+            SELECT 
+                article.id,
+                article.art_date, article.art_cover, article.art_family, article.is_page,
+                art_slug, art_title, art_text, 
+                hero_title, hero_subtitle
+            FROM article
+            LEFT OUTER JOIN article_lg ON
+			    article.id = article_lg.id AND language_code='{lg}'
+            WHERE 
+                article_lg.hero_title LIKE '%%{pattern}%%' OR
+                article_lg.hero_subtitle LIKE '%%{pattern}%%' OR
+                article_lg.art_text LIKE '%%{pattern}%%'
+            ORDER BY is_page DESC, art_date DESC
+            """
+        )
+    articles = []
+
+    i = 0
+    for row in rows:
+
+        article = {}
+        article["no"] = i
+        article["id"] = row.id
+        article["slug"] = row.art_slug
+        article["date"] = row.art_date
+        article["family"] = row.art_family
+        article["is_page"] = row.is_page
+        article["hero"] = {"image": {}}
+        article["cover"] = row.art_cover
+        article["alt"] = row.art_title
+        article["title"] = row.hero_title
+        article["subtitle"] = row.hero_subtitle
+        articles.append(article)
+        i += 1
+
+    return render(
+        request,
+        "search.html",
+        {
+            "lg": lg,
+            "hero": {
+                "title": "Search",
+                "subtitle": pattern,
+                "image": {
+                    "src": "hero-2.avif",
+                    "alt": "Image de la page de recherche",
+                },
+            },
+            "articles": articles,
+        },
+    )

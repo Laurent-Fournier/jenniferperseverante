@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block lg %}{{lg}}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+{% block description %}{{description}}{% endblock %}
+
+{% block body %}
+<header class="section page-header">
+  {% include "navbar.html"  with active=active translated_slugs=article.translated_slugs lg=lg  %}
+</header>
+<header class="section page-header">
+    {% include "navbar.html" with lg=lg active=article.active other_languages=other_languages navbar=navbar translated_slugs=article.translated_slugs %}
+</header>
+{% include "row_hero.html" with hero=hero %}
+{% for article in articles %}
+  {{article}}<hr/>
+{% endfor %}
+{% endblock %}
