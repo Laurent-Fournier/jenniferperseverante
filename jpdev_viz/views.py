@@ -430,6 +430,9 @@ def getRelatedArticles(article, language_code, no_section):
 # ------------------
 def search(request, lg):
 
+    all_languages = ['fr', 'en', 'es']
+    other_languages = [lang for lang in all_languages if lang != lg]
+
     # Read parameters
     pattern = request.GET.get("p").strip()
 
@@ -457,7 +460,6 @@ def search(request, lg):
 
     i = 0
     for row in rows:
-
         article = {}
         article["no"] = i
         article["id"] = row.id
@@ -470,16 +472,19 @@ def search(request, lg):
         article["alt"] = row.art_title
         article["title"] = row.hero_title
         article["subtitle"] = row.hero_subtitle
+        article["style"] = 'even' if i%2 == 0 else 'odd'
         articles.append(article)
         i += 1
 
-    return render(
-        request,
-        "search.html",
+    return render(request, "search.html",
         {
-            "lg": lg,
+            "html": None,
+            'lg': lg,
+            'other_languages': other_languages,
+            'navbar': Navbar(lg).to_json(),      
+            'slug': 'aaaa',
             "hero": {
-                "title": "Search",
+                "title": f"Search on word '{pattern}'",
                 "subtitle": pattern,
                 "image": {
                     "src": "hero-2.avif",

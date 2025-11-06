@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block lg %}{{lg}}{% endblock %}
-{% block title %}{{title}}{% endblock %}
-{% block description %}{{description}}{% endblock %}
+{% block title %}{% if lg == 'en' %}Search Page{% elif lg == 'es' %}Página de búsqueda{% else %}Page de recherche{% endif %}{% endblock %}
+{% block description %}{% if lg == 'en' %}Search Page{% elif lg == 'es' %}Página de búsqueda{% else %}Page de recherche{% endif %}{% endblock %}
 
 {% block body %}
 <header class="section page-header">
@@ -12,6 +12,6 @@
 </header>
 {% include "row_hero.html" with hero=hero %}
 {% for article in articles %}
-  {{article}}<hr/>
+  {% include "widget_article.html" with article=article lg=lg %}
 {% endfor %}
 {% endblock %}
