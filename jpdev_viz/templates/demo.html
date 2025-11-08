@@ -5,16 +5,18 @@
 
 {% block body %}
 <header class="section page-header">
-  {% include "navbar.html"  with active=active translated_slugs=article.translated_slugs lg=lg  %}
+  {% include "widget_navbar.html"  with active=active translated_slugs=article.translated_slugs lg=lg  %}
 </header>
 {% include "row_home_hero.html" %}
 {% include "row_privilege.html" %}
 {% include "row_service.html" %}
+{% include "row_counters.html" %}
 {% include "row_portfolio.html" %}
 {% include "row_tabs.html" %}
 {% include "row_carousel.html" %}
 {% include "row_pricing.html" %}
 {% include "row_latest_posts.html" %}
+{% include "row_contact_form.html" %}
 {% include "row_sponsors.html" %}
 {% include "row_parallax.html" %}
 {% endblock %}

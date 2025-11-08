@@ -54,7 +54,7 @@ def robots_txt(request):
 def about_us(request):
     return render(
         request,
-        'about-us.html',
+        'about_us.html',
         {
             'lg':'en',
             "html": {
