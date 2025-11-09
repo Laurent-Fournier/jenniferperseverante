@@ -39,7 +39,7 @@
     {% include "./row_related_articles.html" %}
 {% endif %}
 
-{% comment %}
+
 <section class="section section-lg bg-default bg-gray-light">
   <div class="container">
     <div class="row row-50">
@@ -50,6 +50,7 @@
 <h2>Navbar:</h2> {{navbar}}<br/>
 <h2>Slug:</h2> {{slug}}<br/>
 <h2>Hero:</h2> {{hero}}<br/>
+<h2>Contact Form</h2> {{contact_form}}
 <h2>Article:</h2>{{article}}<br/><br/>
 <h2>Sections:</h2><br/>
 {% for section in article.sections %}
@@ -62,5 +63,5 @@
     </div>
   </div>
 </section> 
-{% endcomment %}
+
 {% endblock %}

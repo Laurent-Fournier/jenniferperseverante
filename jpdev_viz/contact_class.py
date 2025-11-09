@@ -8,13 +8,13 @@ from datetime import datetime
 from jpdev_viz.models import Message
 
 class Contact:
-    DEFAULT_LANGUAGE_CODE = 'fr'
+    DEFAULT_LG = 'fr'
     DEFAULT_CONTACT_TYPE = 'generic'
 
     TEXTS = {
         'fr': {
-            'name_label': "Nom",
-            'email_label': "Email",
+            'name_label': "Votre nom",
+            'email_label': "E-mail",
             'subject_label': "Sujet",
             'send_label': "Envoyer",
             'success_text': "Votre message a été envoyé.<br>Merci !",
@@ -29,7 +29,7 @@ class Contact:
                     "Une question concernant mes prestations ?<br>"
                     "N'hésitez pas à me contacter, je me ferai un plaisir de vous répondre très vite."
                 ),
-                'message_label': "Votre message...",
+                'message_label': "Message",
             },
             'wedding': {
                 'title': "Contactez-moi",
@@ -152,8 +152,8 @@ class Contact:
     # -----------------------------------
     # Constructor
     # -----------------------------------
-    def __init__(self, language_code=None, contact_type=None, url=None, no_section=0):
-        self.language_code = language_code or self.DEFAULT_LANGUAGE_CODE
+    def __init__(self, lg=None, contact_type=None, url=None, no_section=0):
+        self.lg = lg or self.DEFAULT_LG
         self.contact_type = contact_type or self.DEFAULT_CONTACT_TYPE
         self.no_section = no_section
         self.url = url
@@ -165,18 +165,18 @@ class Contact:
     # Get all texts from language and contact_type
     # ----------------------------------------------
     def get_texts(self):
-        if self.language_code not in ['fr', 'en', 'es']:
-            raise ValueError(f"Unsupported language_code: {self.language_code}")
+        if self.lg not in ['fr', 'en', 'es']:
+            raise ValueError(f"Unsupported language_code: {self.lg}")
 
         if self.contact_type.lower() not in ['generic', 'wedding', 'studio', 'at_home']:
             raise ValueError(f"Unsupported contact_type: {self.contact_type}")
 
-        texts = self.TEXTS[self.language_code].copy()
+        texts = self.TEXTS[self.lg].copy()
 
         # Retain only the relevant section for the contact type
         for k, v in texts[self.contact_type].items():
             texts[k] = v
-        texts['language_code'] = self.language_code
+        texts['lg'] = self.lg
         texts['contact_type'] = self.contact_type
         texts['style'] = 'even' if self.no_section % 2 == 0 else 'odd'
         texts['contact_action'] = self.url

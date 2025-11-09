@@ -15,7 +15,7 @@ from .navbar_class import Navbar
 # Page Article
 # Markdow source: https://github.com/trentm/python-markdown2
 # ------------------------------------------------------------
-def article(request, lg, slug):
+def article(request, lg, slug=''):
     #return HttpResponse(f"[DEBUG] le language est : {lg}")
 
     # Read article data from database
@@ -24,17 +24,47 @@ def article(request, lg, slug):
     all_languages = ['fr', 'en', 'es']
     other_languages = [lang for lang in all_languages if lang != lg]
 
+#     if article == {}:  # slug not found
+#         return render(
+#             request,
+#             "404.html",
+#             {
+#                "navbar": Navbar(lg).to_json(),
+#                "hero": {
+#                     "title": "Jennifer Perseverante.com",
+#                     "subtitle": (
+#                         "Professional makeup artist in Paris and Ile-de-France"
+#                         if lg == "en"
+#                         else "Maquilleuse professionnelle à Paris et Ile-de-France"
+#                     ),
+#                 },
+#                 "article": {
+#                     "language_code": lg,
+#                     "translated_slugs": {"fr": "", "en": "", "es": ""},
+#                 },
+#                 "contact": Contact(
+#                     lg=lg, contact_type="generic"
+#                 ).get_texts(),
+
+#             },
+#         )
+
+    if article["family"][:7] == "AT_HOME":
+        contact_type = "at_home"
+    elif article["family"][:7] == "WEDDING":
+        contact_type = "wedding"
+    elif article["family"][:6] == "STUDIO":
+        contact_type = "studio"
+    else:
+        contact_type = "generic"
+
+    no_section = len(article["sections"])
+
     map = None
     if article["family"][:6] == "STUDIO":
         map = "STUDIO"
     elif article["family"][:7] == "AT_HOME":
         map = "AT_HOME"
-
-    # "contact_form": Contact(
-    #     language_code=language_code,
-    #     contact_type=contact_type,
-    #     no_section=no_section,
-    # ).get_texts(),
 
     return render(
         request,
@@ -51,7 +81,12 @@ def article(request, lg, slug):
             'hero': hero,
             'article': article,
             'map': map,
-            'contact_form': 'DEPRECATED',
+            "contact_form": Contact(
+                lg=lg,
+                contact_type=contact_type,
+                no_section=no_section,
+            ).get_texts(),
+
             'related_articles':  getRelatedArticles(article, lg)
         },
     )
@@ -60,7 +95,7 @@ def article(request, lg, slug):
 # -------------------
 # Get Artcle by Slug
 # -------------------
-def get_article_by_slug(lg, slug):
+def get_article_by_slug(lg, slug=None):
     """
     Récupère un article et ses champs localisés à partir du slug et du code langue.
     Compatible avec les modèles Article / ArticleLg définis dans la base.

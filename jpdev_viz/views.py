@@ -23,21 +23,7 @@ def test_404(request):
     response.status_code = 404
     return response
 
-# ------------
-# Home page
-# ------------
-def index(request):
-    return render(
-        request,
-        'index.html',
-        {
-            'title': 'JenniferPerseverante - Jennifer Perseverante, maquilleuse professionnelle pour mariage, atelier de maquillage, maquillage à domicile',
-            'description': 'Jennifer Perseverante, maquilleuse professionnelle pour mariage, atelier de maquillage, maquillage à domicile',
-            'active': 'home',
-            'lg':'fr'
-        }
-    )
-    
+
 # ------------
 # Robots.txt
 # ------------
@@ -47,6 +33,7 @@ def robots_txt(request):
     Disallow: /
     '''
     return HttpResponse(robots_content, content_type="text/plain")
+
 
 # ------------
 # About Us
@@ -248,88 +235,88 @@ def getLanguageFromUrl(url):
 # Page Article
 # Markdow source: https://github.com/trentm/python-markdown2
 # ------------------------------------------------------------
-def article(request, lg, slug=""):
-    url = request.build_absolute_uri()
-    language_code = getLanguageFromUrl(url)
-    r = None
+# def article(request, lg, slug=""):
+#     url = request.build_absolute_uri()
+#     lg = getLanguageFromUrl(url)
+#     r = None
 
-    # Send email and save in DB ?
-    #if request.method == "POST":
-    #    r = Contact(language_code, "generic", url).process(request)
+#     # Send email and save in DB ?
+#     #if request.method == "POST":
+#     #    r = Contact(language_code, "generic", url).process(request)
 
-    # Read article data from database
-    hero, article = getArticleBySlug(lg, slug)
+#     # Read article data from database
+#     hero, article = getArticleBySlug(lg, slug)
 
-    if article == {}:  # slug not found
-        return render(
-            request,
-            "404.html",
-            {
-               "navbar": Navbar(lg).to_json(),
-               "hero": {
-                    "title": "Jennifer Perseverante.com",
-                    "subtitle": (
-                        "Professional makeup artist in Paris and Ile-de-France"
-                        if lg == "en"
-                        else "Maquilleuse professionnelle à Paris et Ile-de-France"
-                    ),
-                },
-                "article": {
-                    "language_code": lg,
-                    "translated_slugs": {"fr": "", "en": "", "es": ""},
-                },
-                "contact": Contact(
-                    language_code=lg, contact_type="generic"
-                ).get_texts(),
+#     if article == {}:  # slug not found
+#         return render(
+#             request,
+#             "404.html",
+#             {
+#                "navbar": Navbar(lg).to_json(),
+#                "hero": {
+#                     "title": "Jennifer Perseverante.com",
+#                     "subtitle": (
+#                         "Professional makeup artist in Paris and Ile-de-France"
+#                         if lg == "en"
+#                         else "Maquilleuse professionnelle à Paris et Ile-de-France"
+#                     ),
+#                 },
+#                 "article": {
+#                     "language_code": lg,
+#                     "translated_slugs": {"fr": "", "en": "", "es": ""},
+#                 },
+#                 "contact": Contact(
+#                     lg=lg, contact_type="generic"
+#                 ).get_texts(),
 
-            },
-        )
+#             },
+#         )
 
-    if article["family"][:7] == "AT_HOME":
-        contact_type = "at_home"
-    elif article["family"][:7] == "WEDDING":
-        contact_type = "wedding"
-    elif article["family"][:6] == "STUDIO":
-        contact_type = "studio"
-    else:
-        contact_type = "generic"
+#     if article["family"][:7] == "AT_HOME":
+#         contact_type = "at_home"
+#     elif article["family"][:7] == "WEDDING":
+#         contact_type = "wedding"
+#     elif article["family"][:6] == "STUDIO":
+#         contact_type = "studio"
+#     else:
+#         contact_type = "generic"
 
-    no_section = len(article["sections"])
+#     no_section = len(article["sections"])
 
-    map = None
-    if article["family"][:6] == "STUDIO":
-        style = "even" if no_section % 2 == 0 else "odd"
-        map = {"type": "STUDIO", "style": style}
-        no_section += 1
-    elif article["family"][:7] == "AT_HOME":
-        style = "even" if no_section % 2 == 0 else "odd"
-        map = {"type": "AT_HOME", "style": style}
-        no_section += 1
+#     map = None
+#     if article["family"][:6] == "STUDIO":
+#         style = "even" if no_section % 2 == 0 else "odd"
+#         map = {"type": "STUDIO", "style": style}
+#         no_section += 1
+#     elif article["family"][:7] == "AT_HOME":
+#         style = "even" if no_section % 2 == 0 else "odd"
+#         map = {"type": "AT_HOME", "style": style}
+#         no_section += 1
 
-    return render(
-        request,
-        "index.html", # TODO: Update
-        {
-            "lg": lg,
-            "html": {
-                "title": article["title"],
-                "description": article["description"],
-            },
-            "navbar": Navbar(lg).to_json(),
-            "hero": hero,
-            "article": article,
-            "map": map,
-            "contact_form": Contact(
-                language_code=lg,
-                contact_type=contact_type,
-                no_section=no_section,
-            ).get_texts(),
-            "related_articles": getRelatedArticles(
-                article, lg, no_section + 1
-            ),  # With a related articles section ?
-            "response": r,
-        },
-    )
+#     return render(
+#         request,
+#         "article.html", # TODO: Update
+#         {
+#             "lg": lg,
+#             "html": {
+#                 "title": article["title"],
+#                 "description": article["description"],
+#             },
+#             "navbar": Navbar(lg).to_json(),
+#             "hero": hero,
+#             "article": article,
+#             "map": map,
+#             "contact_form": Contact(
+#                 lg=lg,
+#                 contact_type=contact_type,
+#                 no_section=no_section,
+#             ).get_texts(),
+#             "related_articles": getRelatedArticles(
+#                 article, lg, no_section + 1
+#             ),  # With a related articles section ?
+#             "response": r,
+#         },
+#     )
     
     
 # ----------------------------------------------

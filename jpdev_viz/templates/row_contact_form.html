@@ -3,28 +3,95 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-md-9 col-lg-7">
-        <h3>Get in Touch</h3>
+        <h3>{{contact_form.title}}</h3>
+        <h4>
+          {% autoescape off %}{{contact_form.subtitle}}{% endautoescape %}<br>
+        </h4>
+        {% autoescape off %}{{contact_form.email_security}}{% endautoescape %}
+
+        <form method="post" name="contact-us">
+        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
+          {% csrf_token %}
+          <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
+          <div class="row">
+            <div class="col-md-6 form-input">
+              <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
+            </div>
+            <div class="col-md-6 form-input">
+              <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}">
+            </div>
+            {% if contact_form.contact_type == 'studio' %}
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="makeup" name="makeup" placeholder="{{contact_form.makeup_label}}">
+            </div>
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="event" name="event" placeholder="{{contact_form.event_label}}">
+            </div>
+            <div class="col-md-6 form-input">
+              <input type="text" class="form-control" id="date" name="date" placeholder="{{contact_form.date_label}}">
+            </div>
+            <div class="col-md-6 form-input">
+              <input type="text" class="form-control" id="time" name="time" placeholder="{{contact_form.time_label}}">
+            </div>
+            {% endif %}
+            {% if contact_form.contact_type == 'at_home' or contact_form.contact_type == 'wedding' %}
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="address" name="address" placeholder="{{contact_form.address_label}}">
+            </div>
+            <div class="col-md-4 form-input">
+              <input type="text" class="form-control" id="date" name="date" placeholder="{{contact_form.date_label}}">
+            </div>
+            <div class="col-md-4 form-input">
+              <input type="text" class="form-control" id="time" name="time" placeholder="{{contact_form.time_label}}">
+            </div>
+            <div class="col-md-4 form-input">
+              <input type="text" class="form-control" id="people" name="people" placeholder="{{contact_form.people_label}}">
+            </div>
+            {% endif %}
+            {% if contact_form.contact_type == 'at_home' %}
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="makeup" name="makeup" placeholder="{{contact_form.makeup_label}}">
+            </div>
+            {% endif %}
+            {% if contact_form.contact_type == 'generic' %}
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="subject" name="subject" placeholder="{{contact_form.subject_label}}">
+            </div>
+            {% endif %}
+            <div class="col-md-12 form-textarea">
+              <textarea class="form-control form-control-lg" id="message" name="message" rows="6" placeholder="{{contact_form.message_label}}"></textarea>
+            </div>
+            <div class="col-md-12 form-btn text-center">
+              <br/>
+              <button class="btn btn-block button-lg button-gradient" type="submit" name="submit">{{contact_form.send_label}}</button>
+            </div>
+          </div>
+        </form>
+        <hr/>
+
         <!-- RD Mailform-->
-        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="#">
+        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="/{{lg}}/search">
+          {% csrf_token %}
+          <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">          
           <div class="form-wrap">
             <input class="form-input" id="contact-name" type="text" name="name" data-constraints="@Required">
-            <label class="form-label" for="contact-name">Your Name</label>
+            <label class="form-label" for="contact-name"> {{contact_form.name_label}}</label>
           </div>
           <div class="form-wrap">
             <input class="form-input" id="contact-email" type="email" name="email" data-constraints="@Email @Required">
-            <label class="form-label" for="contact-email">E-mail</label>
+            <label class="form-label" for="contact-email"> {{contact_form.email_label}}</label>
           </div>
           <div class="form-wrap">
             <input class="form-input" id="contact-phone" type="text" name="phone" data-constraints="@Numeric">
-            <label class="form-label" for="contact-phone">Phone</label>
+            <label class="form-label" for="contact-phone"> Phone</label>
           </div>
           <div class="form-wrap">
-            <label class="form-label" for="contact-message"> Message</label>
+            <label class="form-label" for="contact-message"> {{contact_form.message_label}}</label>
             <textarea class="form-input" id="contact-message" name="message" data-constraints="@Required"></textarea>
           </div>
           <div class="row justify-content-center">
             <div class="col-12 col-sm-7 col-lg-5">
-              <button class="button button-block button-lg button-gradient" type="submit">Send</button>
+              <button class="button button-block button-lg button-gradient" type="submit">{{contact_form.send_label}}</button>
             </div>
           </div>
         </form>
