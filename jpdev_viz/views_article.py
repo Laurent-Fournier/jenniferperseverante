@@ -229,22 +229,36 @@ def parse_sections(s, language_code):
     return sections
 
 
+# Fonction de remplacement
+def remplacer_h4(match):
+    contenu = match.group(1)
+    return f'''
+        <div class="text-with-divider">
+          <div class="divider"></div>
+          <h4 class="font-italic text-opacity-black">{contenu}</h4>
+        </div>'''
+
 def extract_title_subtitle(html):
-    # Extract <h2>title</h2>
-    match = re.search(r"<h2>(.*?)</h2>", html, re.IGNORECASE | re.DOTALL)
+    # Extract <h3>title</h3>
+    match = re.search(r"<h3>(.*?)</h3>", html, re.IGNORECASE | re.DOTALL)
     title = match.group(1) if match else None
-    html = html.replace(f'<h2>%s</h2>' % title, '')  # remove title from texte
+    html = html.replace(f'<h3>%s</h3>' % title, '')  # remove title from texte
     if title is not None:
         title = title.replace('<strong>', '').replace('</strong>', '')
 
-    # Extract <h2>title</h2>
-    match = re.search(r"<h3>(.*?)</h3>", html, re.IGNORECASE | re.DOTALL)
-    subtitle = match.group(1) if match else None
-    html = html.replace(f'<h3>%s</h3>' % subtitle, '')  # remove subtitle from texte
-    if subtitle is not None:
-        subtitle = subtitle.replace('<strong>', '').replace('</strong>', '')
+    # Extract <h4>subtitle</h4>
+    pattern = r'<h4>(.*?)</h4>'
+
+    # Remplacement
+    new_html = re.sub(pattern, remplacer_h4, html)    
+    
+    #match = re.search(r"<h4>(.*?)</h4>", html, re.IGNORECASE | re.DOTALL)
+    #subtitle = match.group(1) if match else None
+    #html = html.replace(f'<h4>%s</h4>' % subtitle, '')  # remove subtitle from texte
+    #if subtitle is not None:
+    #    subtitle = subtitle.replace('<strong>', '').replace('</strong>', '')
         
-    return title, subtitle, html
+    return title, None, new_html
     
 
 # ----------------------------------------------
