@@ -34,8 +34,7 @@ class Contact:
             'wedding': {
                 'title': "Contactez-moi",
                 'subtitle': (
-                    "Afin de vous délivrer le meilleur service possible pour votre mariage,<br>"
-                    "merci de remplir le formulaire suivant"
+                    "Afin de vous délivrer le meilleur service possible pour votre mariage, merci de remplir le formulaire suivant :"
                 ),
                 'date_label': "Date du mariage",
                 'message_label': "Plus de détails...",
@@ -43,8 +42,7 @@ class Contact:
             'studio': {
                 'title': "Contactez-moi",
                 'subtitle': (
-                    "Afin de vous délivrer le meilleur service possible pour la séance de maquillage dans mon studio,<br>"
-                    "merci de remplir le formulaire suivant"
+                    "Afin de vous délivrer le meilleur service possible pour la séance de maquillage dans mon studio, merci de remplir le formulaire suivant : "
                 ),
                 'makeup_label': "Type de maquillage : cours solo, duo, trio, groupes",
                 'event_label': "Pour quel événement ?",

@@ -14,6 +14,8 @@
     {% if section.type == 'XXX' %}
     {% elif section.type == 'TEXT' %}
         {% include "row_text.html" with section=section %}
+    {% elif section.type == 'MAIN-TEXT' %}
+        {% include "row_main_text.html" with section=section %}
     {% elif section.type == 'IMAGE-TEXT' %}
         {% include "row_image_text.html" with section=section %}
     {% elif section.type == 'TEXT-IMAGE' %}

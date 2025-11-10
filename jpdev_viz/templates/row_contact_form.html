@@ -3,10 +3,8 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-md-9 col-lg-7">
-        <h3>{{contact_form.title}}</h3>
-        <h4>
-          {% autoescape off %}{{contact_form.subtitle}}{% endautoescape %}<br>
-        </h4>
+        <h3 class="title-decorate title-decorate-center">{{contact_form.title}}</h3>
+        <p>{% autoescape off %}{{contact_form.subtitle}}{% endautoescape %}</p>
         {% autoescape off %}{{contact_form.email_security}}{% endautoescape %}
 
         <form method="post" name="contact-us">
@@ -59,39 +57,10 @@
             </div>
             {% endif %}
             <div class="col-md-12 form-textarea">
-              <textarea class="form-control form-control-lg" id="message" name="message" rows="6" placeholder="{{contact_form.message_label}}"></textarea>
+              <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.message_label}}"></textarea>
             </div>
             <div class="col-md-12 form-btn text-center">
-              <br/>
-              <button class="btn btn-block button-lg button-gradient" type="submit" name="submit">{{contact_form.send_label}}</button>
-            </div>
-          </div>
-        </form>
-        <hr/>
-
-        <!-- RD Mailform-->
-        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="/{{lg}}/search">
-          {% csrf_token %}
-          <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">          
-          <div class="form-wrap">
-            <input class="form-input" id="contact-name" type="text" name="name" data-constraints="@Required">
-            <label class="form-label" for="contact-name"> {{contact_form.name_label}}</label>
-          </div>
-          <div class="form-wrap">
-            <input class="form-input" id="contact-email" type="email" name="email" data-constraints="@Email @Required">
-            <label class="form-label" for="contact-email"> {{contact_form.email_label}}</label>
-          </div>
-          <div class="form-wrap">
-            <input class="form-input" id="contact-phone" type="text" name="phone" data-constraints="@Numeric">
-            <label class="form-label" for="contact-phone"> Phone</label>
-          </div>
-          <div class="form-wrap">
-            <label class="form-label" for="contact-message"> {{contact_form.message_label}}</label>
-            <textarea class="form-input" id="contact-message" name="message" data-constraints="@Required"></textarea>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-12 col-sm-7 col-lg-5">
-              <button class="button button-block button-lg button-gradient" type="submit">{{contact_form.send_label}}</button>
+              <button class="btn btn-block button-lg" style="background-color: #d3c1c4;" type="submit" name="submit">{{contact_form.send_label}}</button>
             </div>
           </div>
         </form>

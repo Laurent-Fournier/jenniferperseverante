@@ -145,6 +145,8 @@ def get_article_by_slug(lg, slug=None):
     for section in sections:
         if section["type"] == "TEXT":
             section['titles'], section['subtitles'], section["htmls"], section["images"], section["videos"] = parse_texts(section["markdown"], lg)
+        elif section["type"] == "MAIN-TEXT":
+            section['titles'], section['subtitles'], section["htmls"], section["images"], section["videos"] = parse_texts(section["markdown"], lg)
         # elif section["type"] == "TEXT-CENTERED":
         #     section["htmls"], section["images"], section["videos"] = manyTextsParse(section["markdown"], lg)
         elif section["type"] == "TEXT-IMAGE":

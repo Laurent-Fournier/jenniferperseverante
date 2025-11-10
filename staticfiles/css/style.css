@@ -3100,7 +3100,7 @@ hr {
 }
 
 .button-lg {
-	padding: 18px 35px;
+	margin-top:5px;
 	font-size: 13px;
 	line-height: 1.5;
 }
