@@ -27,18 +27,18 @@
 
 {% if map %}
     {% if map == 'AT_HOME' %}
-        {% include "./row_map_at_home.html" with section=section %}
+        {% include "row_map_at_home.html" with section=section %}
     {% elif map == 'STUDIO' %}
-        {% include "./row_map_studio.html" with section=section %}
+        {% include "row_map_studio.html" with section=section %}
     {% endif %}
 {% endif %}
 
 {% if contact_form %}
-    {% include "./row_contact_form.html" %}
+    {% include "row_contact_form.html" %}
 {% endif %}
 
 {% if related_articles|length > 0 %}
-    {% include "./row_related_articles.html" %}
+    {% include "row_related_articles.html" %}
 {% endif %}
 
 

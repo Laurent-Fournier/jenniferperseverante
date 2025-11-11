@@ -1,9 +1,9 @@
 <!-- Row Text | Image -->
-<section class="section section-lg bg-default bg-gray-light">
+<section class="section section-lg {% if section.style == 'odd'%} bg-default bg-gray-light{% endif %}">
   <div class="container">
     <div class="row row-50">
       <div class="col-lg-6">
-        <h3>{{section.titles.0}}</h3>
+        {% if section.titles.0 %}<h3>{{section.titles.0}}</h3>{% endif %}
         {% if section.subtitles.0 %}
         <div class="text-with-divider">
           <div class="divider"></div>

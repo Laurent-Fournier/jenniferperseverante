@@ -6,7 +6,7 @@
         <img src="/images/480/{{section.images.0.url}}" alt="{{section.images.0.alt}}" width="480"/>
       </div>
       <div class="col-lg-6">
-        <h3>{{section.titles.0}}</h3>
+        {% if section.titles.0 %}<h3>{{section.titles.0}}</h3>{% endif %}
         {% if section.subtitles.0 %}
         <div class="text-with-divider">
           <div class="divider"></div>
