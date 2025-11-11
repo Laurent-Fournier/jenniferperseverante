@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from jpdev_viz.models import Article, ArticleLg
+from jp_viz.models import Article, ArticleLg
 
 #import markdown2
 

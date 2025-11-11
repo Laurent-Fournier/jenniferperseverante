@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import FileResponse, HttpResponse, HttpResponseNotFound
 from datetime import timedelta
-from dotenv import load_dotenv
 import os
 
 from PIL import Image

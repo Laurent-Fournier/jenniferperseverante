@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.conf.urls import handler404
 
-from jpdev_viz import views, views_article, views_contact, views_media
+from jp_viz import views, views_article, views_contact, views_media
 
 handler404 = 'salsalive_viz.views.custom_404'
 

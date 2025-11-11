@@ -1,8 +1,10 @@
+# Markdow source: https://github.com/trentm/python-markdown2
+
 from django.shortcuts import render
 from django.db import connection
 from django.http import HttpResponse, Http404
 
-from jpdev_viz.models import Article, ArticleLg
+from jp_viz.models import Article, ArticleLg
 import markdown2
 import re
 
@@ -11,10 +13,9 @@ from .pattern_class import *
 from .navbar_class import Navbar
 
 
-# -----------------------------------------------------------
+# ----------------------
 # Page Article
-# Markdow source: https://github.com/trentm/python-markdown2
-# ------------------------------------------------------------
+# ----------------------
 def article(request, lg, slug=''):
     #return HttpResponse(f"[DEBUG] le language est : {lg}")
 

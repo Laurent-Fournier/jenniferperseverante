@@ -5,7 +5,7 @@ from django.core.mail import EmailMessage
 
 from datetime import datetime
 
-from jpdev_viz.models import Message
+from jp_viz.models import Message
 
 class Contact:
     DEFAULT_LG = 'fr'
