@@ -1,0 +1,18 @@
+<section class="section section-lg {% if section.style == 'odd'%} bg-default bg-gray-light{% endif %}">
+  <div class="container">
+    <div class="row row-50">
+      <div class="col-lg-12">
+        {% if section.titles.0 %}
+        <h3>{{section.titles.0}}</h3>
+        {% endif %}
+        {% if section.subtitles.0 %}
+        <div class="text-with-divider">
+          <div class="divider"></div>
+          <h4 class="font-italic text-opacity-black">{{section.subtitles.0}}.</h4>
+        </div>
+        {% endif %}
+        <img src="/images/1024/{{section.images.0.url}}" alt="{{section.images.0.alt}}" width="1024"/>
+      </div>
+    </div>
+  </div>
+</section> 
