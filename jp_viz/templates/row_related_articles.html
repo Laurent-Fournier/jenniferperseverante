@@ -9,11 +9,12 @@
       <div class="col-md-6 col-lg-3 wow-outer">
         <div class="post-modern">
           <div class="post-modern-figure"><a href="/{{article.lg}}/{{article.slug}}" aria-label="{{article.hero.title}}"><img src="/images/370/{{article.cover}}" alt="{{article.hero.title}}" width="370"/></a>
-            <!--<a class="badge-primary badge" href="#">Read</a>-->
           </div>
           <div class="post-modern-caption">
-            <p class="post-modern-date">{{article.hero.title}}</p>
-            <h4 class="post-modern-title"><a href="/{{article.lg}}/{{article.slug}}" aria-label="{{article.hero.title}}">{{article.hero.subtitle}}</a></h4>
+            <a href="/{{article.lg}}/{{article.slug}}" aria-label="{{article.hero.subtitle}}">
+              <h4 class="post-modern-title">{{article.hero.title}}</h4>
+              <p class="post-modern-text">{{article.hero.subtitle}}</p>
+            </a>
           </div>
         </div>
       </div>
