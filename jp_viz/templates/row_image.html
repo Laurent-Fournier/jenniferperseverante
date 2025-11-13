@@ -18,15 +18,23 @@
     <div class="col-lg-12">
       <div class="isotope" data-isotope-layout="masonry" data-isotope-group="gallery" data-lightgallery="group" data-lg-thumbnail="false" data-column-class=".col-lg-3">
         <div class="row isotope-condensed">
-          {% for image in section.images %}
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3 isotope-item wow-outer" data-filter="Category 2">
-            <div class="wow fadeInUp">
-              <div class="gallery-item-classic"><img src="/images/1024/{{image.url}}" alt="{{image.alt}}" width="463"/>
-                <div class="gallery-item-classic-caption"><a href="/images/1024/{{image.url}}" data-lightgallery="item">zoom</a></div>
+          {% if section.images|length == 1 %}
+            <div class="col-12 isotope-item wow-outer" data-filter="Category 2">
+              <div class="wow fadeInUp">
+                <div class="gallery-item-classic"><img src="/images/1024/{{section.images.0.url}}" alt="{{section.images.0.alt}}" width="1024"/></div>
               </div>
             </div>
-          </div>
-          {% endfor %}
+          {% else %}
+            {% for image in section.images %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 isotope-item wow-outer" data-filter="Category 2">
+              <div class="wow fadeInUp">
+                <div class="gallery-item-classic"><img src="/images/1024/{{image.url}}" alt="{{image.alt}}" width="463"/>
+                  <div class="gallery-item-classic-caption"><a href="/images/1024/{{image.url}}" data-lightgallery="item">zoom</a></div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% endif %}
           <div class="col-1"></div>
         </div>
       </div>

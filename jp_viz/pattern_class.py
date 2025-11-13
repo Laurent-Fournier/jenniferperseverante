@@ -102,33 +102,32 @@ class Pattern:
                     Your browser does not support the video tag.
                 </video>'''
 
-            # Youtube video
+            # Youtube video (Responsive by Bootstrap 4)
             elif url.find('https://www.youtube.com/embed') != -1:
                 newValue = f'''
-                <div class="video-container">
-                <iframe src="{url}" 
-                    title="Youtube video"
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe
+                    src="{url}"
+                    title="Jennifer Perseverante"
                     frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                >
-                </iframe>
-                </div>                
-                '''
+                    allowfullscreen>
+                  </iframe>
+                </div>'''
 
             # Facebook video
             elif url.find('https://www.facebook.com/') != -1:
                 url2 = url.replace('/', '%2F').replace(':', '%3A')
                 newValue = f'''
-                <div class="video-container">
-                <iframe 
-                    title="Facebook video"
-                    src="https://www.facebook.com/plugins/video.php?href={url2}%2F&show_text=0" 
-                    scrolling="no" frameborder="0" 
-                    allowfullscreen="true" 
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" 
-                >
-                </iframe>
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe 
+                    src="https://www.facebook.com/plugins/video.php?href={url2}%2F&show_text=0"
+                    width="100%"
+                    style="border:none; overflow:hidden; width:100%; height:100%; position:absolute; top:0; left:0;"
+                    scrolling="no"
+                    frameborder="0"
+                    allowfullscreen="true"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                  </iframe>
                 </div>            
                 '''
             else:
