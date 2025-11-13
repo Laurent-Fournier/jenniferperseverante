@@ -13,8 +13,10 @@ class Pattern:
         '%%FACEBOOK-VIDEOS%%': 'https://www.facebook.com/jenniferperseverante/videos/',
         '%%INSTAGRAM%%': 'https://www.instagram.com/jenniferperseverante/',
         '%%YOUTUBE%%': 'https://www.youtube.com/channel/UCypPiuUYTPCPGUn5n_rXYcQ',
-        '%%STAR%%': '<img src="/static/images/star.png" style="display:inline" alt="star">',
-        '%%STAR2%%': '<img src="/static/images/star2.png" style="display:inline" alt="half star">',
+        # '%%STAR%%': '<img src="/static/images/star.png" style="display:inline" alt="star">',
+        # '%%STAR2%%': '<img src="/static/images/star2.png" style="display:inline" alt="half star">',
+        '%%STAR45%%': '<img src="/static/images/stars45.png" style="display:inline" alt="4.5 stars">',
+        '%%STAR50%%': '<img src="/static/images/stars50.png" style="display:inline" alt="5 stars">',
     }
 
     # -----------------------------------
