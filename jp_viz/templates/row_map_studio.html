@@ -3,10 +3,22 @@
   <div class="container">
     <div class="row row-50">
       <div class="col-md-6 col-lg-6 text-start wow-outer">
+{% if lg == 'en' %}
+        <h3>Makeup Studio<br>in Chevry-Cossigny<br>(Seine-et-Marne)</h3><br>
+        45 minutes by car from Paris via the A4<br>
+        30 minutes by car from Créteil via the N19<br>
+        25 minutes by car from Melun
+{% elif lg == 'es' %}
+        <h3>Estudio de Maquillaje<br>en Chevry-Cossigny<br>(Seine-et-Marne)</h3><br>
+        A 45 minutos en coche de París por la A4<br>
+        A 30 minutos en coche de Créteil por la N19<br>
+        A 25 minutos en coche de Melun
+{% else %}
         <h3>Studio de Maquillage<br>à Chevry-Cossigny<br>(Seine-et-Marne)</h3><br>
         à 45 minutes en voiture de Paris via A4<br>
         à 30 minutes en voiture de Créteil via N19<br>
         à 25 minutes en voiture de Melun
+{% endif %}
       </div>
       <div class="col-md-6 col-lg-6 wow-outer">
         <img class="my-shadow" width="480" src="/images/480/studio-maquillage-chevry-cossigny.avif" alt="Studio de maquillage à Chevry-Cossigny">
