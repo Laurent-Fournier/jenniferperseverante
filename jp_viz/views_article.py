@@ -80,6 +80,7 @@ def article(request, lg, slug=''):
             'navbar': Navbar(lg).to_json(),      
             'slug': slug,
             'hero': hero,
+            'slugs_lg': get_slugs(article["id"]),
             'article': article,
             'map': map,
             "contact_form": Contact(
@@ -87,11 +88,10 @@ def article(request, lg, slug=''):
                 contact_type=contact_type,
                 no_section=no_section,
             ).get_texts(),
-
-            'related_articles':  getRelatedArticles(article, lg)
+            'related_articles': get_related_articles(article, lg),
+            
         },
     )
-
 
 # -------------------
 # Get Artcle by Slug
@@ -188,7 +188,7 @@ def get_slugs(article_id):
         .filter(id=article_id)
         .values('language_code', 'art_slug')
     )    
-    return {row['language_code']: row['art_slug'] for row in rows}    
+    return {row['language_code']: row['art_slug'] for row in rows}   
        
 
 # ----------------------------------------------
@@ -355,7 +355,7 @@ def getLanguageFromUrl(url):
     
     
 
-def getRelatedArticles(article, language_code):
+def get_related_articles(article, language_code):
     article_id = article["id"]
     families = article["family"]
 

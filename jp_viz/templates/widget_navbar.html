@@ -31,14 +31,14 @@
               <li class="rd-nav-item{% if active == 'about' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.about.slug }}">{{ navbar.about.nav }}</a>
 
               {% if lg == 'fr' %}
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{translated_slugs.en}}" aria-label="version anglaise">EN</a></li>
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{translated_slugs.es}}" aria-label="version espagnole">ES</a></li>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{slugs_lg.en}}" aria-label="version anglaise">EN</a></li>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{slugs_lg.es}}" aria-label="version espagnole">ES</a></li>
               {% elif lg == 'en' %}
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{translated_slugs.fr}}" aria-label="French version">FR</a></li>
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{translated_slugs.es}}" aria-label="Spanish version">ES</a></li>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{translaslugs_lgted_slugs.fr}}" aria-label="French version">FR</a></li>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{slugs_lg.es}}" aria-label="Spanish version">ES</a></li>
               {% elif lg == 'es' %}
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{translated_slugs.fr}}" aria-label="versión francesa">FR</a></li>
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{translated_slugs.en}}" aria-label="versión en inglés">EN</a></li>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{slugs_lg.fr}}" aria-label="versión francesa">FR</a></li>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{slugs_lg.en}}" aria-label="versión en inglés">EN</a></li>
               {% endif %}
 
               <li class="rd-nav-item{% if active == 'demo' %} active{% endif %}"><a class="rd-nav-link" href="/demo">Demo</a>
