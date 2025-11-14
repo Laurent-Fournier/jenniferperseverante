@@ -5,6 +5,10 @@
 /*
 * Contexts
 */
+strong {
+	font-weight: 600;
+}
+
 .post-corporate.post-corporate-img-bg, .section-main-bunner, .context-dark, .bg-gray-600, .bg-gray-700, .bg-gray-800, .bg-primary, .bg-pink, .bg-secondary, .bg-secondary-2, .bg-green, .box-countdown-dark,
 .post-corporate.post-corporate-img-bg h1,
 .section-main-bunner h1,
