@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from jp_viz.models import Article, ArticleLg
+#from jp_viz.models import Article, ArticleLg
 
 #import markdown2
 
-from .contact_class import *
-from .pattern_class import *
-from .navbar_class import Navbar
+#from .contact_class import *
+#from .pattern_class import *
+#from .navbar_class import Navbar
 
 # ------------
 # Error 404
@@ -134,101 +134,16 @@ def sitemap(request):
     return response
 
 
-
-# -------------------
-# Get Artcle by Slug
-# -------------------
-def getArticleBySlug(lg, slug):
-    article={}
-    article['id']=1
-    article["title"] = 'TMP Laurent'
-    article["description"] = 'TMP Laurent'
-    article['family']='HOME_PAGE'
-    article["sections"] = []
-    return {}, article  # TODO remove
-    
-    
-    rows = ArticleLg.objects.raw(
-        f"""
-        SELECT 
-            article_lg.id,
-            article.art_date, article.art_cover, article.art_family, article.is_page,
-            art_slug, art_title, art_description, art_text AS markdown_text, 
-            hero_title, hero_subtitle
-        FROM article
-        LEFT OUTER JOIN article_lg ON
-			article.id = article_lg.id AND language_code='{language_code}'
-        WHERE art_slug='{slug}'
-        """
-    )
-
-    article = {}
-    hero = {}
-
-    # parse all sections in markdown text
-    for row in rows:
-        sections = sectionsParse(row.markdown_text, language_code)
-
-        article["slug"] = slug
-        article["language_code"] = language_code
-
-        article["id"] = row.id
-        article["title"] = row.art_title
-        article["description"] = row.art_description
-        article["date"] = row.art_date
-        article["family"] = row.art_family
-        article["is_page"] = row.is_page
-
-        hero["image"] = {}
-        hero["image"]["src"] = row.art_cover
-        hero["image"]["alt"] = row.art_title  # TODO specific db field ?
-        hero["title"] = row.hero_title
-        hero["subtitle"] = row.hero_subtitle
-
-        article["sections"] = sections
-
-        for section in sections:
-            if section["type"] == "TEXT":
-                # section['htmls'] = [markdown2.markdown(section['markdown'].strip())]
-                # section['images'] = []
-                section["htmls"], section["images"], section["videos"] = manyTextsParse(
-                    section["markdown"], language_code
-                )
-            elif section["type"] == "TEXT-CENTERED":
-                section["htmls"], section["images"], section["videos"] = manyTextsParse(
-                    section["markdown"], language_code
-                )
-            elif section["type"] == "TEXT-IMAGE":
-                section["htmls"], section["images"], section["videos"] = oneImageParse(
-                    section["markdown"], language_code
-                )
-            elif section["type"] == "IMAGE-TEXT":
-                section["htmls"], section["images"], section["videos"] = oneImageParse(
-                    section["markdown"], language_code
-                )
-            elif section["type"] == "IMAGE":
-                section["htmls"], section["images"], section["videos"] = parseImages(
-                    section["markdown"], language_code
-                )
-            else:
-                section["htmls"] = []
-                section["images"] = []
-                section["videos"] = []
-
-        article["translated_slugs"] = getSlugs(article["id"])
-    return hero, article
-
-
 # ----------------------------
 # Return Language from Url
 # ----------------------------
-def getLanguageFromUrl(url):
-    if "/en/" in url:
-        return "en"
-    elif "/es/" in url:
-        return "es"
-    else:
-        return "fr"
+# def getLanguageFromUrl(url):
+#     if "/en/" in url:
+#         return "en"
+#     elif "/es/" in url:
+#         return "es"
+#     else:
+#         return "fr"
 
 
 # -----------------------------------------------------------
@@ -320,164 +235,164 @@ def getLanguageFromUrl(url):
     
     
 # ----------------------------------------------
-def sectionsParse(s, language_code):
-    # Text preprocessing
-    sections = []
+# def sectionsParse(s, language_code):
+#     # Text preprocessing
+#     sections = []
 
-    p = s.find("[SECTION")
+#     p = s.find("[SECTION")
 
-    # No section
-    if p == -1:
-        section = {}
-        section["no"] = 0
-        section["style"] = "even"
-        section["type"] = "TEXT"
-        section["markdown"] = s
-        return [section]
+#     # No section
+#     if p == -1:
+#         section = {}
+#         section["no"] = 0
+#         section["style"] = "even"
+#         section["type"] = "TEXT"
+#         section["markdown"] = s
+#         return [section]
 
-    no = 0
-    while p != -1:
-        section = {}
-        section["no"] = no
-        section["style"] = "even" if no % 2 == 0 else "odd"
+#     no = 0
+#     while p != -1:
+#         section = {}
+#         section["no"] = no
+#         section["style"] = "even" if no % 2 == 0 else "odd"
 
-        # type (TEXT, ...)?
-        p2 = s.find("]", p + 9)
-        section["type"] = s[p + 9 : p2]
+#         # type (TEXT, ...)?
+#         p2 = s.find("]", p + 9)
+#         section["type"] = s[p + 9 : p2]
 
-        next_p = s.find("[SECTION", p + 8)
+#         next_p = s.find("[SECTION", p + 8)
 
-        if next_p == -1:
-            markdown = s[p2 + 2 :].strip()
-        else:
-            markdown = s[p2 + 2 : next_p].strip()
+#         if next_p == -1:
+#             markdown = s[p2 + 2 :].strip()
+#         else:
+#             markdown = s[p2 + 2 : next_p].strip()
 
-        section["markdown"] = Pattern(markdown, language_code).preProcess()
-        sections.append(section)
+#         section["markdown"] = Pattern(markdown, language_code).preProcess()
+#         sections.append(section)
 
-        p = next_p
-        no = no + 1
-    return sections
+#         p = next_p
+#         no = no + 1
+#     return sections
 
 
 
-def getRelatedArticles(article, language_code, no_section):
-    article_id = article["id"]
-    families = article["family"]
+# def getRelatedArticles(article, language_code, no_section):
+#     article_id = article["id"]
+#     families = article["family"]
 
-    # family1, family2, family3 => "family1", "family2", "family3"
-    tabs = families.split(",")
-    sql_parts = []
-    for tab in tabs:
-        sql_parts.append(f"art_family LIKE '%%{tab}%%'")
-    sql = " OR ".join(sql_parts)
+#     # family1, family2, family3 => "family1", "family2", "family3"
+#     tabs = families.split(",")
+#     sql_parts = []
+#     for tab in tabs:
+#         sql_parts.append(f"art_family LIKE '%%{tab}%%'")
+#     sql = " OR ".join(sql_parts)
 
-    # Read Data
-    rows = Article.objects.raw(
-        f"""
-        SELECT 
-            article.id,
-            article.art_date, article.art_cover, 
-            art_slug, hero_title, hero_subtitle
-        FROM article
-        LEFT OUTER JOIN article_lg ON
-			article.id = article_lg.id AND language_code='{language_code}'
-        WHERE is_page=0 AND ({sql}) AND article.id<>{article_id}
-        ORDER BY art_date DESC
-        """
-    )
+#     # Read Data
+#     rows = Article.objects.raw(
+#         f"""
+#         SELECT 
+#             article.id,
+#             article.art_date, article.art_cover, 
+#             art_slug, hero_title, hero_subtitle
+#         FROM article
+#         LEFT OUTER JOIN article_lg ON
+# 			article.id = article_lg.id AND language_code='{language_code}'
+#         WHERE is_page=0 AND ({sql}) AND article.id<>{article_id}
+#         ORDER BY art_date DESC
+#         """
+#     )
 
-    related_articles = []
+#     related_articles = []
 
-    # Add all related articles
-    i = 0
-    for row in rows:
-        related_article = {}
+#     # Add all related articles
+#     i = 0
+#     for row in rows:
+#         related_article = {}
 
-        related_article["col"] = i % 4  # 4 columns
-        related_article["language_code"] = language_code
-        related_article["style"] = "even" if no_section % 2 == 0 else "odd"
-        related_article["slug"] = row.art_slug
-        related_article["date"] = row.art_date
-        related_article["cover"] = row.art_cover.replace("1024", "230")
+#         related_article["col"] = i % 4  # 4 columns
+#         related_article["language_code"] = language_code
+#         related_article["style"] = "even" if no_section % 2 == 0 else "odd"
+#         related_article["slug"] = row.art_slug
+#         related_article["date"] = row.art_date
+#         related_article["cover"] = row.art_cover.replace("1024", "230")
 
-        related_article["hero"] = {}
-        related_article["hero"]["title"] = row.hero_title
-        related_article["hero"]["subtitle"] = row.hero_subtitle
+#         related_article["hero"] = {}
+#         related_article["hero"]["title"] = row.hero_title
+#         related_article["hero"]["subtitle"] = row.hero_subtitle
 
-        related_articles.append(related_article)
-        i += 1
+#         related_articles.append(related_article)
+#         i += 1
 
-    return related_articles
+#     return related_articles
 
 
 
 # ------------------
 # Search Page
 # ------------------
-def search(request, lg):
+# def search(request, lg):
 
-    all_languages = ['fr', 'en', 'es']
-    other_languages = [lang for lang in all_languages if lang != lg]
+#     all_languages = ['fr', 'en', 'es']
+#     other_languages = [lang for lang in all_languages if lang != lg]
 
-    # Read parameters
-    pattern = request.GET.get("p").strip()
+#     # Read parameters
+#     pattern = request.GET.get("p").strip()
 
-    if len(pattern)<2:
-        rows = []
-    else:  # TODO à protéger contre les injections SQL
-        rows = Article.objects.raw(
-            f"""
-            SELECT 
-                article.id,
-                article.art_date, article.art_cover, article.art_family, article.is_page,
-                art_slug, art_title, art_text, 
-                hero_title, hero_subtitle
-            FROM article
-            LEFT OUTER JOIN article_lg ON
-			    article.id = article_lg.id AND language_code='{lg}'
-            WHERE 
-                article_lg.hero_title LIKE '%%{pattern}%%' OR
-                article_lg.hero_subtitle LIKE '%%{pattern}%%' OR
-                article_lg.art_text LIKE '%%{pattern}%%'
-            ORDER BY is_page DESC, art_date DESC
-            """
-        )
-    articles = []
+#     if len(pattern)<2:
+#         rows = []
+#     else:  # TODO à protéger contre les injections SQL
+#         rows = Article.objects.raw(
+#             f"""
+#             SELECT 
+#                 article.id,
+#                 article.art_date, article.art_cover, article.art_family, article.is_page,
+#                 art_slug, art_title, art_text, 
+#                 hero_title, hero_subtitle
+#             FROM article
+#             LEFT OUTER JOIN article_lg ON
+# 			    article.id = article_lg.id AND language_code='{lg}'
+#             WHERE 
+#                 article_lg.hero_title LIKE '%%{pattern}%%' OR
+#                 article_lg.hero_subtitle LIKE '%%{pattern}%%' OR
+#                 article_lg.art_text LIKE '%%{pattern}%%'
+#             ORDER BY is_page DESC, art_date DESC
+#             """
+#         )
+#     articles = []
 
-    i = 0
-    for row in rows:
-        article = {}
-        article["no"] = i
-        article["id"] = row.id
-        article["slug"] = row.art_slug
-        article["date"] = row.art_date
-        article["family"] = row.art_family
-        article["is_page"] = row.is_page
-        article["hero"] = {"image": {}}
-        article["cover"] = row.art_cover
-        article["alt"] = row.art_title
-        article["title"] = row.hero_title
-        article["subtitle"] = row.hero_subtitle
-        article["style"] = 'even' if i%2 == 0 else 'odd'
-        articles.append(article)
-        i += 1
+#     i = 0
+#     for row in rows:
+#         article = {}
+#         article["no"] = i
+#         article["id"] = row.id
+#         article["slug"] = row.art_slug
+#         article["date"] = row.art_date
+#         article["family"] = row.art_family
+#         article["is_page"] = row.is_page
+#         article["hero"] = {"image": {}}
+#         article["cover"] = row.art_cover
+#         article["alt"] = row.art_title
+#         article["title"] = row.hero_title
+#         article["subtitle"] = row.hero_subtitle
+#         article["style"] = 'even' if i%2 == 0 else 'odd'
+#         articles.append(article)
+#         i += 1
 
-    return render(request, "search.html",
-        {
-            "html": None,
-            'lg': lg,
-            'other_languages': other_languages,
-            'navbar': Navbar(lg).to_json(),      
-            'slug': 'aaaa',
-            "hero": {
-                "title": f"Search on word '{pattern}'",
-                "subtitle": pattern,
-                "image": {
-                    "src": "hero-2.avif",
-                    "alt": "Image de la page de recherche",
-                },
-            },
-            "articles": articles,
-        },
-    )
+#     return render(request, "search.html",
+#         {
+#             "html": None,
+#             'lg': lg,
+#             'other_languages': other_languages,
+#             'navbar': Navbar(lg).to_json(),      
+#             'slug': 'aaaa',
+#             "hero": {
+#                 "title": f"Search on word '{pattern}'",
+#                 "subtitle": pattern,
+#                 "image": {
+#                     "src": "hero-2.avif",
+#                     "alt": "Image de la page de recherche",
+#                 },
+#             },
+#             "articles": articles,
+#         },
+#     )

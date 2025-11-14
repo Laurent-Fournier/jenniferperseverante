@@ -6,7 +6,14 @@
         <div class="col-12 col-lg-9">
           <h2 class="breadcrumbs-custom-title">{{hero.title|safe}}</h2>
           <ul class="breadcrumbs-custom-path">
-            <li><a href="/">{% if lg == 'es' %}Inicio{% elif lg == 'en' %}Home{% else %}Accueil{% endif %}</a></li>
+            <li>
+{% if lg == 'es' %}
+              <a href="/es/">Inicio</a></li>
+{% elif lg == 'en' %}
+              <a href="/en/">Home</a></li>
+{% else %}
+              <a href="/fr/">Accueil</a></li>
+{% endif %}
             <li class="active">{{hero.nav}}</li>
           </ul>
         </div>

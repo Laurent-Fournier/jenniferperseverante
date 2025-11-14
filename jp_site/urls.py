@@ -30,7 +30,7 @@ urlpatterns = [
     path('demo', views.demo),
 
     # Search Page
-    path('<str:lg>/search', views.search),
+    path('<str:lg>/search', views_article.search),
 
     # Article page
     path('<str:lg>/<slug:slug>', views_article.article),

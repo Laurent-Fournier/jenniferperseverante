@@ -3,8 +3,10 @@
 from django.shortcuts import render
 from django.db import connection
 from django.http import HttpResponse, Http404
+from django.db.models import Q
 
 from jp_viz.models import Article, ArticleLg
+
 import markdown2
 import re
 
@@ -129,8 +131,6 @@ def get_article_by_slug(lg, slug=None):
     ]
 
     data = dict(zip(columns, row))
-
-    active = data["active"]
 
     hero = {
         "nav": data["nav"],
@@ -396,3 +396,96 @@ def get_related_articles(article, language_code):
         related_articles.append(related_article)
 
     return related_articles
+
+
+
+# ------------------
+# Search Article
+# ------------------
+def search(request, lg):
+    '''Search pattern in hero_title, hero_subtitle and art_text'''
+
+    all_languages = ['fr', 'en', 'es']
+    other_languages = [lang for lang in all_languages if lang != lg]
+
+    # Read parameters
+    query  = request.GET.get("p", '').strip()
+
+    rows = Article.objects.filter(
+        Q(articlelg__hero_title__icontains=query) | 
+        Q(articlelg__hero_subtitle__icontains=query) | 
+        Q(articlelg__art_text__icontains=query),
+        articlelg__language_code=lg,
+    ).prefetch_related('articlelg_set').distinct().order_by('-art_date')
+
+    # Sélectionner les champs souhaités
+    rows = rows.values(
+         'id',
+         'art_date',
+         'art_family',
+         'art_cover',
+         'is_page',
+         'articlelg__art_slug',
+         'articlelg__art_title',
+         'articlelg__hero_title',
+         'articlelg__hero_subtitle'
+    )
+
+    articles = []
+    i = 0
+    for row in rows:
+        article = {}
+        article["no"] = i
+        article["id"] = row['id']
+        article["slug"] = row['articlelg__art_slug']
+        article["date"] = row['art_date']
+        article["family"] = row['art_family']
+        article["is_page"] = row['is_page']
+        article["hero"] = {"image": {}}
+        article["cover"] = row['art_cover']
+        article["alt"] = row['articlelg__art_title']
+        article["title"] = row['articlelg__hero_title']
+        article["subtitle"] = row['articlelg__hero_subtitle']
+        article["style"] = 'even' if i%2 == 0 else 'odd'
+        articles.append(article)
+        i += 1
+
+    # Translations
+    if lg == 'en':
+        html_title_lg = 'Search Page'        
+        html_description_lg = "Search Page"
+        nav_lg = 'Search'
+        title_lg = f"Search on query '{query}'"
+    elif lg == 'es':
+        html_title_lg = 'Página de búsqueda'        
+        html_description_lg = "Página de búsqueda"
+        nav_lg = 'Buscar'
+        title_lg = f"Buscar en la consulta '{query}'"
+    else:
+        html_title_lg = 'Page de recherche'        
+        html_description_lg = "Page de recherche"
+        nav_lg = 'Recherche'
+        title_lg = f"Recherche sur la requête '{query}'"
+        
+    return render(request, "search.html",
+        {
+            "html_title": html_title_lg,
+            "html_description": html_description_lg,
+            'lg': lg,
+            'other_languages': other_languages,
+            'navbar': Navbar(lg).to_json(),
+            'slug': None,
+            "hero": {
+                "nav": nav_lg,
+                "title": title_lg,
+                "subtitle": None,
+                "image": {
+                    "src": "hero-2.avif",
+                    "alt": html_title_lg,
+                },
+            },
+            "articles": articles,
+            "rows": rows,
+            "row": row,
+        },
+    )
