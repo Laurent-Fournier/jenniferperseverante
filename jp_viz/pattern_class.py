@@ -50,13 +50,6 @@ class Pattern:
                 .first()
             ) or "ERROR"
 
-            # slug = 'ERROR'
-            # rows = ArticleLg.objects.raw(
-            #     f'SELECT id, language_code, art_slug FROM article_lg WHERE id={id} AND language_code="{self.language_code}"'
-            # )
-            # for row in rows:
-            #     slug = row.art_slug
-
             newValue = f'({slug})'
 
             self.text = self.text.replace(f'(Id:{id})', newValue)
@@ -109,7 +102,7 @@ class Pattern:
                   <iframe
                     src="{url}"
                     title="Jennifer Perseverante"
-                    frameborder="0"
+                    referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen>
                   </iframe>
                 </div>'''

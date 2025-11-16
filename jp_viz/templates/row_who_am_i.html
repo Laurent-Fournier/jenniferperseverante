@@ -1,43 +1,35 @@
 <!-- Who I am -->
-<section class="section section-lg bg-default bg-gray-light text-center">
-  <div class="container">
-    <div class="row row-50">
-      <div class="col-md-4 col-lg-2 wow-outer">
-        <div class="box-icon-classic d-flex justify-content-center">
-          <img class="rounded-circle"  style="border: 3px solid #F38E91" src="/static/images/portait-jennifer-perseverante-maquilleuse-professionnelle-paris.avif" width="130" height="130" alt="Jennifer Perseverante, maquilleuse professionnelle">
-        </div>
+<section class="section section-lg {% if section.style == 'odd'%} bg-default bg-gray-light{% endif %} text-center">
+  <div class="row row-50">
+    <div class="col-md-4 col-lg-2 wow-outer">
+      <div class="box-icon-classic d-flex justify-content-center">
+        <img class="rounded-circle"  style="border: 3px solid #F38E91" src="/static/images/portait-jennifer-perseverante-maquilleuse-professionnelle-paris.avif" width="130" height="130" alt="Jennifer Perseverante, maquilleuse professionnelle">
       </div>
-      <div class="col-md-4 col-lg-4 wow-outer">
-        <div>(+33) 06.60.64.86.26</div>
-        <div>jennifer.perseverante@gmail.com</div>
-        <div>
-          {% if lg == 'es' %}
-            <a href="/es/jennifer-perseverante-maquilladora-profesional">
-            ¿Quién soy yo?
-            </a>
-          {% elif lg == 'en' %}
-            <a href="/en/jennifer-perseverante-professional-makeup-artist">
-            Who am I?
-            </a>
-          {% else %}
-            <a href="/fr/jennifer-perseverante-maquilleuse-professionnelle">
-            Qui suis-je ?
-            </a>
-          {% endif %}
-          <br>
-          <a href="https://www.facebook.com/jenniferperseverante/" aria-label="Facebook">{% include "./widget_icon.html" with icon="facebook" size=30 %}</a>
-          <a href="https://www.instagram.com/jenniferperseverante/" aria-label="Instagram">{% include "./widget_icon.html" with icon="instagram" size=30 %}</a>
-          <a href="https://www.youtube.com/channel/UCypPiuUYTPCPGUn5n_rXYcQ" aria-label="Youtube">{% include "./widget_icon.html" with icon="youtube" size=30 %}</a>
-          <a href="https://g.co/kgs/HYYwjja" aria-label="Google">{% include "./widget_icon.html" with icon="google" size=30 %}</a>
-        </div>
+    </div>
+    <div class="col-md-4 col-lg-4 wow-outer">
+      <div>(+33) 06.60.64.86.26</div>
+      <div>jennifer.perseverante@gmail.com</div>
+      <div>
+{% if lg == 'es' %}
+        <a href="/es/jennifer-perseverante-maquilladora-profesional">¿Quién soy yo?</a>
+{% elif lg == 'en' %}
+        <a href="/en/jennifer-perseverante-professional-makeup-artist">Who am I?</a>
+{% else %}
+        <a href="/fr/jennifer-perseverante-maquilleuse-professionnelle">Qui suis-je ?</a>
+{% endif %}
+        <br>
+        <a href="https://www.facebook.com/jenniferperseverante/" aria-label="Facebook">{% include "./widget_icon.html" with icon="facebook" size=30 %}</a>
+        <a href="https://www.instagram.com/jenniferperseverante/" aria-label="Instagram">{% include "./widget_icon.html" with icon="instagram" size=30 %}</a>
+        <a href="https://www.youtube.com/channel/UCypPiuUYTPCPGUn5n_rXYcQ" aria-label="Youtube">{% include "./widget_icon.html" with icon="youtube" size=30 %}</a>
+        <a href="https://g.co/kgs/HYYwjja" aria-label="Google">{% include "./widget_icon.html" with icon="google" size=30 %}</a>
       </div>
-      <div class="col-md-4 col-lg-6 wow-outer">
-        <div class="box-icon-classic">
-            <form class="d-flex" role="search" method="get" action="/{{lg}}/search">
-                <input class="form-control" id="p" name="p" type="search" placeholder="{% if lg == 'es' %}Buscar{% elif lg == 'en' %}Search{% else %}Rechercher{% endif %}..." aria-label="Search">
-                <button class="btn mb-4" type="submit" aria-label="submit">{% include "./widget_icon.html" with icon="search" size=16 %}</button>
-            </form>
-        </div>
+    </div>
+    <div class="col-md-4 col-lg-6 wow-outer">
+      <div class="box-icon-classic">
+        <form class="d-flex" role="search" method="get" action="/{{lg}}/search">
+          <input class="form-control" id="p" name="p" type="search" placeholder="{% if lg == 'es' %}Buscar{% elif lg == 'en' %}Search{% else %}Rechercher{% endif %}..." aria-label="Search">
+          <button class="btn mb-4" type="submit" aria-label="submit">{% include "./widget_icon.html" with icon="search" size=16 %}</button>
+        </form>
       </div>
     </div>
   </div>

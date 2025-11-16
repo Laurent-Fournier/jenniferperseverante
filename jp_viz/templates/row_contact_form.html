@@ -1,4 +1,4 @@
-<!-- Contact us-->
+<!-- Contact form -->
 <section class="section section-lg bg-gray-1 text-center">
   <div class="container">
     <div class="row justify-content-md-center">
@@ -7,7 +7,6 @@
         <p>{% autoescape off %}{{contact_form.subtitle}}{% endautoescape %}</p>
         {% autoescape off %}{{contact_form.email_security}}{% endautoescape %}
 
-        <form method="post" name="contact-us">
         <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
           {% csrf_token %}
           <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
@@ -18,7 +17,7 @@
             <div class="col-md-6 form-input">
               <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}">
             </div>
-            {% if contact_form.contact_type == 'studio' %}
+{% if contact_form.contact_type == 'studio' %}
             <div class="col-md-12 form-input">
               <input type="text" class="form-control" id="makeup" name="makeup" placeholder="{{contact_form.makeup_label}}">
             </div>
@@ -31,8 +30,8 @@
             <div class="col-md-6 form-input">
               <input type="text" class="form-control" id="time" name="time" placeholder="{{contact_form.time_label}}">
             </div>
-            {% endif %}
-            {% if contact_form.contact_type == 'at_home' or contact_form.contact_type == 'wedding' %}
+{% endif %}
+{% if contact_form.contact_type == 'at_home' or contact_form.contact_type == 'wedding' %}
             <div class="col-md-12 form-input">
               <input type="text" class="form-control" id="address" name="address" placeholder="{{contact_form.address_label}}">
             </div>
@@ -45,17 +44,17 @@
             <div class="col-md-4 form-input">
               <input type="text" class="form-control" id="people" name="people" placeholder="{{contact_form.people_label}}">
             </div>
-            {% endif %}
-            {% if contact_form.contact_type == 'at_home' %}
+{% endif %}
+{% if contact_form.contact_type == 'at_home' %}
             <div class="col-md-12 form-input">
               <input type="text" class="form-control" id="makeup" name="makeup" placeholder="{{contact_form.makeup_label}}">
             </div>
-            {% endif %}
-            {% if contact_form.contact_type == 'generic' %}
+{% endif %}
+{% if contact_form.contact_type == 'generic' %}
             <div class="col-md-12 form-input">
               <input type="text" class="form-control" id="subject" name="subject" placeholder="{{contact_form.subject_label}}">
             </div>
-            {% endif %}
+{% endif %}
             <div class="col-md-12 form-textarea">
               <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.message_label}}"></textarea>
             </div>

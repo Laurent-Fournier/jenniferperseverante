@@ -7,7 +7,7 @@ from django.http import HttpResponse
 
 #from .contact_class import *
 #from .pattern_class import *
-#from .navbar_class import Navbar
+from .navbar_class import Navbar
 
 # ------------
 # Error 404
