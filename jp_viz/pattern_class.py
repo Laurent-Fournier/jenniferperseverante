@@ -63,17 +63,18 @@ class Pattern:
     # Post Processing
     # -------------------
     def postProcess(self):
+        # Replace patterns
         for pattern, value in self.patterns.items():
             self.text = self.text.replace(pattern, value)
 
+        # Replace videos
         self.replaceVideos()
 
         return self.text
 
     # -------------------------------
-    # (Video:url Cover:src) TO DO
-    # (Video:url)
-    # (Video:https://www.youtube.com/embed/04cK7P0cuGE)
+    # <p>(Video:url)</p>
+    # <p>(Video:https://www.youtube.com/embed/04cK7P0cuGE)</p>
     # -------------------------------
     def replaceVideos(self):
         p1 = self.text.find('(Video:')

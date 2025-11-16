@@ -245,7 +245,7 @@ def extract_title_subtitle(html):
     # Extract <h3>title</h3>
     match = re.search(r"<h3>(.*?)</h3>", html, re.IGNORECASE | re.DOTALL)
     title = match.group(1) if match else None
-    html = html.replace(f'<h3>%s</h3>' % title, '')  # remove title from texte
+    html = html.replace(f'<h3>%s</h3>' % title, '')  # remove title from text
     if title is not None:
         title = title.replace('<strong>', '').replace('</strong>', '')
 

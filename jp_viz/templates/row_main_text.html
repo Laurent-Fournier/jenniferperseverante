@@ -3,11 +3,11 @@
     <div class="row justify-content-center">
       <div class="col-lg-8 col-xl-7 wow-outer">
         <div class="wow slideInDown">
-          <h3 class="title-decorate title-decorate-center">{{section.titles.0}}</h3>
+          <h3 class="title-decorate title-decorate-center">{{section.titles.0|safe}}</h3>
           {% if section.subtitles.0 %}
           <div class="text-with-divider">
             <div class="divider"></div>
-            <h4 class="font-italic text-opacity-black">{{section.subtitles.0}}.</h4>
+            <h4 class="font-italic text-opacity-black">{{section.subtitles.0|safe}}.</h4>
           </div>
           {% endif %}
           <p>{% autoescape off %}{{section.htmls.0}}{% endautoescape %}</p>
