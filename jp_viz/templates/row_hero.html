@@ -13,7 +13,9 @@
 {% else %}
             <li><a href="/fr/">Accueil</a></li>
 {% endif %}
+{% if hero.nav %}
             <li class="active">{{hero.nav}}</li>
+{% endif %}
           </ul>
         </div>
       </div>
