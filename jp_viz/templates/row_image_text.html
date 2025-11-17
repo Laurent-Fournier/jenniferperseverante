@@ -2,10 +2,12 @@
 <section class="section section-lg {% if section.style == 'odd'%} bg-default bg-gray-light{% endif %}">
   <div class="container">
     <div class="row row-50">
-      <div class="col-lg-6 pr-xl-5">
+      <!-- IMAGE : d'abord sur desktop, 2ème sur mobile -->
+      <div class="col-lg-6 pr-xl-5 order-2 order-lg-1">
         <img src="/images/480/{{section.images.0.url}}" alt="{{section.images.0.alt}}" width="480"/>
       </div>
-      <div class="col-lg-6">
+      <!-- TEXT : d'abord sur mobile, 2ème sur mobile -->
+      <div class="col-lg-6 order-1 order-lg-2">
 {% if section.titles.0 %}
         <h3>{{section.titles.0}}</h3>
 {% endif %}
