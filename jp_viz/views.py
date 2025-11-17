@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+import os
+from PIL import Image
+
 #from jp_viz.models import Article, ArticleLg
 
 #import markdown2
@@ -54,7 +57,7 @@ def about_us(request):
     )
 
 # ------------
-# demo
+# Page demo
 # ------------
 def demo(request):
     return render(
@@ -63,14 +66,58 @@ def demo(request):
         {
             "lg": 'en',
             "html": {
-                'title': 'Demo',
-                'description': 'Demo',
+                'title': 'Page demo',
+                'description': 'Page demo',
             },
             "active": 'demo',
             "navbar": Navbar('en').to_json()            
         }
     )
     
+# ------------
+# Gallery
+# ------------
+def gallery(request):
+    
+    # find images
+    extensions_valides = ('.jpg', '.webp', '.png', '.avif')
+    dossier = '/home/beautifuldata/www/jpdev_site/staticfiles/images/raw'
+    images = []
+
+    for fichier in sorted(os.listdir(dossier)):
+        if fichier.lower().endswith(extensions_valides):
+            try:
+                chemin = os.path.join(dossier, fichier)
+                img = Image.open(chemin)  # Vérifie que le fichier est une image valide
+                width, height = img.size
+                size = os.path.getsize(chemin)
+                
+                images.append(
+                    {
+                      'url' : fichier,
+                      'name' : fichier,
+                      'width': width,
+                      'height': height,
+                      'size': round(size/1000)  # ko
+                    }
+                )
+            except (IOError, OSError):
+                continue  # Ignore les fichiers corrompus ou non-images        
+    
+    return render(
+        request,
+        'gallery.html',
+        {
+            "lg": 'en',
+            "html": {
+                'title': 'Gallery',
+                'description': 'Gallery',
+            },
+            "active": 'gallery',
+            "images": images,
+            "navbar": Navbar('en').to_json()            
+        }
+    )
 
 # ------------
 # Sitemap

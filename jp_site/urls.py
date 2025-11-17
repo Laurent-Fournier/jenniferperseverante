@@ -26,8 +26,9 @@ urlpatterns = [
     path('en/contact-us', views_contact.generic),
     path('es/contacto', views_contact.generic),
 
-    # Demo Page
+    # DEV Pages
     path('demo', views.demo),
+    path('gallery', views.gallery),
 
     # Search Page
     path('<str:lg>/search', views_article.search),

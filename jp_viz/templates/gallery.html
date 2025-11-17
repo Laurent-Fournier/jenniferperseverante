@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block lg %}{{lg}}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+{% block description %}{{description}}{% endblock %}
+
+{% block body %}
+<header class="section page-header">
+  {% include "widget_navbar.html"  with active=active translated_slugs=article.translated_slugs lg=lg  %}
+</header>
+{% include "row_home_hero.html" %}
+<table>
+{% for image in images %}
+  <tr>
+    <td><img src="/static/images/raw/{{image.url}}" alt="" width="370"></td>
+    <td>
+      <strong>{{image.name}}</strong><br>
+      {{image.width}} x {{image.height}} px<br>
+      {{image.size}} ko
+    </td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}
