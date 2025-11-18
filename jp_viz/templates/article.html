@@ -7,7 +7,11 @@
 <header class="section page-header">
     {% include "widget_navbar.html" with lg=lg active=article.active other_languages=other_languages navbar=navbar translated_slugs=article.translated_slugs %}
 </header>
-{% include "row_hero.html" with hero=hero %}
+{% if article.id == 1 %}
+    {% include "row_home_hero.html" %}    
+{% else %}
+    {% include "row_hero.html" with hero=hero %}
+{% endif %}
 {% include "row_who_am_i.html" %}
 
 {% for section in article.sections %}
