@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.conf.urls import handler404
 
-from jp_viz import views, views_article, views_contact, views_media
+from jp_viz import views, views_article, views_contact, views_media, views_gallery
 
 handler404 = 'salsalive_viz.views.custom_404'
 
@@ -28,7 +28,7 @@ urlpatterns = [
 
     # DEV Pages
     path('demo', views.demo),
-    path('gallery', views.gallery),
+    path('gallery', views_gallery.gallery),
 
     # Search Page
     path('<str:lg>/search', views_article.search),

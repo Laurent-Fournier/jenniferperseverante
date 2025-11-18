@@ -5,7 +5,7 @@ from django.db import connection
 from django.http import HttpResponse, Http404
 from django.db.models import Q
 
-from jp_viz.models import Article, ArticleLg
+from .models import Article, ArticleLg
 
 import markdown2
 import re

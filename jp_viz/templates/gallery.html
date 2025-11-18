@@ -7,15 +7,56 @@
 <header class="section page-header">
   {% include "widget_navbar.html"  with active=active translated_slugs=article.translated_slugs lg=lg  %}
 </header>
-{% include "row_home_hero.html" %}
-<table>
+{% include "row_hero.html" %}
+<table class="table table-bordered">
 {% for image in images %}
   <tr>
-    <td><img src="/static/images/raw/{{image.url}}" alt="" width="370"></td>
+    <td width="370"><img src="/static/images/{{image.url}}" alt="" width="370"></td>
     <td>
-      <strong>{{image.name}}</strong><br>
-      {{image.width}} x {{image.height}} px<br>
-      {{image.size}} ko
+      <strong>RAW</strong><br>
+      <strong>{{image.raw.name}}</strong><br>
+      {{image.raw.width}} x {{image.raw.height}} px<br>
+      {{image.raw.size}} ko
+    </td>
+    <td>
+      <strong>370</strong><br>
+      {% if image.370 %}
+        <strong>{{image.370.name}}</strong><br>
+        {{image.370.width}} x {{image.370.height}} px<br>
+        {{image.370.size}} ko
+      {% else %}
+      <span style="padding:5px;background-color:#f00;color:#fff">No image</span>
+      {% endif %}
+    </td>
+    <td>
+      <strong>480</strong><br>
+      {% if image.480 %}
+        <strong>{{image.480.name}}</strong><br>
+        {{image.480.width}} x {{image.480.height}} px<br>
+        {{image.480.size}} ko
+      {% else %}
+      <span style="padding:5px;background-color:#f00;color:#fff">No image</span>
+      {% endif %}
+    </td>
+    <td>
+      <strong>1024</strong><br>
+      {% if image.1024 %}
+        <strong>{{image.1024.name}}</strong><br>
+        {{image.1024.width}} x {{image.1024.height}} px<br>
+        {{image.1024.size}} ko
+      {% else %}
+      <span style="padding:5px;background-color:#f00;color:#fff">No image</span>
+      {% endif %}
+    </td>
+    <td>
+      <strong>Pages</strong><br>
+      {% if image.articles %}
+        {% for a in image.articles %}
+          #{{a.id}} <a target="_blank" href="{{a.url}}">{{a.url}}</a><br/>
+        {% endfor %}
+      {% else %}
+      <span style="padding:5px;background-color:#f00;color:#fff">No page</span>
+      {% endif %}
     </td>
   </tr>
 {% endfor %}
