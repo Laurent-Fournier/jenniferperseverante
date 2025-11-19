@@ -16,7 +16,7 @@ from .navbar_class import Navbar
 # ------------
 def gallery(request):
     
-    # Shutterstock
+    # Source: Shutterstock
     shutterstock_sources = [
         'accueil-cours-de-maquillage.jpg',
         'accueil-enterrement-de-vie-de-jeune-fille.jpg',
@@ -29,6 +29,46 @@ def gallery(request):
         'maquillage-enterrement-de-vie-de-jeune-fille.jpg'
     ]
     
+    # Source: Email
+    email_sources = [
+        'Charlenne-Fabien-Mariage-0105.jpg',
+        'Charlenne-Fabien-Mariage-0119.jpg',
+        'Charlenne-Fabien-Mariage-0120.jpg',
+        'Charlenne-Fabien-Mariage-0134.jpg',
+        'IMG_0149.jpg',
+        'IMG_0240.jpg',
+        'IMG_0479.jpg',
+        'IMG_0483.jpg',
+        'IMG_0723.jpg',
+        'IMG_0728.jpg',
+        'IMG_0737.jpg',
+        'IMG_0758.jpg',
+        'IMG_0761.jpg',
+        'IMG_1020.jpg',
+        'IMG_1029.jpg',
+        'IMG_1081.jpg',
+        'IMG_1636.jpg',
+        'IMG_2636.jpg',
+        'IMG_5369.jpg',
+        'IMG_6294.jpg',
+        'IMG_6382.jpg',
+        'IMG_6817.jpg',
+        'IMG_6822.jpg',
+        'IMG_6823.jpg',
+        'IMG_6824.jpg',
+        'IMG_6825.jpg',
+        'IMG_6829.jpg',
+        'IMG_6831.jpg',
+        'IMG_6833.jpg',
+        'IMG_6838.jpg',
+        'IMG_6839.jpg',
+        'IMG_7455.jpg',
+        'IMG_9141.jpg',
+        'IMG_9426.jpg',
+        'IMG_9789.jpg',
+        '_A1A5569.jpg',      
+    ]
+        
     
     # find images
     extensions_valides = ('.jpg', '.webp', '.png', '.avif')
@@ -145,6 +185,7 @@ def gallery(request):
                     '1024': image_1024,
                     'articles': articles,
                     'shutterstock': image_raw['name'] in shutterstock_sources,
+                    'email': image_raw['name'] in email_sources,
                   }
                 )
 

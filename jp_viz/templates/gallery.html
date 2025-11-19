@@ -4,13 +4,62 @@
 {% block description %}{{description}}{% endblock %}
 
 {% block body %}
+<script>
+        let filtreShutterstockActif = false;
+
+        function basculerFiltreShutterstock() {
+            const toutesLesLignes = document.querySelectorAll('tbody tr');
+            const lignesShutterstock = document.querySelectorAll('.shutterstock-filter');
+            const bouton = document.getElementById('btnShutterstockFiltrer');
+
+            if (filtreShutterstockActif) {
+                // Réafficher toutes les lignes
+                toutesLesLignes.forEach(ligne => ligne.style.display = 'table-row');
+                bouton.textContent = 'Filtrer les images Shutterstock';
+            } else {
+                // Masquer toutes les lignes, puis afficher uniquement Shutterstock
+                toutesLesLignes.forEach(ligne => ligne.style.display = 'none');
+                lignesShutterstock.forEach(ligne => ligne.style.display = 'table-row');
+                bouton.textContent = 'Tout afficher';
+            }
+            filtreShutterstockActif = !filtreShutterstockActif;
+        }
+</script>
+<script>
+        let filtreEmailActif = false;
+
+        function basculerFiltreEmail() {
+            const toutesLesLignes = document.querySelectorAll('tbody tr');
+            const lignesShutterstock = document.querySelectorAll('.email-filter');
+            const bouton = document.getElementById('btnEmailFiltrer');
+
+            if (filtreEmailActif) {
+                // Réafficher toutes les lignes
+                toutesLesLignes.forEach(ligne => ligne.style.display = 'table-row');
+                bouton.textContent = 'Filtrer les images par Email';
+            } else {
+                // Masquer toutes les lignes, puis afficher uniquement Shutterstock
+                toutesLesLignes.forEach(ligne => ligne.style.display = 'none');
+                lignesShutterstock.forEach(ligne => ligne.style.display = 'table-row');
+                bouton.textContent = 'Tout afficher';
+            }
+            filtreEmailActif = !filtreEmailActif;
+        }
+</script>
+
 <header class="section page-header">
   {% include "widget_navbar.html"  with active=active translated_slugs=article.translated_slugs lg=lg  %}
 </header>
 {% include "row_hero.html" %}
-<table class="table table-bordered">
+
+<section>
+  <button id="btnShutterstockFiltrer" class="btn btn-primary mb-3" style="margin:10px" onclick="basculerFiltreShutterstock()">Filtrer les images Shutterstock</button>
+  <button id="btnEmailFiltrer" class="btn btn-primary mb-3" style="margin:10px" onclick="basculerFiltreEmail()">Filtrer les images par Email</button>
+</section>
+
+<table class="table table-bordered table-striped">
 {% for image in images %}
-  <tr>
+  <tr class="{% if image.shutterstock %}shutterstock-filter{% endif %} {% if image.email %}email-filter{% endif %}">
     <td><strong>{{image.no}}</strong></td>
     <td width="370"><img src="/static/images/{{image.url}}" alt="" width="370"></td>
     <td>
@@ -18,10 +67,22 @@
       {% if image.shutterstock %}
       <span style="padding:5px;background-color:#228B22;color:#fff">Shutterstock</span><br>
       {% endif %}
+      {% if image.email %}
+      <span style="padding:5px;background-color:#312ef1;color:#fff">Email</span><br>
+      {% endif %}
       <strong>{{image.raw.name}}</strong><br>
       {{image.raw.width}} x {{image.raw.height}} px<br>
       {{image.raw.size}} ko
-      {{image}}
+    </td>
+    <td>
+      <strong>Pages</strong><br>
+      {% if image.articles %}
+        {% for a in image.articles %}
+          #{{a.id}} <a target="_blank" href="{{a.url}}">{{a.url}}</a><br/>
+        {% endfor %}
+      {% else %}
+      <span style="padding:5px;background-color:#f00;color:#fff">No page</span>
+      {% endif %}
     </td>
     <td>
       <strong>370px</strong><br>
@@ -51,16 +112,6 @@
         {{image.1024.size}} ko
       {% else %}
       <span style="padding:5px;background-color:#f00;color:#fff">No image</span>
-      {% endif %}
-    </td>
-    <td>
-      <strong>Pages</strong><br>
-      {% if image.articles %}
-        {% for a in image.articles %}
-          #{{a.id}} <a target="_blank" href="{{a.url}}">{{a.url}}</a><br/>
-        {% endfor %}
-      {% else %}
-      <span style="padding:5px;background-color:#f00;color:#fff">No page</span>
       {% endif %}
     </td>
   </tr>
