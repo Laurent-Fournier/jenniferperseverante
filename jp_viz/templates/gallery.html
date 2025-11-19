@@ -15,9 +15,13 @@
     <td width="370"><img src="/static/images/{{image.url}}" alt="" width="370"></td>
     <td>
       <strong>RAW</strong><br>
+      {% if image.shutterstock %}
+      <span style="padding:5px;background-color:#228B22;color:#fff">Shutterstock</span><br>
+      {% endif %}
       <strong>{{image.raw.name}}</strong><br>
       {{image.raw.width}} x {{image.raw.height}} px<br>
       {{image.raw.size}} ko
+      {{image}}
     </td>
     <td>
       <strong>370px</strong><br>

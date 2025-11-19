@@ -16,6 +16,20 @@ from .navbar_class import Navbar
 # ------------
 def gallery(request):
     
+    # Shutterstock
+    shutterstock_sources = [
+        'accueil-cours-de-maquillage.jpg',
+        'accueil-enterrement-de-vie-de-jeune-fille.jpg',
+        'accueil-maquillage-a-domicile.jpg',
+        'accueil-maquillage-pour-fetes.jpg',
+        'accueil-maquillage-pour-mariage.jpg',
+        'accueil-maquillage-pour-shooting-photo.jpg',
+        'maquillage-entreprise.jpg',
+        'maquillage-entre-filles.jpg',
+        'maquillage-enterrement-de-vie-de-jeune-fille.jpg'
+    ]
+    
+    
     # find images
     extensions_valides = ('.jpg', '.webp', '.png', '.avif')
     dossier = '/home/beautifuldata/www/jpdev_site/staticfiles/images/'
@@ -130,6 +144,7 @@ def gallery(request):
                     '480': image_480,
                     '1024': image_1024,
                     'articles': articles,
+                    'shutterstock': image_raw['name'] in shutterstock_sources,
                   }
                 )
 
