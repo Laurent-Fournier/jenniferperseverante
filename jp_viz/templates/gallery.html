@@ -11,6 +11,7 @@
 <table class="table table-bordered">
 {% for image in images %}
   <tr>
+    <td><strong>{{image.no}}</strong></td>
     <td width="370"><img src="/static/images/{{image.url}}" alt="" width="370"></td>
     <td>
       <strong>RAW</strong><br>
@@ -19,7 +20,7 @@
       {{image.raw.size}} ko
     </td>
     <td>
-      <strong>370</strong><br>
+      <strong>370px</strong><br>
       {% if image.370 %}
         <strong>{{image.370.name}}</strong><br>
         {{image.370.width}} x {{image.370.height}} px<br>
@@ -29,7 +30,7 @@
       {% endif %}
     </td>
     <td>
-      <strong>480</strong><br>
+      <strong>480px</strong><br>
       {% if image.480 %}
         <strong>{{image.480.name}}</strong><br>
         {{image.480.width}} x {{image.480.height}} px<br>
@@ -39,7 +40,7 @@
       {% endif %}
     </td>
     <td>
-      <strong>1024</strong><br>
+      <strong>1024px</strong><br>
       {% if image.1024 %}
         <strong>{{image.1024.name}}</strong><br>
         {{image.1024.width}} x {{image.1024.height}} px<br>

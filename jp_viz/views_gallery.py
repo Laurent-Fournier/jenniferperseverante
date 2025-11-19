@@ -19,6 +19,8 @@ def gallery(request):
     # find images
     extensions_valides = ('.jpg', '.webp', '.png', '.avif')
     dossier = '/home/beautifuldata/www/jpdev_site/staticfiles/images/'
+
+    no = 0
     images = []
 
     for raw_file in sorted(os.listdir(dossier+'/raw')):
@@ -118,8 +120,10 @@ def gallery(request):
                         'url': f'/{row['articlelg__language_code']}/{row['articlelg__art_slug']}',
                     })
 
+                no += 1
                 images.append(
                   {
+                    'no': no,
                     'url': url,
                     'raw': image_raw,
                     '370': image_370,
