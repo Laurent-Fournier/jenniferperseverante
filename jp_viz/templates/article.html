@@ -8,7 +8,7 @@
     {% include "widget_navbar.html" with lg=lg active=article.active other_languages=other_languages navbar=navbar translated_slugs=article.translated_slugs %}
 </header>
 {% if article.id == 1 %}
-    {% include "row_home_hero.html" %}    
+    {% include "row_home_hero.html"  with hero=hero %}    
 {% else %}
     {% include "row_hero.html" with hero=hero %}
 {% endif %}
