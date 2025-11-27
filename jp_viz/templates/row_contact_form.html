@@ -1,5 +1,5 @@
 <!-- Contact form -->
-<section class="section section-lg bg-gray-1 text-center">
+<section class="section section-lg{% if contact_form.style == 'odd'%} bg-default bg-gray-light{% endif %}">
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-md-9 col-lg-7">
@@ -7,7 +7,7 @@
         <p>{% autoescape off %}{{contact_form.subtitle}}{% endautoescape %}</p>
         {% autoescape off %}{{contact_form.email_security}}{% endautoescape %}
 
-        <form class="rd-form rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
+        <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
           {% csrf_token %}
           <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
           <div class="row">
@@ -62,6 +62,7 @@
               <button class="btn btn-block button-lg" style="background-color: #d3c1c4;" type="submit" name="submit">{{contact_form.send_label}}</button>
             </div>
           </div>
+          <br>
         </form>
       </div>
     </div>

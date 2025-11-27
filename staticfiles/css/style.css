@@ -305,6 +305,12 @@ p [style*='max-width'] {
 	position: relative;
 	padding: 0 20px 40px 20px;
 }
+.title-decorate-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;	
+}
 
 .title-decorate:before {
 	position: absolute;

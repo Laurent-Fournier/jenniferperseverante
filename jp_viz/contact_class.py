@@ -217,7 +217,7 @@ class Contact:
         email_body += f"<strong>Url :</strong> {self.url}<br>\n"
         email_body += f"<strong>Date :</strong> {datetime.now()}<br>\n"
         email_body += f"<strong>Type :</strong> {contact_type}<br>\n"
-        email_body += f"<strong>Langue :</strong> {self.language_code}<br>\n"
+        email_body += f"<strong>Langue :</strong> {self.lg}<br>\n"
         email_body += f"<strong>Nom :</strong> {msg_name}<br>\n"
         email_body += f"<strong>Email :</strong> {msg_email}<br>\n"
         email_body += f"<strong>Sujet :</strong> {msg_subject}<br>\n"
@@ -246,7 +246,7 @@ class Contact:
 
         # Save message in Database
         message = Message(
-            language_code = self.language_code,
+            language_code = self.lg,
             contact_type = contact_type,
             msg_url = self.url,
             msg_name = msg_name,

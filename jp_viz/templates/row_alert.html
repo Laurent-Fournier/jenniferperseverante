@@ -1,0 +1,14 @@
+{% if response %}
+<!-- Alert section -->
+<section id="alert" class="section section-lg {% if section.style == 'odd'%} bg-default bg-gray-light{% endif %}">
+    <div class="container">
+        <div class="row">
+{% if response.status == 'SUCCESS' %}
+            <div style="background-color:#198754" class="col-md-12 text-white p-3 mt-5" role="alert">{% autoescape off %}{{contact_form.success_text}}{% endautoescape %}</div>
+{% elif response.status == 'ERROR' %}
+            <div style="background-color:#dc3545 " class="col-md-12 text-white p-3 mt-5" role="alert">{% autoescape off %}{{response.message}}{% endautoescape %}</div>
+{% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}

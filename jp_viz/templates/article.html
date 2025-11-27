@@ -12,6 +12,7 @@
 {% else %}
     {% include "row_hero.html" with hero=hero %}
 {% endif %}
+{% include "row_alert.html" with response=response %}
 {% include "row_who_am_i.html" %}
 
 {% for section in article.sections %}

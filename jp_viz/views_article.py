@@ -10,7 +10,7 @@ from .models import Article, ArticleLg
 import markdown2
 import re
 
-from .contact_class import *
+from .contact_class import Contact
 from .pattern_class import *
 from .navbar_class import Navbar
 
@@ -20,7 +20,8 @@ from .navbar_class import Navbar
 # ----------------------
 def article(request, lg, slug=''):
     #return HttpResponse(f"[DEBUG] le language est : {lg}")
-
+    url = request.build_absolute_uri()
+    
     # Read article data from database
     hero, article = get_article_by_slug(lg, slug)
 
@@ -63,6 +64,11 @@ def article(request, lg, slug=''):
 
     no_section = len(article["sections"])
 
+    # Send email and save in DB ?
+    r = None
+    if request.method == 'POST':
+        r = Contact(lg, contact_type, url, no_section).process(request)
+
     map = None
     if article["family"][:6] == "STUDIO":
         map = "STUDIO"
@@ -85,13 +91,9 @@ def article(request, lg, slug=''):
             'slugs_lg': get_slugs(article["id"]),
             'article': article,
             'map': map,
-            "contact_form": Contact(
-                lg=lg,
-                contact_type=contact_type,
-                no_section=no_section,
-            ).get_texts(),
+            "contact_form": Contact(lg, contact_type, url, no_section).get_texts(),
+            'response': r,
             'related_articles': get_related_articles(article, lg),
-            
         },
     )
 
