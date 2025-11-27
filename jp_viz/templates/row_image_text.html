@@ -9,7 +9,7 @@
       <!-- TEXT : d'abord sur mobile, 2ème sur mobile -->
       <div class="col-lg-6 order-1 order-lg-2">
 {% if section.titles.0 %}
-        <h3>{{section.titles.0}}</h3>
+        <h3>{% autoescape off %}{{section.titles.0}}{% endautoescape %}</h3>
 {% endif %}
 {% if section.subtitles.0 %}
         <div class="text-with-divider">
