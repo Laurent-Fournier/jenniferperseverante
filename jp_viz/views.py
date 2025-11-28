@@ -32,10 +32,19 @@ def test_404(request):
 # Robots.txt
 # ------------
 def robots_txt(request):
-    robots_content = '''
-    User-agent: * 
-    Disallow: /
-    '''
+    host = request.get_host()
+
+    if os.getenv('ENVIRONMENT') == 'PROD':
+        robots_content = f'''
+          User-agent: * 
+          Allow: /
+          Sitemap: https://{host}/sitemap.xml
+          '''
+    else:
+        robots_content = '''
+          User-agent: * 
+          Disallow: /
+          '''
     return HttpResponse(robots_content, content_type="text/plain")
 
 

@@ -84,12 +84,6 @@ def article(request, lg, slug=''):
 
     # Environnement DEV, UAT ou PROD
     host = request.get_host()
-    if 'dev' in host:
-        environment = 'DEV'
-    elif 'uat' in host:
-        environment = 'UAT'
-    else:
-        environment = 'PROD'
 
     return render(
         request,
