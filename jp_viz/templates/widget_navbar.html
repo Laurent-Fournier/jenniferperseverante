@@ -42,13 +42,14 @@
               <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{slugs_lg.en}}" aria-label="versión en inglés">EN</a></li>
   {% endif %}
 {% endif %}
-
+{% if environment == 'DEV' %}
               <li class="rd-nav-item"><a class="rd-nav-link" href="#">DEV</a>
                 <ul class="rd-menu rd-navbar-dropdown">
                   <li class="rd-dropdown-item{% if active == 'demo' %} active{% endif %}"><a class="rd-dropdown-link" href="/demo">Page démo</a></li>
                   <li class="rd-dropdown-item{% if active == 'gallery' %} active{% endif %}"><a class="rd-dropdown-link" href="/gallery">Gallerie</a></li>
                 </ul>
               </li>
+{% endif %}
 
             </ul>
           </div>

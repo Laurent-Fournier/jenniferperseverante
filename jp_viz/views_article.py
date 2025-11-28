@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.db import connection
 from django.http import HttpResponse, Http404
 from django.db.models import Q
+import os
 
 from .models import Article, ArticleLg
 
@@ -28,30 +29,36 @@ def article(request, lg, slug=''):
     all_languages = ['fr', 'en', 'es']
     other_languages = [lang for lang in all_languages if lang != lg]
 
-#     if article == {}:  # slug not found
-#         return render(
-#             request,
-#             "404.html",
-#             {
-#                "navbar": Navbar(lg).to_json(),
-#                "hero": {
-#                     "title": "Jennifer Perseverante.com",
-#                     "subtitle": (
-#                         "Professional makeup artist in Paris and Ile-de-France"
-#                         if lg == "en"
-#                         else "Maquilleuse professionnelle à Paris et Ile-de-France"
-#                     ),
-#                 },
-#                 "article": {
-#                     "language_code": lg,
-#                     "translated_slugs": {"fr": "", "en": "", "es": ""},
-#                 },
-#                 "contact": Contact(
-#                     lg=lg, contact_type="generic"
-#                 ).get_texts(),
+    # Page 404 si l'article n'existe pas
+    if article == {}:  # slug not found
+        return render(
+            request,
+            "404.html",
+            {
+                "environment": os.getenv('ENVIRONMENT'),            
+                "lg": 'en',
+                "html": {
+                    'title': 'Gallery',
+                    'description': 'Gallery',
+                },
+                "active": 'gallery',
+                "navbar": Navbar('en').to_json(),
+                "hero": {
+                    "nav": "gallery",
+                    "image": {
+                        "src": "contact.avif",
+                        "alt": ""
+                    },
+                    "title": "Jennifer Perseverante.com",
+                    "subtitle": (
+                        "Professional makeup artist in Paris and Ile-de-France"
+                        if lg == "en"
+                        else "Maquilleuse professionnelle à Paris et Ile-de-France"
+                     ),
 
-#             },
-#         )
+                }
+            },
+        )
 
     if article["family"][:7] == "AT_HOME":
         contact_type = "at_home"
@@ -75,10 +82,20 @@ def article(request, lg, slug=''):
     elif article["family"][:7] == "AT_HOME":
         map = "AT_HOME"
 
+    # Environnement DEV, UAT ou PROD
+    host = request.get_host()
+    if 'dev' in host:
+        environment = 'DEV'
+    elif 'uat' in host:
+        environment = 'UAT'
+    else:
+        environment = 'PROD'
+
     return render(
         request,
         'article.html',
         {
+            "environment": os.getenv('ENVIRONMENT'),
             "html": {
                 "title": article['title'],
                 "description": article['description'],
@@ -123,7 +140,8 @@ def get_article_by_slug(lg, slug=None):
         row = cursor.fetchone()
 
     if not row:
-        raise Http404(f"Aucun article trouvé pour le slug '{slug}' ({lg})")
+        # raise Http404(f"Aucun article trouvé pour le slug '{slug}' ({lg})")
+        return {}, {}
 
     # Colonnes correspondant à la requête SQL
     columns = [
@@ -471,6 +489,7 @@ def search(request, lg):
         
     return render(request, "search.html",
         {
+            "environment": os.getenv('ENVIRONMENT'),            
             "html_title": html_title_lg,
             "html_description": html_description_lg,
             'lg': lg,

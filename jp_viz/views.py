@@ -47,6 +47,7 @@ def about_us(request):
         request,
         'about_us.html',
         {
+            "environment": os.getenv('ENVIRONMENT'),
             'lg':'en',
             "html": {
                 "title": 'Jennifer Perseverante - Qui suis-je ?',
@@ -65,6 +66,7 @@ def demo(request):
         request,
         'demo.html',
         {
+            "environment": os.getenv('ENVIRONMENT'),
             "lg": 'en',
             "html": {
                 'title': 'Page demo',

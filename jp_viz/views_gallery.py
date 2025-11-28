@@ -196,6 +196,7 @@ def gallery(request):
         request,
         'gallery.html',
         {
+            "environment": os.getenv('ENVIRONMENT'),            
             "lg": 'en',
             "html": {
                 'title': 'Gallery',
