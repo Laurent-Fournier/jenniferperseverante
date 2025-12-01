@@ -5,8 +5,6 @@ from django.views.generic.base import RedirectView
 
 from jp_viz import views, views_article, views_contact, views_media, views_gallery
 
-handler404 = 'salsalive_viz.views.custom_404'
-
 def redirect_to_fr(request):
     return HttpResponsePermanentRedirect('/fr/')
 
