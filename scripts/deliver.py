@@ -98,7 +98,7 @@ def main():
     copyDirectory('staticfiles', current_path, destination_path)
 
 
-    print('✅ Delivery successfull!')
+    print(f'✅ {args.target} Delivery successfull!')
 
 if __name__ == "__main__":
     main()
