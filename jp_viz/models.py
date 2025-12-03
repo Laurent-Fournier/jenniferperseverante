@@ -55,3 +55,15 @@ class Message(models.Model):
     class Meta:
         managed = False
         db_table = 'message'
+
+
+class UxSearch(models.Model):
+    datetime = models.DateTimeField(blank=True, null=True)
+    language_code = models.CharField(max_length=2, blank=True, null=True)
+    search_url = models.CharField(max_length=255, blank=True, null=True)
+    search_text = models.CharField(max_length=255, blank=True, null=True)
+    user_agent = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'ux_search'
