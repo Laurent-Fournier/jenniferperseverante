@@ -24,9 +24,13 @@ def gallery(request):
         'accueil-maquillage-pour-fetes.jpg',
         'accueil-maquillage-pour-mariage.jpg',
         'accueil-maquillage-pour-shooting-photo.jpg',
-        'maquillage-entreprise.jpg',
+        'maquillage-de-soiree-personnalise.jpg',
+        'maquillage-de-soiree-professionnel.jpg',
+        'maquillage-de-soiree-professionnel-briller.jpg',
+        'maquillage-de-soiree-studio-domicile.jpg',
+        'maquillage-enterrement-de-vie-de-jeune-fille.jpg',
         'maquillage-entre-filles.jpg',
-        'maquillage-enterrement-de-vie-de-jeune-fille.jpg'
+        'maquillage-entreprise.jpg',
     ]
     
     # Source: Email
