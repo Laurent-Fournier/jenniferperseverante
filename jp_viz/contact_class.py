@@ -246,6 +246,7 @@ class Contact:
 
         # Save message in Database
         message = Message(
+            datetime = datetime.now(),
             language_code = self.lg,
             contact_type = contact_type,
             msg_url = self.url,
