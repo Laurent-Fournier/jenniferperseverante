@@ -6,8 +6,9 @@ from django.http import HttpResponse, Http404
 from django.db.models import Q
 import os
 
-from .models import Article, ArticleLg
+from .models import Article, ArticleLg, UxSearch
 
+from datetime import datetime
 import markdown2
 import re
 
@@ -424,6 +425,16 @@ def search(request, lg):
 
     # Read parameters
     query  = request.GET.get("p", '').strip()
+    
+    # Store search text in DB
+    ux_search = UxSearch(
+        datetime = datetime.now(),
+        language_code = lg,
+        search_url = request.META.get('HTTP_REFERER', '/'),
+        search_text="query",
+        user_agent = request.headers.get('User-Agent')
+    )
+    ux_search.save()
 
     rows = Article.objects.filter(
         Q(articlelg__hero_title__icontains=query) | 

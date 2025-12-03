@@ -5,11 +5,11 @@
         <a href="/{{lg}}/{{article.slug}}"><img src="/images/230/{{article.cover}}" alt="{{article.alt}}" width="230"/></a>
       </div>
       <div class="col-lg-6">
-        <h3><a href="/{{lg}}/{{article.slug}}">{{article.title}}</a></h3>
+        <h3><a href="/{{lg}}/{{article.slug}}">{% autoescape off %}{{article.title}}{% endautoescape %}</a></h3>
         {% if article.subtitle %}
         <div class="text-with-divider">
           <div class="divider"></div>
-          <h4 class="font-italic text-opacity-black">{{article.subtitle}}</h4>
+          <h4 class="font-italic text-opacity-black">{% autoescape off %}{{article.subtitle}}{% endautoescape %}</h4>
         </div>
         {% endif %}
       </div>
