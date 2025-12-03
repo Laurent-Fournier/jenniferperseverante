@@ -5,7 +5,7 @@ import os
 import os.path
 from PIL import Image
 
-#from jp_viz.models import Article, ArticleLg
+from jp_viz.models import Article, ArticleLg
 
 #import markdown2
 
