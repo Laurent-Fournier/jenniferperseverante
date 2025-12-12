@@ -1,4 +1,4 @@
-from jp_viz.models import ArticleLg
+from .models import ArticleLg
 
 class Navbar:
     """

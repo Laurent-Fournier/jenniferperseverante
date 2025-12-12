@@ -2,7 +2,7 @@
 
 from django.shortcuts import render
 from django.core.mail import EmailMessage
-from jp_viz.models import Message
+from .models import Message
 
 from datetime import datetime
 
