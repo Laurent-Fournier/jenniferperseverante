@@ -1,7 +1,7 @@
 # PEP8
 # flake8 /home/laurent/projects/django-web-app/jenniferperseverante_dev_site/jp_viz/pattern_class.py
 
-from jp_viz.models import ArticleLg
+from .models import ArticleLg
 
 
 class Pattern:

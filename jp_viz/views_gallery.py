@@ -8,6 +8,7 @@ from .models import Article, ArticleLg
 import os
 import os.path
 from PIL import Image
+from dotenv import load_dotenv
 
 from .navbar_class import Navbar
     
@@ -15,6 +16,8 @@ from .navbar_class import Navbar
 # Gallery
 # ------------
 def gallery(request):
+
+    load_dotenv()  # load variables from .env
     
     # Source: Shutterstock
     shutterstock_sources = [
@@ -76,7 +79,7 @@ def gallery(request):
     
     # find images
     extensions_valides = ('.jpg', '.webp', '.png', '.avif')
-    dossier = '/home/beautifuldata/www/jpdev_site/staticfiles/images/'
+    dossier = os.getenv('IMAGES_DIR')
 
     no = 0
     images = []
