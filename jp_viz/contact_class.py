@@ -4,6 +4,7 @@
 from django.core.mail import EmailMessage
 
 from datetime import datetime
+from django.utils import timezone
 
 from .models import Message
 
@@ -215,7 +216,9 @@ class Contact:
         msg_text_cleaned = msg_text.replace('\n', '<br>')
         email_body = ''
         email_body += f"<strong>Url :</strong> {self.url}<br>\n"
-        email_body += f"<strong>Date :</strong> {datetime.now()}<br>\n"
+        email_body += f"<strong>User agent :</strong> {user_agent}<br>\n"
+        # email_body += f"<strong>Message:</strong><br>{request.limited}<br>\n"
+        email_body += f"<strong>Date :</strong> {timezone.now()}<br>\n"
         email_body += f"<strong>Type :</strong> {contact_type}<br>\n"
         email_body += f"<strong>Langue :</strong> {self.lg}<br>\n"
         email_body += f"<strong>Nom :</strong> {msg_name}<br>\n"
@@ -246,7 +249,7 @@ class Contact:
 
         # Save message in Database
         message = Message(
-            datetime = datetime.now(),
+            datetime = timezone.now(),
             language_code = self.lg,
             contact_type = contact_type,
             msg_url = self.url,
@@ -263,6 +266,7 @@ class Contact:
             response_status = r['status'],
             response_message = r['message'],
             user_agent = user_agent,
+            # request_limited = request.limited,
         )
         message.save()
 

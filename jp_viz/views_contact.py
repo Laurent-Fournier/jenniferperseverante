@@ -1,18 +1,16 @@
 # flake8 /home/laurent/projects/django-web-app/jenniferperseverante_dev_site/jp_viz/views_contact.py
 
 from django.shortcuts import render
-from django.core.mail import EmailMessage
-from .models import Message
-
-from datetime import datetime
+from django_ratelimit.decorators import ratelimit
 
 from .contact_class import Contact
-
 
 # --------------------------------------------------
 # Page avec Formulaire de contact générique
 # --------------------------------------------------
+@ratelimit(key='ip', rate='3/m', method='POST', block=True)
 def generic(request):
+    
     # Detect language from Url
     url = request.build_absolute_uri()
     r = None
@@ -68,15 +66,17 @@ def generic(request):
     # Determines the language based on the URL, otherwise uses 'fr' as default
     language_code = 'fr'  # Default value
     for code in language_settings.keys():
-        if f'/{code}/' in url:
+        if request.path.startswith(f'/{code}/'):
             language_code = code
             break
 
     lang_config = language_settings[language_code]
 
-    # Send email and save in DB ?
+    contact = Contact(lang_config['language_code'], 'generic', url)
+
     if request.method == 'POST':
-        r = Contact(lang_config['language_code'], 'generic', url).process(request)
+        # Send email and save in DB ?
+        r = contact.process(request)
 
     return render(
         request,
@@ -94,7 +94,7 @@ def generic(request):
                     'es': 'contacto',
                 }
             },
-            'contact_form': Contact(lang_config['language_code'], 'generic', url).get_texts(),
-            'response': r,
+            'contact_form': contact.get_texts(),
+            'response': r
         }
     )

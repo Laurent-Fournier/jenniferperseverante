@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.db import connection
 from django.http import HttpResponse, Http404
 from django.db.models import Q
+from django_ratelimit.decorators import ratelimit
+
 import os
 
 from .models import Article, ArticleLg, UxSearch
@@ -20,6 +22,7 @@ from .navbar_class import Navbar
 # ----------------------
 # Page Article
 # ----------------------
+@ratelimit(key='ip', rate='3/m', method='POST', block=True)
 def article(request, lg, slug=''):
     #return HttpResponse(f"[DEBUG] le language est : {lg}")
     url = request.build_absolute_uri()
