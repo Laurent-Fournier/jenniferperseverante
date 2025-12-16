@@ -61,7 +61,7 @@ def main():
             "ENVIRONMENT=DEV": "ENVIRONMENT=PROD",
             "jpdev_site": "jpprd_site",
 
-            "DEBUG = True": "DEBUG = True",  # TEMP
+            "DEBUG = True": "DEBUG = False",  # TEMP
             f"django-insecure-3m(80%z6rm7kus57n^t@!e7#dr8345&_rdt^iz9)+k8yn52^k)": f"django-insecure-%4le6o9&x=+uzp@pzum7@mnr_y0dqo)8e0@26!a1+$4zh5xm16",
             "jp-dev.beautifuldata.fr": "jp-prod.beautifuldata.fr",
         }

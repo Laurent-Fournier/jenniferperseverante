@@ -6,6 +6,11 @@ from django.core.mail import EmailMessage
 from datetime import datetime
 from django.utils import timezone
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # load variables from .env
+
 from .models import Message
 
 class Contact:
@@ -235,10 +240,10 @@ class Contact:
 
         try:
             email = EmailMessage(
-                subject='Formulaire de contact du site JenniferPerseverante [DEV]',
-                body=email_body,
-                from_email='laurent@beautifuldata.fr',
-                to=['laurent@beautifuldata.fr'],
+                subject = f'Formulaire de contact du site JenniferPerseverante [{os.getenv('ENVIRONMENT')}]',
+                body = email_body,
+                from_email = 'laurent@beautifuldata.fr',
+                to = ['laurent@beautifuldata.fr'],
             )
             email.content_subtype = 'html'
             nb = email.send()
