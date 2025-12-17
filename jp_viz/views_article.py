@@ -6,13 +6,13 @@ from django.http import HttpResponse, Http404
 from django.db.models import Q
 from django_ratelimit.decorators import ratelimit
 
-import os
-
 from .models import Article, ArticleLg, UxSearch
 
 from datetime import datetime
 import markdown2
+import os
 import re
+from urllib.parse import urlparse
 
 from .contact_class import Contact
 from .pattern_class import *
@@ -86,14 +86,15 @@ def article(request, lg, slug=''):
     elif article["family"][:7] == "AT_HOME":
         map = "AT_HOME"
 
-    # Environnement DEV, UAT ou PROD
-    host = request.get_host()
+    parsed_url = urlparse(url)
+    base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
 
     return render(
         request,
         'article.html',
         {
             "environment": os.getenv('ENVIRONMENT'),
+            'base_url': base_url,
             "html": {
                 "title": article['title'],
                 "description": article['description'],

@@ -110,20 +110,24 @@ class Pattern:
 
             # Facebook video
             elif url.find('https://www.facebook.com/') != -1:
-                url2 = url.replace('/', '%2F').replace(':', '%3A')
-                newValue = f'''
-                <div class="embed-responsive embed-responsive-16by9">
-                  <iframe 
-                    src="https://www.facebook.com/plugins/video.php?href={url2}%2F&show_text=0"
-                    width="100%"
-                    style="border:none; overflow:hidden; width:100%; height:100%; position:absolute; top:0; left:0;"
-                    scrolling="no"
-                    frameborder="0"
-                    allowfullscreen="true"
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                  </iframe>
-                </div>            
-                '''
+                #url2 = url.replace('/', '%2F').replace(':', '%3A')
+
+                newValue = f'''<div class="fb-video" data-href="{url}" data-width="900" data-show-text="false"></div>'''
+
+            #     newValue = f'''
+            #     <div class="embed-responsive embed-responsive-16by9">
+            #       <iframe 
+            #         src="https://www.facebook.com/plugins/video.php?href={url2}%2F&show_text=0"
+            #         width="100%"
+            #         style="border:none; overflow:hidden; width:100%; height:100%; position:absolute; top:0; left:0;"
+            #         scrolling="no"
+            #         frameborder="0"
+            #         allowfullscreen="true"
+            #         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+            #       </iframe>
+            #     </div>            
+            #     '''
+            
             else:
                 break  # End of loop
 
