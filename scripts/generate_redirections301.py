@@ -42,9 +42,10 @@ def main():
     text = ''
     for row in rows:
         print( f'/{row['post_name']} -> /fr/{row['art_slug']}' )
-        print( f"path('{row['post_name']}', RedirectView.as_view(url='/fr/{row['art_slug']}', permanent=True))," )
+        # print( f"path('{row['post_name']}', RedirectView.as_view(url='/fr/{row['art_slug']}', permanent=True))," )
         print()
-        text += f"    path('{row['post_name']}', RedirectView.as_view(url='/fr/{row['art_slug']}', permanent=True)),\n"
+        # text += f"    path('{row['post_name']}', RedirectView.as_view(url='/fr/{row['art_slug']}', permanent=True)),\n"
+        text += f"    re_path(r'^{row['post_name']}/?$', RedirectView.as_view(url='/fr/{row['art_slug']}', permanent=True)),\n"
         
     with open("scripts/redirections301.txt", "w", encoding="utf-8") as fichier:
         fichier.write(text)        
