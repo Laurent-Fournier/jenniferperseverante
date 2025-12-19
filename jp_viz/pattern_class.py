@@ -110,9 +110,23 @@ class Pattern:
 
             # Facebook video
             elif url.find('https://www.facebook.com/') != -1:
-                #url2 = url.replace('/', '%2F').replace(':', '%3A')
+                url2 = url.replace('/', '%2F').replace(':', '%3A')
 
-                newValue = f'''<div class="fb-video" data-href="{url}" data-width="900" data-show-text="false"></div>'''
+                newValue = f'''
+<div class="embed-responsive embed-responsive-16by9">           
+  <iframe
+    loading="lazy"
+    src="https://www.facebook.com/plugins/video.php?href={url}&show_text=false&width=900"
+    allowfullscreen
+    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+  </iframe>
+</div>
+            
+                '''
+
+            #    newValue = f'''<iframe src="https://www.facebook.com/plugins/video.php?height=314&href={url2}%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>'''
+
+            #    newValue = f'''<div class="fb-video" data-href="{url}" data-width="900" data-show-text="false"></div>'''
 
             #     newValue = f'''
             #     <div class="embed-responsive embed-responsive-16by9">
