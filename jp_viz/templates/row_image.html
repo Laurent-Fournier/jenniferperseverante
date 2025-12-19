@@ -21,14 +21,14 @@
           {% if section.images|length == 1 %}
             <div class="col-12 isotope-item wow-outer" data-filter="Category 2">
               <div class="wow fadeInUp">
-                <div class="gallery-item-classic"><img src="/images/1024/{{section.images.0.url}}" alt="{{section.images.0.alt}}" width="1024"/></div>
+                <div class="gallery-item-classic"><img src="/images/1024/{{section.images.0.url}}" alt="{{section.images.0.alt}}" width="1024" loading="lazy"/></div>
               </div>
             </div>
           {% else %}
             {% for image in section.images %}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 isotope-item wow-outer" data-filter="Category 2">
               <div class="wow fadeInUp">
-                <div class="gallery-item-classic"><img src="/images/1024/{{image.url}}" alt="{{image.alt}}" width="463"/>
+                <div class="gallery-item-classic"><img src="/images/1024/{{image.url}}" alt="{{image.alt}}" width="463" loading="lazy"/>
                   <div class="gallery-item-classic-caption"><a href="/images/1024/{{image.url}}" data-lightgallery="item">zoom</a></div>
                 </div>
               </div>

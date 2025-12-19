@@ -2,6 +2,11 @@
 /*
 * Trunk version 2.0.1
 */
+.embed-responsive {
+  background-color: #000; /* évite le flash blanc */
+  border-radius: 4px;
+  overflow: hidden;
+}
 /*
 * Contexts
 */
