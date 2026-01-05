@@ -64,14 +64,14 @@ def article(request, lg, slug=''):
             },
         )
 
-    if article["family"][:7] == "AT_HOME":
-        contact_type = "at_home"
-    elif article["family"][:7] == "WEDDING":
-        contact_type = "wedding"
-    elif article["family"][:6] == "STUDIO":
-        contact_type = "studio"
-    else:
-        contact_type = "generic"
+    contact_type = "generic"
+    if article["family"] is not None:
+        if article["family"][:7] == "AT_HOME":
+            contact_type = "at_home"
+        elif article["family"][:7] == "WEDDING":
+            contact_type = "wedding"
+        elif article["family"][:6] == "STUDIO":
+            contact_type = "studio"
 
     no_section = len(article["sections"])
 
@@ -81,10 +81,11 @@ def article(request, lg, slug=''):
         r = Contact(lg, contact_type, url, no_section).process(request)
 
     map = None
-    if article["family"][:6] == "STUDIO":
-        map = "STUDIO"
-    elif article["family"][:7] == "AT_HOME":
-        map = "AT_HOME"
+    if article["family"] is not None:
+        if article["family"][:6] == "STUDIO":
+            map = "STUDIO"
+        elif article["family"][:7] == "AT_HOME":
+            map = "AT_HOME"
 
     parsed_url = urlparse(url)
     base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
@@ -376,7 +377,7 @@ def getLanguageFromUrl(url):
 
 def get_related_articles(article, language_code):
     article_id = article["id"]
-    families = article["family"]
+    families = article["family"] if article["family"] is not None else ''
 
     # family1, family2, family3 => "family1", "family2", "family3"
     tabs = families.split(",")
