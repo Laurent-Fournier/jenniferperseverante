@@ -80,7 +80,7 @@ def generic(request):
 
     return render(
         request,
-        'jp_viz/article.html',
+        'article.html',
         {
             'language_code': lang_config['language_code'],
             'html': lang_config['html'],
