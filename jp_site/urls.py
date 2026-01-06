@@ -70,7 +70,6 @@ urlpatterns = [
     path('studio-maquillage-chevry/', RedirectView.as_view(url='/fr/studio-maquillage-chevry', permanent=True)),
     path('maquillage-mariage-hack/', RedirectView.as_view(url='/fr/maquillage-mariage-hack', permanent=True)),
     path('choisir-maquillage-mariage/', RedirectView.as_view(url='/fr/choisir-maquillage-mariage', permanent=True)),
-    path('ateliers-maquillage-cadeau/', RedirectView.as_view(url='/fr/ateliers-maquillage-cadeau', permanent=True)),
     path('maquillage-cossigny-perseverante/', RedirectView.as_view(url='/fr/atelier-maquillage-chevry-cossigny', permanent=True)),
     
     path('maquillage-rouge-levres', RedirectView.as_view(url='/fr/maquillage-rouge-levres', permanent=True)),
@@ -133,12 +132,37 @@ urlpatterns = [
     path('studio-maquillage-chevry', RedirectView.as_view(url='/fr/studio-maquillage-chevry', permanent=True)),
     path('maquillage-mariage-hack', RedirectView.as_view(url='/fr/maquillage-mariage-hack', permanent=True)),
     path('choisir-maquillage-mariage', RedirectView.as_view(url='/fr/choisir-maquillage-mariage', permanent=True)),
-    path('ateliers-maquillage-cadeau', RedirectView.as_view(url='/fr/ateliers-maquillage-cadeau', permanent=True)),
     path('maquillage-cossigny-perseverante', RedirectView.as_view(url='/fr/atelier-maquillage-chevry-cossigny', permanent=True)),
+
+    path('contact/', RedirectView.as_view(url='/fr/contact', permanent=True)),
+    path('contact', RedirectView.as_view(url='/fr/contact', permanent=True)),
+
+    # Soft 404
+    path('atelier-maquillage/', RedirectView.as_view(url='/fr/studio-de-maquillage', permanent=True)),
+    path('atelier-maquillage', RedirectView.as_view(url='/fr/studio-de-maquillage', permanent=True)),
+    path('relation-client/', RedirectView.as_view(url='/fr/jennifer-perseverante-maquilleuse-professionnelle', permanent=True)),
+    path('relation-client/', RedirectView.as_view(url='/fr/jennifer-perseverante-maquilleuse-professionnelle', permanent=True)),
+    path('ateliers-maquillage-cadeau/', RedirectView.as_view(url='/fr/studio-de-maquillage', permanent=True)),
+    path('ateliers-maquillage-cadeau', RedirectView.as_view(url='/fr/studio-de-maquillage', permanent=True)),
+    path('blog/', RedirectView.as_view(url='/fr/', permanent=True)),
+    path('blog', RedirectView.as_view(url='/fr/', permanent=True)),
+    path('home', RedirectView.as_view(url='/fr/', permanent=True)),
+    path('camoufler', RedirectView.as_view(url='/fr/camoufler-tatouage-maquillage', permanent=True)),
+    path('qualites-', RedirectView.as_view(url='/fr/qualites-maquilleuse-mariage', permanent=True)),
+    path('qualites-maquilleuse-', RedirectView.as_view(url='/fr/qualites-maquilleuse-mariage', permanent=True)),
+    
+    # Erreurs Wordpress
+    path('xmlrp.php', RedirectView.as_view(url='/fr/', permanent=True)),
+    path('wp-content/themes/nexus_390_3_0_220330_1409/nexusframework/stable', RedirectView.as_view(url='/fr/', permanent=True)),
+    path('wp-content/themes/nexus_390_3_0_220330_1409/nexusframework/stable/', RedirectView.as_view(url='/fr/', permanent=True)),
 
     path('robots.txt', views.robots_txt, name='robots_txt'), 
     path('sitemap.xml', views.sitemap, name='sitemap'),    
     path('admin/', admin.site.urls),
+    
+    # Redirection 301 pour toutes les URLs /tag/xxxx/
+    re_path(r'^tag/.*/$', RedirectView.as_view(url='/fr/', permanent=True)),
+    re_path(r'^category/.*/$', RedirectView.as_view(url='/fr/', permanent=True)),
     
     # Root '/' redirect to '/fr/'
     re_path(r'^$', redirect_to_fr, name='redirect-to-fr'),
@@ -152,8 +176,8 @@ urlpatterns = [
     path('es/contacto', views_contact.generic),
 
     # DEV Pages
-    path('demo', views.demo),
-    path('gallery', views_gallery.gallery),
+    #path('demo', views.demo),
+    #path('gallery', views_gallery.gallery),
 
     # Search Page
     path('<str:lg>/search', views_article.search),
