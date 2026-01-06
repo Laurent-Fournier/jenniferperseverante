@@ -30,6 +30,7 @@
               </li>
               <li class="rd-nav-item{% if active == 'studio' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.studio.slug }}">{{ navbar.studio.nav }}</a>
               <li class="rd-nav-item{% if active == 'about' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.about.slug }}">{{ navbar.about.nav }}</a>
+              <li class="rd-nav-item{% if active == 'contact' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.contact.slug }}">{{ navbar.contact.nav }}</a>
 
 {% if slugs_lg %}
   {% if lg == 'fr' %}
@@ -59,8 +60,10 @@
     </div>
   </nav>
 </div>
+
 {% comment %}
-Active: {{ active }}<br/>
+Active: {{ active }}<br/><br/>
+Slugs_lg: {{slugs_lg}}<br/><br/>
 Navbar: {{ navbar }}<br/><br/>
 Article: {{ article }}<br/><br/>
 {% endcomment %}

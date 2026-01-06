@@ -3,7 +3,10 @@
 from django.shortcuts import render
 from django_ratelimit.decorators import ratelimit
 
+import os
+from urllib.parse import urlparse
 from .contact_class import Contact
+from .navbar_class import Navbar
 
 # --------------------------------------------------
 # Page avec Formulaire de contact générique
@@ -64,13 +67,13 @@ def generic(request):
     }
 
     # Determines the language based on the URL, otherwise uses 'fr' as default
-    language_code = 'fr'  # Default value
+    lg = 'fr'  # Default value
     for code in language_settings.keys():
         if request.path.startswith(f'/{code}/'):
-            language_code = code
+            lg = code
             break
 
-    lang_config = language_settings[language_code]
+    lang_config = language_settings[lg]
 
     contact = Contact(lang_config['language_code'], 'generic', url)
 
@@ -78,17 +81,31 @@ def generic(request):
         # Send email and save in DB ?
         r = contact.process(request)
 
+    all_languages = ['fr', 'en', 'es']
+    other_languages = [lang for lang in all_languages if lang != lg]
+
+    parsed_url = urlparse(url)
+    base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
+
     return render(
         request,
         'article.html',
         {
-            'language_code': lang_config['language_code'],
-            'html': lang_config['html'],
+            "environment": os.getenv('ENVIRONMENT'),
+            'base_url': base_url,
+            "html": {
+                "title": lang_config['html']['title'],
+                "description": lang_config['html']['description'],
+            },           
+            'other_languages': other_languages,
+            'navbar': Navbar(lg).to_json(),  
+            'lg': lg,
             'hero': lang_config['hero'],
+            'slugs_lg': {'fr': 'contact', 'en': 'contact-us', 'es': 'contacto'},
             'article': {
                 'family': 'generic',
-                'language_code': lang_config['language_code'],
-                'translated_slugs': {
+                'language_code': lg,
+                'slugs_lg': {
                     'fr': 'contact',
                     'en': 'contact-us',
                     'es': 'contacto',

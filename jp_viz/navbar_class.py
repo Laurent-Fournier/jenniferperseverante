@@ -36,6 +36,11 @@ class Navbar:
         labels = {'fr': 'Prestations', 'en': 'Services', 'es': 'Servicios'}
         self.nav_items["services"] = { "id": None, "active": None, "nav": labels[lg], "slug": None}
 
+        labels = {'fr': 'Contact', 'en': 'Contact Us', 'es': 'Contacto'}
+        slugs  = {'fr': 'contact', 'en': 'contact-us', 'es': 'contacto'}
+        self.nav_items["contact"] = { "id": None, "active": None, "nav": labels[lg], "slug": slugs[lg]}
+
+
     def __str__(self):
         return "Navbar initialization"
 
