@@ -42,8 +42,8 @@ def article(request, lg, slug=''):
                 "environment": os.getenv('ENVIRONMENT'),            
                 "lg": 'en',
                 "html": {
-                    'title': 'Gallery',
-                    'description': 'Gallery',
+                    'title': '404 error page' + os.getenv('HTML_TITLE_SUFFIX'),
+                    'description': '404 error page',
                 },
                 "active": 'gallery',
                 "navbar": Navbar('en').to_json(),
@@ -89,7 +89,7 @@ def article(request, lg, slug=''):
 
     parsed_url = urlparse(url)
     base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
-
+    
     return render(
         request,
         'article.html',
@@ -97,9 +97,9 @@ def article(request, lg, slug=''):
             "environment": os.getenv('ENVIRONMENT'),
             'base_url': base_url,
             "html": {
-                "title": article['title'],
+                "title": article['title'] + os.getenv('HTML_TITLE_SUFFIX'),
                 "description": article['description'],
-            },            
+            },
             'lg': lg,
             'other_languages': other_languages,
             'navbar': Navbar(lg).to_json(),      
@@ -424,7 +424,8 @@ def get_related_articles(article, language_code):
 # ------------------
 def search(request, lg):
     '''Search pattern in hero_title, hero_subtitle and art_text'''
-
+    url = request.build_absolute_uri()
+    
     all_languages = ['fr', 'en', 'es']
     other_languages = [lang for lang in all_languages if lang != lg]
 
@@ -436,7 +437,7 @@ def search(request, lg):
         datetime = datetime.now(),
         language_code = lg,
         search_url = request.META.get('HTTP_REFERER', '/'),
-        search_text="query",
+        search_text = query,
         user_agent = request.headers.get('User-Agent')
     )
     ux_search.save()
@@ -496,12 +497,18 @@ def search(request, lg):
         html_description_lg = "Page de recherche"
         nav_lg = 'Recherche'
         title_lg = f"Recherche sur la requête '{query}'"
+
+    parsed_url = urlparse(url)
+    base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
         
     return render(request, "search.html",
         {
-            "environment": os.getenv('ENVIRONMENT'),            
-            "html_title": html_title_lg,
-            "html_description": html_description_lg,
+            "environment": os.getenv('ENVIRONMENT'),
+            'base_url': base_url,
+            "html": {
+                "title": html_title_lg + os.getenv('HTML_TITLE_SUFFIX'),
+                "description": html_description_lg,
+            },
             'lg': lg,
             'other_languages': other_languages,
             'navbar': Navbar(lg).to_json(),

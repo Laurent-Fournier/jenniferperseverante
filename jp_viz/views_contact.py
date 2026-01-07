@@ -22,7 +22,7 @@ def generic(request):
         'fr': {
             'language_code': "fr",
             'html': {
-                'title': "Contact",
+                'title': "Page de Contact",
                 'description': "Formulaire pour contacter Jennifer Perseverante, maquilleuse professionnelle",
             },
             'hero': {
@@ -37,7 +37,7 @@ def generic(request):
         'en': {
             'language_code': "en",
             'html': {
-                'title': "Contact",
+                'title': "Contact page",
                 'description': "Form to contact Jennifer Perseverante, professional makeup artist",
             },    
             'hero': {
@@ -52,7 +52,7 @@ def generic(request):
         'es': {
             'language_code': "es",
             'html': {
-                'title': "Contacto",
+                'title': "Página de contacto",
                 'description': "Formulario para contactar con Jennifer Perseverante, maquilladora profesional",
             },    
             'hero': {
@@ -94,7 +94,7 @@ def generic(request):
             "environment": os.getenv('ENVIRONMENT'),
             'base_url': base_url,
             "html": {
-                "title": lang_config['html']['title'],
+                "title": lang_config['html']['title'] + os.getenv('HTML_TITLE_SUFFIX'),
                 "description": lang_config['html']['description'],
             },           
             'other_languages': other_languages,
