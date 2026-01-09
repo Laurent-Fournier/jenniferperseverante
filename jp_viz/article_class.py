@@ -1,5 +1,7 @@
 from typing import Dict
 from django.core.exceptions import ObjectDoesNotExist
+import locale
+from datetime import date
 
 from .models import ArticleLg
 
@@ -34,4 +36,48 @@ class ArticleService:
             raise ObjectDoesNotExist(f"No article found with ID {article_id}.")
         
         return {row['language_code']: row['art_slug'] for row in rows}   
+
     
+    def get_date_lg(self, date: date, language : str) -> str:
+        """
+        Formats a date as clear text according to the specified language.
+
+        Args:
+            date: Date object to format.
+            language: Language code ('fr', 'en', 'es').
+
+        Returns:
+            str: Formatted date as clear text.
+
+        Raises:
+            ValueError: If the language is not supported.
+        """        
+        # Save the current locale
+        old_locale = locale.getlocale(locale.LC_TIME)
+
+        try:
+            if language  == 'fr':
+                # Set the locale to French
+                locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
+                day = date.day
+                month = date.strftime("%B")
+                year = date.year
+                day_str = f"{day}er" if day == 1 else str(day)
+                return f"Article mis en ligne le {day_str} {month} {year}"
+
+            elif language  == 'en':
+                # Set the locale to English
+                locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
+                return date.strftime("Article published online on %B %e, %Y").replace('  ', ' ')
+
+            elif language  == 'es':
+                # Set the locale to Spanish
+                locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+                return date.strftime("Artículo publicado en línea el %d de %B de %Y")
+
+            else:
+                raise ValueError(f"Unsupported language: {language}")
+
+        finally:
+            # Always restore the original locale
+            locale.setlocale(locale.LC_TIME, old_locale)

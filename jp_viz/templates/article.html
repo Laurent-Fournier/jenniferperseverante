@@ -14,6 +14,9 @@
 {% endif %}
 {% include "row_alert.html" with response=response %}
 {% include "row_who_am_i.html" %}
+{% if with_article_date == 1 %}
+    {% include "row_article_date.html" %}
+{% endif %}
 
 {% for section in article.sections %}
     {% if section.type == 'TEXT' %}
@@ -45,6 +48,7 @@
     {% include "row_related_articles.html" %}
 {% endif %}
 
+
 {% comment %}
 <section class="section section-lg bg-default bg-gray-light">
   <div class="container">
@@ -56,6 +60,7 @@
         <h3>Navbar:</h3> {{navbar}}<br/>
         <h3>Slug:</h3> {{slug}}<br/>
         <h3>Hero:</h3> {{hero}}<br/>
+        <h3>Display Article date:</h3> {{with_article_date}}<br/>
         <h3>All slugs:</h3> {{slugs_lg}}<br/>
         <h3>Contact Form</h3> {{contact_form}}
         <h3>Article:</h3>{{article}}<br/><br/>
@@ -71,4 +76,5 @@
   </div>
 </section> 
 {% endcomment %}
+
 {% endblock %}
