@@ -15,6 +15,7 @@ import re
 from urllib.parse import urlparse
 
 from .contact_class import Contact
+from .article_class import ArticleService
 from .pattern_class import *
 from .navbar_class import Navbar
 
@@ -105,7 +106,7 @@ def article(request, lg, slug=''):
             'navbar': Navbar(lg).to_json(),      
             'slug': slug,
             'hero': hero,
-            'slugs_lg': get_slugs(article["id"]),
+            'slugs_lg': ArticleService().get_slugs(article["id"]),
             'article': article,
             'map': map,
             "contact_form": Contact(lg, contact_type, url, no_section).get_texts(),
@@ -195,21 +196,10 @@ def get_article_by_slug(lg, slug=None):
         "family": data["art_family"],
         "is_page": bool(data["is_page"]) if data["is_page"] is not None else False,
         "cover": data["art_cover"],
-        "translated_slugs": get_slugs(data["id"]),
+        "translated_slugs": ArticleService().get_slugs(data["id"]),
         "sections": sections,
     }
     return hero, article
-
-
-def get_slugs(article_id):
-    """Retourne un dictionnaire {language_code: art_slug} pour un article donné."""
-    rows = (
-        ArticleLg.objects
-        .filter(id=article_id)
-        .values('language_code', 'art_slug')
-    )    
-    return {row['language_code']: row['art_slug'] for row in rows}   
-       
 
 # ----------------------------------------------
 def parse_sections(s, language_code):
@@ -365,13 +355,13 @@ def parse_images(text, language_code):
 # ----------------------------
 # Return Language from Url
 # ----------------------------
-def getLanguageFromUrl(url):
-    if "/en/" in url:
-        return "en"
-    elif "/es/" in url:
-        return "es"
-    else:
-        return "fr"
+# def getLanguageFromUrl(url):
+#     if "/en/" in url:
+#         return "en"
+#     elif "/es/" in url:
+#         return "es"
+#     else:
+#         return "fr"
     
     
 
