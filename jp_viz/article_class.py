@@ -51,7 +51,10 @@ class ArticleService:
 
         Raises:
             ValueError: If the language is not supported.
-        """        
+        """
+        if date is None:
+            return None
+
         # Save the current locale
         old_locale = locale.getlocale(locale.LC_TIME)
 

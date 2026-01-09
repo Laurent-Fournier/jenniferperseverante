@@ -14,7 +14,7 @@
 {% endif %}
 {% include "row_alert.html" with response=response %}
 {% include "row_who_am_i.html" %}
-{% if with_article_date == 1 %}
+{% if with_article_date == 1 and article.date %}
     {% include "row_article_date.html" %}
 {% endif %}
 

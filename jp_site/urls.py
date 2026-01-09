@@ -176,8 +176,8 @@ urlpatterns = [
     path('es/contacto', views_contact.generic),
 
     # DEV Pages
-    #path('demo', views.demo),
-    #path('gallery', views_gallery.gallery),
+    path('demo', views.demo),
+    path('gallery', views_gallery.gallery),
 
     # Search Page
     path('<str:lg>/search', views_article.search),
