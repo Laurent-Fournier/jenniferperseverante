@@ -152,9 +152,10 @@ urlpatterns = [
     path('qualites-maquilleuse-', RedirectView.as_view(url='/fr/qualites-maquilleuse-mariage', permanent=True)),
     
     # Erreurs Wordpress
-    path('xmlrp.php', RedirectView.as_view(url='/fr/', permanent=True)),
+    path('xmlrpc.php', RedirectView.as_view(url='/fr/', permanent=True)),
     path('wp-content/themes/nexus_390_3_0_220330_1409/nexusframework/stable', RedirectView.as_view(url='/fr/', permanent=True)),
     path('wp-content/themes/nexus_390_3_0_220330_1409/nexusframework/stable/', RedirectView.as_view(url='/fr/', permanent=True)),
+
 
     path('robots.txt', views.robots_txt, name='robots_txt'), 
     path('sitemap.xml', views.sitemap, name='sitemap'),    
@@ -163,6 +164,7 @@ urlpatterns = [
     # Redirection 301 pour toutes les URLs /tag/xxxx/
     re_path(r'^tag/.*/$', RedirectView.as_view(url='/fr/', permanent=True)),
     re_path(r'^category/.*/$', RedirectView.as_view(url='/fr/', permanent=True)),
+    re_path(r'^page/.*/$', RedirectView.as_view(url='/fr/', permanent=True)),
     
     # Root '/' redirect to '/fr/'
     re_path(r'^$', redirect_to_fr, name='redirect-to-fr'),

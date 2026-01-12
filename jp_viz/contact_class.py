@@ -216,58 +216,72 @@ class Contact:
 
         # Validations
         #errors = []
+        is_spam = None
+        if '@mail.ru' in msg_email:
+            is_spam = 1
+            message = 'identified as spam: Email contains @mail.ru pattern'
+        elif 'и' in msg_text:
+            is_spam = 1
+            message = 'identified as spam: Text contains и character'
+        elif 'AI-powered' in msg_text:
+            is_spam = 1
+            message = 'identified as spam: Text contains AI-powered pattern'
+            
+        if is_spam != 1:
+            # Send email
+            msg_text_cleaned = msg_text.replace('\n', '<br>')
+            email_body = ''
+            email_body += f"<strong>Url :</strong> {self.url}<br>\n"
+            email_body += f"<strong>User agent :</strong> {user_agent}<br>\n"
+            # email_body += f"<strong>Message:</strong><br>{request.limited}<br>\n"
+            email_body += f"<strong>Date :</strong> {timezone.now()}<br>\n"
+            email_body += f"<strong>Type :</strong> {contact_type}<br>\n"
+            email_body += f"<strong>Langue :</strong> {self.lg}<br>\n"
+            email_body += f"<strong>Nom :</strong> {msg_name}<br>\n"
+            email_body += f"<strong>Email :</strong> {msg_email}<br>\n"
+            email_body += f"<strong>Sujet :</strong> {msg_subject}<br>\n"
+            email_body += f"<strong>Adresse exacte :</strong> {msg_address}<br>\n"
+            email_body += f"<strong>Pour quel événément ?</strong> {msg_event}<br>\n"
+            email_body += f"<strong>Date de la séance :</strong> {msg_date}<br>\n"
+            email_body += f"<strong>Horaire :</strong> {msg_time}<br>\n"
+            email_body += f"<strong>Nb de personnes à maquiller :</strong> {msg_people}<br>\n"
+            email_body += f"<strong>Maquillage souhaité :</strong> {msg_makeup}<br>\n"
+            email_body += "<hr>\n"
+            email_body += f"<strong>Message:</strong><br>{msg_text_cleaned}"
 
-        # send email
-        msg_text_cleaned = msg_text.replace('\n', '<br>')
-        email_body = ''
-        email_body += f"<strong>Url :</strong> {self.url}<br>\n"
-        email_body += f"<strong>User agent :</strong> {user_agent}<br>\n"
-        # email_body += f"<strong>Message:</strong><br>{request.limited}<br>\n"
-        email_body += f"<strong>Date :</strong> {timezone.now()}<br>\n"
-        email_body += f"<strong>Type :</strong> {contact_type}<br>\n"
-        email_body += f"<strong>Langue :</strong> {self.lg}<br>\n"
-        email_body += f"<strong>Nom :</strong> {msg_name}<br>\n"
-        email_body += f"<strong>Email :</strong> {msg_email}<br>\n"
-        email_body += f"<strong>Sujet :</strong> {msg_subject}<br>\n"
-        email_body += f"<strong>Adresse exacte :</strong> {msg_address}<br>\n"
-        email_body += f"<strong>Pour quel événément ?</strong> {msg_event}<br>\n"
-        email_body += f"<strong>Date de la séance :</strong> {msg_date}<br>\n"
-        email_body += f"<strong>Horaire :</strong> {msg_time}<br>\n"
-        email_body += f"<strong>Nb de personnes à maquiller :</strong> {msg_people}<br>\n"
-        email_body += f"<strong>Maquillage souhaité :</strong> {msg_makeup}<br>\n"
-        email_body += "<hr>\n"
-        email_body += f"<strong>Message:</strong><br>{msg_text_cleaned}"
-
-        try:
-            email = EmailMessage(
-                subject = f'Formulaire de contact du site JenniferPerseverante [{os.getenv('ENVIRONMENT')}]',
-                body = email_body,
-                from_email = 'laurent@beautifuldata.fr',
-                to = ['laurent@beautifuldata.fr'],
-            )
-            email.content_subtype = 'html'
-            nb = email.send()
-
-            r = { 'status': 'SUCCESS', 'message': None, 'count': nb}
-        except Exception as e:
-            r = { 'status': 'ERROR', 'message': str(e), 'count': 0}
+            try:
+                email = EmailMessage(
+                    subject = f'Formulaire de contact du site JenniferPerseverante [{os.getenv('ENVIRONMENT')}]',
+                    body = email_body,
+                    from_email = 'laurent@beautifuldata.fr',
+                    to = ['laurent@beautifuldata.fr'],
+                )
+                email.content_subtype = 'html'
+                nb = email.send()
+                r = { 'status': 'SUCCESS', 'message': None, 'count': nb}
+            except Exception as e:
+                r = { 'status': 'ERROR', 'message': str(e), 'count': 0}
+        else:
+            r = { 'status': 'EMAIL NOT SENT', 'message': message, 'count': 0}
+            
 
         # Save message in Database
         message = Message(
             datetime = timezone.now(),
-            language_code = self.lg,
-            contact_type = contact_type,
-            msg_url = self.url,
+            is_spam = is_spam,
             msg_name = msg_name,
             msg_email = msg_email,
             msg_subject = msg_subject,
+            msg_text = msg_text,
+            language_code = self.lg,
+            contact_type = contact_type,
+            msg_url = self.url,
             msg_address = msg_address,
             msg_event = msg_event,
             msg_date = msg_date,
             msg_time = msg_time,
             msg_people = msg_people,
             msg_makeup = msg_makeup,
-            msg_text = msg_text,
             response_status = r['status'],
             response_message = r['message'],
             user_agent = user_agent,
