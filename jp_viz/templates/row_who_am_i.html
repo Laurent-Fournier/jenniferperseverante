@@ -30,7 +30,7 @@
     <div class="col-md-4 col-lg-6 wow-outer">
       <div class="box-icon-classic">
         <form class="d-flex" role="search" method="get" action="/{{lg}}/search">
-          <input class="form-control" id="p" name="p" type="search" placeholder="{% if lg == 'es' %}Buscar{% elif lg == 'en' %}Search{% else %}Rechercher{% endif %}..." aria-label="Search">
+          <input class="form-control" id="p" name="p" type="search" placeholder="{% if lg == 'es' %}Buscar{% elif lg == 'en' %}Search{% else %}Rechercher{% endif %}..." aria-label="Search" required>
           <button class="btn mb-4" type="submit" aria-label="submit">{% include "./widget_icon.html" with icon="search" size=16 %}</button>
         </form>
       </div>
