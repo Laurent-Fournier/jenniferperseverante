@@ -34,34 +34,47 @@ def article(request, lg, slug=''):
     all_languages = ['fr', 'en', 'es']
     other_languages = [lang for lang in all_languages if lang != lg]
 
+    parsed_url = urlparse(url)
+    base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
+
     # Page 404 si l'article n'existe pas
     if article == {}:  # slug not found
+        
+        subtitle = {
+            'fr': 'Maquilleuse professionnelle<br>à Paris et Ile-de-France',
+            'en': 'Professional makeup artist<br>in Paris and Ile-de-France',
+            'es': 'Maquilladora profesional<br>en París y Île-de-France',
+        }
+        body = {
+            'fr': '<h2>Page non trouvée (404)</h2><p>Oups ! La page que vous cherchez n’existe pas.</p>',
+            'en': '<h2>Page not found (404)</h2><p>Oops! The page you are looking for does not exist.</p>',
+            'es': '<h2>Página no encontrada (404)</h2><p>¡Uy! La página que buscas no existe.</p>',
+        }
+        
         return render(
             request,
             "404.html",
             {
                 "environment": os.getenv('ENVIRONMENT'),            
-                "lg": 'en',
+                'base_url': base_url,
                 "html": {
                     'title': '404 error page' + os.getenv('HTML_TITLE_SUFFIX'),
                     'description': '404 error page',
                 },
-                "active": 'gallery',
-                "navbar": Navbar('en').to_json(),
+                "lg": lg,
+                'other_languages': other_languages,
+                "navbar": Navbar(lg).to_json(),
+                "active": None,
                 "hero": {
-                    "nav": "gallery",
+                    "nav": "",
                     "image": {
                         "src": "contact.avif",
                         "alt": ""
                     },
-                    "title": "Jennifer Perseverante.com",
-                    "subtitle": (
-                        "Professional makeup artist in Paris and Ile-de-France"
-                        if lg == "en"
-                        else "Maquilleuse professionnelle à Paris et Ile-de-France"
-                     ),
-
-                }
+                    "title": "Jennifer Perseverante",
+                    "subtitle": subtitle[lg],
+                },
+                "body": body[lg],
             },
         )
 
@@ -87,9 +100,10 @@ def article(request, lg, slug=''):
             map = "STUDIO"
         elif article["family"][:7] == "AT_HOME":
             map = "AT_HOME"
-
-    parsed_url = urlparse(url)
-    base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
+    
+    comments = None
+    if os.getenv('DISPLAY_COMMENTS')==1:
+        comments = ArticleService().get_comments(article["id"])
     
     return render(
         request,
@@ -113,6 +127,7 @@ def article(request, lg, slug=''):
             "contact_form": Contact(lg, contact_type, url, no_section).get_texts(),
             'response': r,
             'related_articles': get_related_articles(article, lg),
+            'comments': comments,
         },
     )
 
@@ -201,6 +216,7 @@ def get_article_by_slug(lg, slug=None):
         "translated_slugs": ArticleService().get_slugs(data["id"]),
         "sections": sections,
     }
+   
     return hero, article
 
 # ----------------------------------------------
@@ -354,18 +370,6 @@ def parse_images(text, language_code):
 
     return [], [], [], images, []  # No title | No subtitle | No text | Many images | No video
 
-# ----------------------------
-# Return Language from Url
-# ----------------------------
-# def getLanguageFromUrl(url):
-#     if "/en/" in url:
-#         return "en"
-#     elif "/es/" in url:
-#         return "es"
-#     else:
-#         return "fr"
-    
-    
 
 def get_related_articles(article, language_code):
     article_id = article["id"]

@@ -84,3 +84,10 @@ class ArticleService:
         finally:
             # Always restore the original locale
             locale.setlocale(locale.LC_TIME, old_locale)
+            
+
+    def get_comments(self, article_id: int):
+        article_id = article["id"]
+       
+        return {}
+

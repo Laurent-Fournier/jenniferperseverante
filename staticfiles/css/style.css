@@ -5469,7 +5469,7 @@ html [class*='section-'].section-bottom-0 {
 }
 
 @media (min-width: 768px) {
-    .italic-subtitle {
+	.section-main-bunner .italic-subtitle {
 		padding-left: 70px;
 	}
 }
