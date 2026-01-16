@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import locale
 from datetime import date
 
-from .models import ArticleLg
+from .models import ArticleLg, Comment
 
 class ArticleService:
     def __str__(self):
@@ -87,7 +87,24 @@ class ArticleService:
             
 
     def get_comments(self, article_id: int):
-        article_id = article["id"]
-       
-        return {}
+ 
+        comments = []
+        
+        # Read Data
+        rows = (
+            Comment.objects
+            .filter(art_id=article_id, com_approved=1)
+            .values('id', 'com_author', 'com_author_email', 'com_date', 'com_content', 'parent_id')
+        )    
+        
+        for row in rows:
+            comments.append({
+                'id': row['id'],
+                'author': row['com_author'],
+                'author_email': row['com_author_email'],
+                'date': row['com_date'],
+                'content': row['com_content'],
+                'parent_id': row['parent_id'],
+            })
+        return comments
 

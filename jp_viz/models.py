@@ -33,6 +33,21 @@ class ArticleLg(models.Model):
         db_table = 'article_lg'
 
 
+class Comment(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+    art_id = models.PositiveIntegerField()
+    com_author = models.CharField(max_length=255, blank=True, null=True)
+    com_author_email = models.CharField(max_length=100, blank=True, null=True)
+    com_date = models.DateTimeField(blank=True, null=True)
+    com_content = models.TextField(blank=True, null=True)
+    com_approved = models.PositiveIntegerField(blank=True, null=True)
+    parent_id = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'comment'
+
+
 class Message(models.Model):
     datetime = models.DateTimeField(blank=True, null=True, db_comment='Placer dans models.py: datetime = models.DateTimeField(auto_now_add=True)')
     is_spam = models.PositiveIntegerField(blank=True, null=True)

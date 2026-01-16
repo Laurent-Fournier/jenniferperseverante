@@ -48,6 +48,10 @@
     {% include "row_related_articles.html" %}
 {% endif %}
 
+{% if comments|length > 0 %}
+    {% include "row_comments.html" %}
+{% endif %}
+
 
 {% comment %}
 <section class="section section-lg bg-default bg-gray-light">
@@ -64,6 +68,7 @@
         <h3>All slugs:</h3> {{slugs_lg}}<br/>
         <h3>Contact Form</h3> {{contact_form}}
         <h3>Article:</h3>{{article}}<br/><br/>
+        <h3>Related articles:</h3>{{related_articles}}<br/><br/>
         <h3>Sections:</h3><br/>
 {% for section in article.sections %}
         <br/>

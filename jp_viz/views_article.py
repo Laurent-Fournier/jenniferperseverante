@@ -102,7 +102,7 @@ def article(request, lg, slug=''):
             map = "AT_HOME"
     
     comments = None
-    if os.getenv('DISPLAY_COMMENTS')==1:
+    if int(os.getenv('DISPLAY_COMMENTS'))==1:
         comments = ArticleService().get_comments(article["id"])
     
     return render(
