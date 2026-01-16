@@ -1,0 +1,19 @@
+<!-- Comments -->
+ <section class="section section-lg">
+  <div class="container">
+    <div class="row row-50">
+      <div class="col-12 text-center">
+        <h3 class="title-decorate">Commentaires</h3>
+      </div>        
+{% for comment in comments %}
+  <hr>
+  {{comment.date}} - {{comment.author}} : <br>
+  {{comment.content}}<br><br>
+{% endfor %}
+
+{% for comment in comments %}
+   {{comment}}<hr>
+{% endfor %}
+    </div>
+  </div>
+</section>
