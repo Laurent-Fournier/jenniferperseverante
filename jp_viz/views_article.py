@@ -29,7 +29,12 @@ def article(request, lg, slug=''):
     url = request.build_absolute_uri()
     
     # Read article data from database
-    hero, article = get_article_by_slug(lg, slug)
+    hero = None
+    article = {}
+    if lg in ['fr', 'en', 'es']:
+        hero, article = get_article_by_slug(lg, slug)
+    else:
+        lg='fr'
 
     all_languages = ['fr', 'en', 'es']
     other_languages = [lang for lang in all_languages if lang != lg]
