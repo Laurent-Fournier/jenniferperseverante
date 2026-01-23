@@ -1,4 +1,16 @@
 <!-- RD Navbar-->
+
+<style>
+    /* Changement de couleur au survol pour le bouton CTA */
+    .rd-nav-item .btn-primary {
+        background-color: #f87b7f;
+    }
+    .rd-nav-item .btn-primary:hover {
+        background-color: #f87b7f;
+        border-color: #f87b7f;
+    }
+</style>
+
 <div class="rd-navbar-wrap">
   <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
     <div class="rd-navbar-main-outer">
@@ -30,8 +42,7 @@
               </li>
               <li class="rd-nav-item{% if active == 'studio' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.studio.slug }}">{{ navbar.studio.nav }}</a>
               <li class="rd-nav-item{% if active == 'about' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.about.slug }}">{{ navbar.about.nav }}</a>
-              <li class="rd-nav-item{% if active == 'contact' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.contact.slug }}">{{ navbar.contact.nav }}</a>
-
+              <li class="rd-nav-item{% if active == 'contact' %} active{% endif %}"><a class="rd-nav-link btn btn-primary text-white" href="/{{lg}}/{{ navbar.contact.slug }}">{{ navbar.contact.nav }}</a>
 {% if slugs_lg %}
   {% if lg == 'fr' %}
               <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{slugs_lg.en}}" aria-label="version anglaise">EN</a></li>
