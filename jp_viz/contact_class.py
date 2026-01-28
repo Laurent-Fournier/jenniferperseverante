@@ -19,6 +19,15 @@ class Contact:
 
     TEXTS = {
         'fr': {
+            'title': "Contactez-moi",
+            'chapo': (
+                "Mariage, cours de maquillage, EVJF, shooting, maquillage de soirée, maquillage de fête, entreprise, carte cadeau…<br>"
+                "N'hésitez pas à me contacter, je me ferai un plaisir de vous répondre au plus vite.<br>"
+                "<br>"
+                "📞 Par message ou par appel au : <strong><a href=\"tel:+33660648626\">06 60 64 86 26</a></strong><br>"
+                "<br>"
+                "Ou sélectionnez le sujet pour lequel vous souhaitez prendre contact :<br>"
+            ),
             'name_label': "Votre nom",
             'email_label': "E-mail",
             'subject_label': "Sujet",
@@ -38,7 +47,6 @@ class Contact:
                 'message_label': "Message",
             },
             'wedding': {
-                'title': "Contactez-moi",
                 'subtitle': (
                     "Afin de vous délivrer le meilleur service possible pour votre mariage, merci de remplir le formulaire suivant :"
                 ),
@@ -46,7 +54,6 @@ class Contact:
                 'message_label': "Plus de détails...",
             },
             'studio': {
-                'title': "Contactez-moi",
                 'subtitle': (
                     "Afin de vous délivrer le meilleur service possible pour la séance de maquillage dans mon studio, merci de remplir le formulaire suivant : "
                 ),
@@ -56,7 +63,6 @@ class Contact:
                 'message_label': "Plus de détails...",
             },
             'at_home': {
-                'title': "Contactez-moi",
                 'subtitle': (
                     "Afin de vous délivrer le meilleur service possible pour la séance de maquillage à domicile,<br>"
                     "merci de remplir le formulaire suivant :"
@@ -68,6 +74,16 @@ class Contact:
             }
         },
         'en': {
+            'title': "Get In Touch",
+            'chapo': (
+                "Wedding, makeup classes, bachelorette party, photoshoot, evening makeup, party makeup, corporate events, gift card…<br>"
+                "Feel free to contact me; I’ll be happy to get back to you as soon as possible.<br>"
+                "<br>"
+                "📞 By message or by phone on: <strong><a href=\"tel:+33660648626\">06 60 64 86 26</a></strong><br>"
+                "<br>"
+                "Or select the reason for your enquiry:<br>"
+            ),
+            
             'name_label': "Name",
             'email_label': "Email",
             'subject_label': "Subject",
@@ -80,7 +96,6 @@ class Contact:
             'security_text': "We'll never share your email with anyone else.",
 
             'generic': {
-                'title': "Get In Touch",
                 'subtitle': (
                     "Do you have any questions about my services?.<br>"
                     "Don't hesitate to contact me; I'll be happy to answer you as soon as possible."
@@ -88,13 +103,11 @@ class Contact:
                 'message_label': "Your message...",
             },
             'wedding': {
-                'title': "Get In Touch",
                 'subtitle': "In order to provide you with the best possible service for your wedding, please fill out the following form",
                 'date_label': "Wedding Date",
                 'message_label': "More details...",
             },
             'studio': {
-                'title': "Get In Touch",
                 'subtitle': "In order to provide you with the best possible service for the makeup session in my studio, please fill out the following form",
                 'makeup_label': "Type of Makeup: solo, duo, trio, group lessons",
                 'event_label': "For What Event?",
@@ -102,7 +115,6 @@ class Contact:
                 'message_label': "More details...",
             },
             'at_home': {
-                'title': "Get In Touch",
                 'subtitle': "In order to provide you with the best possible service for your home makeup session, please fill out the following form",
                 'date_label': "Date of the session",
                 'makeup_label': "Desired makeup: bridal makeup, wedding guest makeup, evening makeup",
@@ -110,6 +122,16 @@ class Contact:
             }
         },
         'es': {
+            'title': "Contáctame",
+            'chapo': (
+                "Boda, cursos de maquillaje, despedida de soltera, sesión de fotos, maquillaje de noche, maquillaje de fiesta, empresa, tarjeta regalo…<br>"
+                "No dudes en contactarme; será un placer responderte lo antes posible.<br>"
+                "<br>"
+                "📞 Por mensaje o por llamada al: <strong><a href=\"tel:+33660648626\">06 60 64 86 26</a></strong><br>"
+                "<br>"
+                "O selecciona el asunto sobre el que deseas ponerte en contacto:<br>"
+            ),
+                        
             'name_label': "Nombre",
             'email_label': "Correo electrónico",
             'subject_label': "Sujeto",
@@ -122,7 +144,6 @@ class Contact:
             'security_text': 'Nunca compartiremos su correo electrónico con nadie más.',
 
             'generic': {
-                'title': "Contáctame",
                 'subtitle': (
                     "¿Alguna pregunta sobre mis servicios?<br>"
                     "No dudes en contactarme, estaré encantado de responderte muy rápidamente."
@@ -130,13 +151,11 @@ class Contact:
                 'message_label': "Tu mensaje...",
             },
             'wedding': {
-                'title': "Contáctame",
                 'subtitle': "Para poder brindarle el mejor servicio posible para su boda, complete el siguiente formulario",
                 'date_label': "Fecha de la Boda",
                 'message_label': "Más detalles...",
             },
             'studio': {
-                'title': "Contáctame",
                 'subtitle': "Para poder brindarte el mejor servicio posible para la sesión de maquillaje en mi taller, por favor completa el siguiente formulario",
                 'makeup_label': "Tipo de maquillaje: solo, dúo, trío, clases grupales.",
                 'event_label': "¿Para qué evento?",
@@ -144,7 +163,6 @@ class Contact:
                 'message_label': "Más detalles...",
             },
             'at_home': {
-                'title': "Contáctame",
                 'subtitle': "Para poder brindarte el mejor servicio posible para tu sesión de maquillaje a domicilio, por favor completa el siguiente formulario",
                 'date_label': "Fecha de la sesión",
                 'makeup_label': "Maquillaje deseado: maquillaje de novia, invitada a la boda, maquillaje de noche.",
@@ -158,7 +176,7 @@ class Contact:
     # -----------------------------------
     def __init__(self, lg=None, contact_type=None, url=None, no_section=0):
         self.lg = lg or self.DEFAULT_LG
-        self.contact_type = contact_type or self.DEFAULT_CONTACT_TYPE
+        self.contact_type = contact_type.lower() or self.DEFAULT_CONTACT_TYPE
         self.no_section = no_section
         self.url = url
 
@@ -172,23 +190,15 @@ class Contact:
         if self.lg not in ['fr', 'en', 'es']:
             raise ValueError(f"Unsupported language_code: {self.lg}")
 
-        if self.contact_type.lower() not in ['generic', 'wedding', 'studio', 'at_home']:
+        if self.contact_type not in ['generic', 'wedding', 'studio', 'at_home']:
             raise ValueError(f"Unsupported contact_type: {self.contact_type}")
 
         texts = self.TEXTS[self.lg].copy()
 
-        # Retain only the relevant section for the contact type
-        for k, v in texts[self.contact_type].items():
-            texts[k] = v
         texts['lg'] = self.lg
         texts['contact_type'] = self.contact_type
         texts['style'] = 'even' if self.no_section % 2 == 0 else 'odd'
         texts['contact_action'] = self.url
-
-        texts.pop('generic', None)
-        texts.pop('wedding', None)
-        texts.pop('studio', None)
-        texts.pop('at_home', None)
 
         return texts
 
