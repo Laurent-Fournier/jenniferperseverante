@@ -113,7 +113,7 @@ class Contact:
                 'message_label': "More details...",
             },
             'studio': {
-                'tab': 'Estudio de maquillaje',
+                'tab': 'Makeup Studio',
                 'header': "In order to provide you with the best possible service for the makeup session in my studio, please fill out the following form",
                 'makeup_label': "Type of Makeup: solo, duo, trio, group lessons",
                 'event_label': "For What Event?",
