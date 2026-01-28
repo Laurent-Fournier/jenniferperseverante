@@ -39,22 +39,24 @@ class Contact:
             'security_text': "Nous ne partagerons jamais votre e-mail avec qui que ce soit d'autre.",
 
             'generic': {
-                'title': "Contactez-moi",
-                'subtitle': (
+                'tab': 'Renseignements',
+                'header': (
                     "Une question concernant mes prestations ?<br>"
                     "N'hésitez pas à me contacter, je me ferai un plaisir de vous répondre très vite."
                 ),
                 'message_label': "Message",
             },
             'wedding': {
-                'subtitle': (
+                'tab': 'Mariage',
+                'header': (
                     "Afin de vous délivrer le meilleur service possible pour votre mariage, merci de remplir le formulaire suivant :"
                 ),
                 'date_label': "Date du mariage",
                 'message_label': "Plus de détails...",
             },
             'studio': {
-                'subtitle': (
+                'tab': 'Studio de maquillage',
+                'header': (
                     "Afin de vous délivrer le meilleur service possible pour la séance de maquillage dans mon studio, merci de remplir le formulaire suivant : "
                 ),
                 'makeup_label': "Type de maquillage : cours solo, duo, trio, groupes",
@@ -63,7 +65,8 @@ class Contact:
                 'message_label': "Plus de détails...",
             },
             'at_home': {
-                'subtitle': (
+                'tab': 'Maquillage à domicile',
+                'header': (
                     "Afin de vous délivrer le meilleur service possible pour la séance de maquillage à domicile,<br>"
                     "merci de remplir le formulaire suivant :"
                 ),
@@ -96,26 +99,30 @@ class Contact:
             'security_text': "We'll never share your email with anyone else.",
 
             'generic': {
-                'subtitle': (
+                'tab': 'Information',
+                'header': (
                     "Do you have any questions about my services?.<br>"
                     "Don't hesitate to contact me; I'll be happy to answer you as soon as possible."
                 ),
                 'message_label': "Your message...",
             },
             'wedding': {
-                'subtitle': "In order to provide you with the best possible service for your wedding, please fill out the following form",
+                'tab': 'Wedding',
+                'header': "In order to provide you with the best possible service for your wedding, please fill out the following form",
                 'date_label': "Wedding Date",
                 'message_label': "More details...",
             },
             'studio': {
-                'subtitle': "In order to provide you with the best possible service for the makeup session in my studio, please fill out the following form",
+                'tab': 'Estudio de maquillaje',
+                'header': "In order to provide you with the best possible service for the makeup session in my studio, please fill out the following form",
                 'makeup_label': "Type of Makeup: solo, duo, trio, group lessons",
                 'event_label': "For What Event?",
                 'date_label': "Workshop Date",
                 'message_label': "More details...",
             },
             'at_home': {
-                'subtitle': "In order to provide you with the best possible service for your home makeup session, please fill out the following form",
+                'tab': 'Makeup at home',
+                'header': "In order to provide you with the best possible service for your home makeup session, please fill out the following form",
                 'date_label': "Date of the session",
                 'makeup_label': "Desired makeup: bridal makeup, wedding guest makeup, evening makeup",
                 'message_label': "More details...",
@@ -144,26 +151,30 @@ class Contact:
             'security_text': 'Nunca compartiremos su correo electrónico con nadie más.',
 
             'generic': {
-                'subtitle': (
+                'tab': 'Información',
+                'header': (
                     "¿Alguna pregunta sobre mis servicios?<br>"
                     "No dudes en contactarme, estaré encantado de responderte muy rápidamente."
                 ),
                 'message_label': "Tu mensaje...",
             },
             'wedding': {
-                'subtitle': "Para poder brindarle el mejor servicio posible para su boda, complete el siguiente formulario",
+                'tab': 'Casamiento',
+                'header': "Para poder brindarle el mejor servicio posible para su boda, complete el siguiente formulario",
                 'date_label': "Fecha de la Boda",
                 'message_label': "Más detalles...",
             },
             'studio': {
-                'subtitle': "Para poder brindarte el mejor servicio posible para la sesión de maquillaje en mi taller, por favor completa el siguiente formulario",
+                'tab': 'Estudio de maquillaje',
+                'header': "Para poder brindarte el mejor servicio posible para la sesión de maquillaje en mi taller, por favor completa el siguiente formulario",
                 'makeup_label': "Tipo de maquillaje: solo, dúo, trío, clases grupales.",
                 'event_label': "¿Para qué evento?",
                 'date_label': "Fecha del taller",
                 'message_label': "Más detalles...",
             },
             'at_home': {
-                'subtitle': "Para poder brindarte el mejor servicio posible para tu sesión de maquillaje a domicilio, por favor completa el siguiente formulario",
+                'tab': 'Maquillaje en casa',
+                'header': "Para poder brindarte el mejor servicio posible para tu sesión de maquillaje a domicilio, por favor completa el siguiente formulario",
                 'date_label': "Fecha de la sesión",
                 'makeup_label': "Maquillaje deseado: maquillaje de novia, invitada a la boda, maquillaje de noche.",
                 'message_label': "Más detalles...",

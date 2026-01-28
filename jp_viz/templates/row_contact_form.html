@@ -12,16 +12,16 @@
         <!-- Navigation par onglets -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Renseignements</a>
+                <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">{{contact_form.generic.tab}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Mariage</a>
+                <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">{{contact_form.wedding.tab}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Studio de maquillage</a>
+                <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">{{contact_form.studio.tab}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab4-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">Maquillage à domicile</a>
+                <a class="nav-link" id="tab4-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">{{contact_form.at_home.tab}}</a>
             </li>
         </ul>
         <!-- Contenu des onglets -->
@@ -30,7 +30,7 @@
             <!-- Onglet 1 : Renseignements -->
             <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                 <div class="card-body">
-                    <p>Une question concernant mes prestations ?</p>
+                    <p>{% autoescape off %}{{contact_form.generic.header}}{% endautoescape %}</p>
                     <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
                         {% csrf_token %}
                         <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
@@ -58,7 +58,7 @@
             <!-- Onglet 2 : Mariage -->
             <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
                 <div class="card-body">
-                    <p>Afin de vous délivrer le meilleur service possible pour votre mariage, merci de remplir le formulaire suivant :</p>
+                    <p>{% autoescape off %}{{contact_form.wedding.header}}{% endautoescape %}</p>
                     <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
                         {% csrf_token %}
                         <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
@@ -95,7 +95,7 @@
             <!-- Onglet 3 : Studio de maquillage -->
             <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
                 <div class="card-body">
-                    <p>Afin de vous délivrer le meilleur service possible pour la séance de maquillage dans mon studio, merci de remplir le formulaire suivant :</p>
+                    <p>{% autoescape off %}{{contact_form.studio.header}}{% endautoescape %}</p>
                     <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
                         {% csrf_token %}
                         <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
@@ -132,7 +132,7 @@
             <!-- Onglet 4 : Maquillage à domicile -->
             <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
                 <div class="card-body">
-                    <p>Afin de vous délivrer le meilleur service possible pour la séance de maquillage à domicile, merci de remplir le formulaire suivant :</p>
+                    <p>{% autoescape off %}{{contact_form.at_home.header}}{% endautoescape %}</p>
                     <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
                         {% csrf_token %}
                         <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
