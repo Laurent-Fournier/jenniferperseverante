@@ -1,3 +1,32 @@
+<style>
+/* Retire la couleur par défaut des liens (noir par défaut) */
+a.nav-link {
+    color: #151515 !important;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Retire la couleur au survol */
+a.nav-link:hover {
+    color: #151515 !important;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Style pour l'onglet actif */
+.nav-tabs .nav-link.active {
+    background-color: #f87b7f;
+    color: white !important;
+    border-color: #f87b7f #f87b7f #fff;
+}
+/* Style au survol pour tous les onglets (optionnel) */
+.nav-tabs .nav-link:hover {
+    border-color: #f87b7f #f87b7f #fff;
+    color: #f87b7f;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+</style>
+
 <!-- Contact form -->
 <section class="section section-lg{% if contact_form.style == 'odd'%} bg-default bg-gray-light{% endif %}">
   <div class="container">
@@ -48,7 +77,7 @@
                                 <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.generic.message_label}}"></textarea>
                             </div>
                             <div class="col-md-12 form-btn text-center">
-                                <button class="btn btn-block button-lg" style="background-color: #d3c1c4;" type="submit" name="submit">{{contact_form.send_label}}</button>
+                                <button class="btn btn-block button-lg" style="color: white; background-color: #f87b7f;" type="submit" name="submit">{{contact_form.send_label}}</button>
                             </div>
                         </div>
                     </form>
@@ -85,7 +114,7 @@
                                 <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.wedding.message_label}}"></textarea>
                             </div>
                             <div class="col-md-12 form-btn text-center">
-                                <button class="btn btn-block button-lg" style="background-color: #d3c1c4;" type="submit" name="submit">{{contact_form.send_label}}</button>
+                                <button class="btn btn-block button-lg" style="color: white; background-color: #f87b7f;" type="submit" name="submit">{{contact_form.send_label}}</button>
                             </div>
                         </div>
                     </form>
@@ -122,7 +151,7 @@
                                 <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.studio.message_label}}"></textarea>
                             </div>
                             <div class="col-md-12 form-btn text-center">
-                                <button class="btn btn-block button-lg" style="background-color: #d3c1c4;" type="submit" name="submit">{{contact_form.send_label}}</button>
+                                <button class="btn btn-block button-lg" style="color: white; background-color: #f87b7f;" type="submit" name="submit">{{contact_form.send_label}}</button>
                             </div>
                         </div>
                     </form>
@@ -162,7 +191,7 @@
                                 <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.at_home.message_label}}"></textarea>
                             </div>
                             <div class="col-md-12 form-btn text-center">
-                                <button class="btn btn-block button-lg" style="background-color: #d3c1c4;" type="submit" name="submit">{{contact_form.send_label}}</button>
+                                <button class="btn btn-block button-lg" style="color: white; background-color: #f87b7f;" type="submit" name="submit">{{contact_form.send_label}}</button>
                             </div>
                         </div>
                     </form>
