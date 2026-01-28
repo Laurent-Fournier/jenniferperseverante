@@ -2,11 +2,12 @@
 <footer class="section footer-classic context-dark">
   <div class="container">
     <div class="row row-50">
+      
       <div class="col-lg-4 order-lg-2 pl-xl-5 wow-outer">
         <div class="wow slideInRight">
           <div class="row row-50">
             <div class="col-md-12">
-              <h5 class="footer-title">Contacts</h5>
+              <h5 class="footer-title">Contact</h5>
               <ul class="list-contact-info">
                 <li><span class="icon mdi mdi-map-marker icon-md icon-secondary"></span><span class="list-item-text"><a href="#">77173 Chevry-Cossigny, France</a></span></li>
                 <li><span class="icon mdi mdi-phone icon-md icon-secondary"></span><span class="list-item-text"><a href="tel:#">(+33) 06.60.64.86.26</a></span></li>
@@ -22,24 +23,51 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 order-lg-1 pr-xl-5 wow-outer">
+
+      <div class="col-lg-4 order-lg-1 pr-xl-5 wow-outer">
         <div class="wow slideInLeft">
           <div class="row row-30">
             <div class="col-12"><img class="brand-logo-light" src="/static/images/logo-jennifer-perseverante-maquilleuse-professionnelle.png" alt="Jennifer Perseverante, maquilleuse professionnelle" width="243" height="41"/></div>
             <div class="col-12">
-              {% if lg == 'en' %}
-              <p>Jennifer Persévérante offers makeup sessions for weddings, hen parties, evenings, birthdays, makeup lessons at home or in the studio, and photo shoots.</p>
-              {% elif lg == 'es' %}
-              <p>Jennifer Persévérante ofrece sesiones de maquillaje para bodas, despedidas de soltera, eventos nocturnos, cumpleaños, clases de maquillaje a domicilio o en el estudio y sesiones fotográficas.</p>
-              {% else %}
-              <p>Jennifer Persévérante propose des séances de maquillage pour les mariages, enterrements de vie de jeune fille, soirées, anniversaires, cours de maquillage à domicile ou en studio, et séances photo.</p>
-              {% endif %}
+{% if lg == 'en' %}
+<p>Jennifer Persévérante offers makeup sessions for weddings, hen parties, evenings, birthdays, makeup lessons at home or in the studio, and photo shoots.</p>
+{% elif lg == 'es' %}
+<p>Jennifer Persévérante ofrece sesiones de maquillaje para bodas, despedidas de soltera, eventos nocturnos, cumpleaños, clases de maquillaje a domicilio o en el estudio y sesiones fotográficas.</p>
+{% else %}
+<p>Jennifer Persévérante propose des séances de maquillage pour les mariages, enterrements de vie de jeune fille, soirées, anniversaires, cours de maquillage à domicile ou en studio, et séances photo.</p>
+{% endif %}
               <div class="footer-divider"></div>
               <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span><span>&nbsp;</span><span>Jennifer Perseverante</span><span>.&nbsp;</span></p>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="col-lg-4 order-lg-1 pr-xl-5 wow-outer">
+        <div class="wow slideInLeft">
+          <div class="row row-30">
+            <div class="col-12">
+              <h5 class="footer-title">{% if lg == 'en' %}Information{% elif lg == 'es' %}Información{% else %}Informations{% endif %}</h5>
+            </div>
+            <div class="col-12">
+              <ul class="list-contact-info">
+                <li>
+
+<span class="icon mdi mdi-tag icon-md icon-secondary"></span>
+{% if lg == 'en' %}
+<a href="/en/legal-notices" aria-label="Legal notices"></a>
+{% elif lg == 'es' %}
+<a href="/es/aviso-legal" aria-label="Aviso legal"></a>
+{% else %}
+<a href="/fr/mentions-legales" aria-label="Mentions légales">Mentions légales</a>
+{% endif %}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </footer>
