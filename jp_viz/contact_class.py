@@ -29,7 +29,7 @@ class Contact:
                 "Ou sélectionnez le sujet pour lequel vous souhaitez prendre contact :<br>"
             ),
             'name_label': "Votre nom",
-            'email_label': "E-mail",
+            'email_label': "E-mail *",
             'subject_label': "Sujet",
             'send_label': "Envoyer",
             'success_text': "Votre message a été envoyé.<br>Merci !",
@@ -88,7 +88,7 @@ class Contact:
             ),
             
             'name_label': "Name",
-            'email_label': "Email",
+            'email_label': "Email *",
             'subject_label': "Subject",
             'send_label': "Send Message",
             'success_text': "Your message was sent.<br>Thank you!",
@@ -141,7 +141,7 @@ class Contact:
                         
             'name_label': "Nombre",
             'email_label': "Correo electrónico",
-            'subject_label': "Sujeto",
+            'subject_label': "Sujeto *",
             'send_label': "Enviar Mensaje",
             'success_text': "Tu mensaje ha sido enviado.<br>Gracias !",
 

@@ -41,23 +41,23 @@ a.nav-link:hover {
         <!-- Navigation par onglets -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">{{contact_form.generic.tab}}</a>
+                <a class="nav-link{% if contact_form.contact_type != 'wedding' and contact_form.contact_type != 'studio' and contact_form.contact_type != 'at_home' %} active{% endif %}" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="{% if contact_form.contact_type != 'wedding' and contact_form.contact_type != 'studio' and contact_form.contact_type != 'at_home' %} true{% else %}false{% endif %}">{{contact_form.generic.tab}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">{{contact_form.wedding.tab}}</a>
+                <a class="nav-link{% if contact_form.contact_type == 'wedding' %} active{% endif %}" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="{% if contact_form.contact_type == 'wedding' %}true{% else %}false{% endif %}">{{contact_form.wedding.tab}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">{{contact_form.studio.tab}}</a>
+                <a class="nav-link{% if contact_form.contact_type == 'studio' %} active{% endif %}" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="{% if contact_form.contact_type == 'studio' %}true{% else %}false{% endif %}">{{contact_form.studio.tab}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab4-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">{{contact_form.at_home.tab}}</a>
+                <a class="nav-link{% if contact_form.contact_type == 'at_home' %} active{% endif %}" id="tab4-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="{% if contact_form.contact_type == 'at_home' %}true{% else %}false{% endif %}">{{contact_form.at_home.tab}}</a>
             </li>
         </ul>
         <!-- Contenu des onglets -->
         <div class="tab-content" id="myTabContent">
 
             <!-- Onglet 1 : Renseignements -->
-            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+            <div class="tab-pane fade{% if contact_form.contact_type != 'wedding' and contact_form.contact_type != 'studio' and contact_form.contact_type != 'at_home' %} show active{% endif %}" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                 <div class="card-body">
                     <p>{% autoescape off %}{{contact_form.generic.header}}{% endautoescape %}</p>
                     <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
@@ -68,7 +68,7 @@ a.nav-link:hover {
                                 <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
                             </div>
                             <div class="col-md-6 form-input">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}" required>
                             </div>
                             <div class="col-md-12 form-input">
                                 <input type="text" class="form-control" id="subject" name="subject" placeholder="{{contact_form.subject_label}}">
@@ -85,7 +85,7 @@ a.nav-link:hover {
             </div>
 
             <!-- Onglet 2 : Mariage -->
-            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+            <div class="tab-pane fade{% if contact_form.contact_type == 'wedding' %} show active{% endif %}" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
                 <div class="card-body">
                     <p>{% autoescape off %}{{contact_form.wedding.header}}{% endautoescape %}</p>
                     <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
@@ -96,7 +96,7 @@ a.nav-link:hover {
                                 <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
                             </div>
                             <div class="col-md-6 form-input">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}" required>
                             </div>
                             <div class="col-md-12 form-input">
                                 <input type="text" class="form-control" id="address" name="address" placeholder="{{contact_form.address_label}}">
@@ -122,7 +122,7 @@ a.nav-link:hover {
             </div>
 
             <!-- Onglet 3 : Studio de maquillage -->
-            <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+            <div class="tab-pane fade{% if contact_form.contact_type == 'studio' %} show active{% endif %}" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
                 <div class="card-body">
                     <p>{% autoescape off %}{{contact_form.studio.header}}{% endautoescape %}</p>
                     <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
@@ -133,7 +133,7 @@ a.nav-link:hover {
                                 <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
                             </div>
                             <div class="col-md-6 form-input">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}" required>
                             </div>
                             <div class="col-md-12 form-input">
                                 <input type="text" class="form-control" id="makeup" name="makeup" placeholder="{{contact_form.studio.makeup_label}}">
@@ -159,7 +159,7 @@ a.nav-link:hover {
             </div>
 
             <!-- Onglet 4 : Maquillage à domicile -->
-            <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
+            <div class="tab-pane fade{% if contact_form.contact_type == 'at_home' %} show active{% endif %}" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
                 <div class="card-body">
                     <p>{% autoescape off %}{{contact_form.at_home.header}}{% endautoescape %}</p>
                     <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
@@ -170,7 +170,7 @@ a.nav-link:hover {
                                 <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
                             </div>
                             <div class="col-md-6 form-input">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}" required>
                             </div>
                             <div class="col-md-12 form-input">
                                 <input type="text" class="form-control" id="address" name="address" placeholder="{{contact_form.address_label}}">
