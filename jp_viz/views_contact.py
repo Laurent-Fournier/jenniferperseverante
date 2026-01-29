@@ -29,7 +29,7 @@ def generic(request):
                 'title': "Contactez-moi !",
                 'subtitle': "N'hésitez-pas à me contacter pour avoir plus d'information,<br>pour réserver une séance de maquillage, etc.",
                 'image': {
-                    'src': "contact.avif",
+                    'src': "jennifer-maquilleuse-mariage-pro.avif",
                     'alt': "Image de la page de contact",
                 },
             },
@@ -44,7 +44,7 @@ def generic(request):
                 'title': "Contact Me!",
                 'subtitle': "Do not hesitate to contact me for more information, to book a makeup session, etc.",
                 'image': {
-                    'src': "contact.avif",
+                    'src': "jennifer-maquilleuse-mariage-pro.avif",
                     'alt': "Image de la page de contact",
                 },
             },
@@ -59,7 +59,7 @@ def generic(request):
                 'title': "¡Contáctame!",
                 'subtitle': "No dudes en contactar conmigo para más información, reservar una sesión de maquillaje, etc.",
                 'image': {
-                    'src': "contact.avif",
+                    'src': "jennifer-maquilleuse-mariage-pro.avif",
                     'alt': "Image de la page de contact",
                 },
             },
