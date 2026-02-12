@@ -21,119 +21,57 @@ from dotenv import load_dotenv
 def main():
     load_dotenv()  # load variables from .env
 
-    urls = [
-'sortir-paris-transgenre',
-'cours-makeup',
-'gardiennage',
-'dominique-travesti-histoire',
-'maquillage-rapide',
-'roxane',
-'caroll-temoignage',
-'portrait-de-mathilde',
-'july-temoignage',
-'coralia-recit',
-'angelina-recit-transgenre',
-'mon-mari-se-travestit',
-'dominique-evolution-un',
-'johanna',
-'paloma-compagne',
-'aphrodita',
-'sandra-feminisation',
-'laura-transition-de-genre',
-'dominique-feminisation',
-'vanessa-temoignage-anonyme-sur-sa-feminisation',
-'blanche-temoignage',
-'seance-feminisation-maquillage-habillage',
-'experience-feminisation-transgenre',
-'cours-maquillage-transgenre-travesti',
-'de-july-au-diner-de-charly',
-'le-diner-de-charly-tout-savoir-ou-presque',
-'maquillage-transition-allie-confiance',
-'se-sentir-femme-en-secret',
-'culotte-pour-transgenre-travesti',
-'vivre-sa-transidentite-sortir',
-'medecine-esthetique-transidentite',
-'soiree-glits-transbeaute-paris',
-'diner-sortir-paris-travesti-transgenre',
-'feminiser-visage-trans',
-'transidentite-universelle',
-'venise-trans-beaute-crossdressing',
-'posterieur-trans-secret',
-'temoignage-jennifer-trans-beaute',
-'temoignage-lucille-travesti',
-'coaching-online',
-'charly-dernier-diner',
-'difference-travesti-transgenre',
-'purge-travesti-solution',
-'temoignage-fanny-trans-beaute',
-'bas-collant-travestissement-trans-beaute',
-'travestir-dire-ou-pas',
-'temoignage-marie-feminite',
-'soiree-transbeaute-jensgirls',
-'cinema-trav-trans-beaute',
-'premiere-soiree-transbeaute',
-'melissa-feminisation-trans-beaute',
-'weekend-feminite-transbeaute',
-'londres-escapade-trans-beaute',
-'travestissement-controle-police-idees-recues',
-'premiere-soiree-trans-beaute',
-    ]
+    current_path = os.getcwd()
+    print(f"Current path : {current_path}")
+
+    connexion = mysql.connector.connect(
+        host=os.getenv('DB_HOST'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        database=os.getenv('DB_NAME'),
+    )
+    cursor = connexion.cursor(dictionary=True)
+
+    sql = """
+        SELECT post_name
+        FROM beautifuldata_transbeaute.wor4471_posts
+        WHERE
+	        post_type='post'
+	        AND post_parent=0
+	        AND post_status='publish'
+        """
+    
+    cursor.execute(sql)
+    rows = cursor.fetchall()
+    slugs = []
+    for row in rows:
+        slugs.append(row['post_name'])
+    
+    nb = len(slugs)
 
     keywords = []
-    for url in urls:
-        keys = get_meta_keywords(f'https://transbeaute.fr/{url}')
-        print(f"URL: {url}\nMots-clés: {keys}\n")
+    i = 0
+    for slug in slugs:
+        i = i + 1
+        keys = get_meta_keywords(f'https://transbeaute.fr/{slug}')
+        print(f"[{i}/{nb}] URL: {slug}\nMots-clés: {keys}\n")
         keywords = keywords + keys
         
-    print('----------- AAA -----------------')
-    print(keywords)
-    print('----------- BBB -----------------')
     keywords = list(set(keywords))  # retire doublons
-    print(keywords)
-    print('---------- CCC -------------')
     keywords.sort()  # tri le tableau
-    print(keywords)
-    print('----------- DDD --------------')
-        
-    # connexion = mysql.connector.connect(
-    #     host=os.getenv('DB_HOST'),
-    #     user=os.getenv('DB_USER'),
-    #     password=os.getenv('DB_PASSWORD'),
-    #     database=os.getenv('DB_NAME'),
-    # )
-    # cursor = connexion.cursor(dictionary=True)
 
-    # id = 10159
-    # sql = f"""SELECT language_code, art_slug FROM beautifuldata_transbeaute.article_lg WHERE id={id} """
-    # cursor.execute(sql)
-    # rows = cursor.fetchall()
-    # slug = {'fr': None, 'en': None, 'es': None}
-    # for row in rows:
-    #     if row['language_code']=='fr':
-    #         slug['fr'] = row['art_slug']
-    #     if row['language_code']=='en':
-    #         slug['en'] = row['art_slug']
-    #     if row['language_code']=='es':
-    #         slug['es'] = row['art_slug']
-
-    # print(slug)
-
-    # api = MistralAPI(api_key=os.getenv('MISTRAL_API_KEY'))
-    # slug_en = api.call(api.PROMPT_URL_TRANLSATION_EN, slug['fr'])
-    # slug_es = api.call(api.PROMPT_URL_TRANLSATION_ES, slug['fr'])
-    # print('-------------------')
-    # print(slug_en)
-    # print('-------------------')
-    # print(slug_es)
-    # print('-------------------')
-
-
-    # quit()
+    # Save the keywords in a file
+    filename = os.path.dirname(os.path.abspath(__file__))+'/keywords.txt'
+    with open(filename, "w", encoding="utf-8") as fichier:
+        for keyword in keywords:
+            fichier.write(keyword + "\n")
+    print(f"✅ Fichier {filename} créé")
+     
     
-    # cursor.close()
-    # connexion.close()
+    cursor.close()
+    connexion.close()
 
-    print('Recherche des mots clés OK')
+    print('✅ fin du script')
 
 
 def get_meta_keywords(url):
