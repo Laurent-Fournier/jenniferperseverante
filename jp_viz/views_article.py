@@ -214,7 +214,7 @@ def get_article_by_slug(lg, slug=None):
         "description": data["art_description"],
         "markdown_text": data["markdown_text"],
         "date": data["art_date"],
-        "date_lg": ArticleService().get_date_lg(data["art_date"], lg),
+        "date_lg": ArticleService().get_date_lg(data["art_date"], lg, 'LONG'),
         "family": data["art_family"],
         "is_page": bool(data["is_page"]) if data["is_page"] is not None else False,
         "cover": data["art_cover"],
@@ -376,7 +376,7 @@ def parse_images(text, language_code):
     return [], [], [], images, []  # No title | No subtitle | No text | Many images | No video
 
 
-def get_related_articles(article, language_code):
+def get_related_articles(article, lg):
     article_id = article["id"]
     families = article["family"] if article["family"] is not None else ''
 
@@ -396,7 +396,7 @@ def get_related_articles(article, language_code):
             art_slug, hero_title, hero_subtitle
         FROM article
         LEFT OUTER JOIN article_lg ON
-			article.id = article_lg.id AND language_code='{language_code}'
+			article.id = article_lg.id AND language_code='{lg}'
         WHERE is_page=0 AND ({sql}) AND article.id<>{article_id}
         ORDER BY art_date DESC
         """
@@ -406,14 +406,18 @@ def get_related_articles(article, language_code):
 
     # Add all related articles
     for row in rows:
-        related_article = {}
-        related_article["lg"] = language_code
-        related_article["slug"] = row.art_slug
-        related_article["date"] = row.art_date
-        related_article["cover"] = row.art_cover.replace("1024", "230")
-        related_article["hero"] = {}
-        related_article["hero"]["title"] = row.hero_title
-        related_article["hero"]["subtitle"] = row.hero_subtitle
+        related_article = {
+            "lg": lg,
+            "slug": row.art_slug,
+            "date": row.art_date,
+            "date_lg": ArticleService().get_date_lg(row.art_date, lg, 'SHORT'),
+            "cover": row.art_cover.replace("1024", "230"),
+            "hero": {
+                "title": row.hero_title,
+                "subtitle": row.hero_subtitle
+            }
+        }
+
         related_articles.append(related_article)
 
     return related_articles

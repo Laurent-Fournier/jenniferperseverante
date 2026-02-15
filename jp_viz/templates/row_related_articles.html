@@ -12,9 +12,14 @@
             <a href="/{{article.lg}}/{{article.slug}}" aria-label="{{article.hero.title}}"><img src="/images/370/{{article.cover}}" alt="{{article.hero.title}}" width="370" loading="lazy"/></a>
           </div>
           <div class="post-modern-caption">
+            {% if with_article_date == 1 and article.date %}
+                <h4>{{article.date_lg}}</h4>
+            {% endif %}            
             <a href="/{{article.lg}}/{{article.slug}}" aria-label="{{article.hero.subtitle}}">
-              <h4 class="post-modern-title">{{article.hero.title}}</h4>
+              <h5 class="post-modern-title">{{article.hero.title}}</h5>
+              {% if article.hero.subtitle %}
               <p class="post-modern-text">{{article.hero.subtitle}}</p>
+              {% endif %}
             </a>
           </div>
         </div>

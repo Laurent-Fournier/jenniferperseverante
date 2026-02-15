@@ -38,13 +38,14 @@ class ArticleService:
         return {row['language_code']: row['art_slug'] for row in rows}   
 
     
-    def get_date_lg(self, date: date, language : str) -> str:
+    def get_date_lg(self, date: date, language : str, mode : str) -> str:
         """
         Formats a date as clear text according to the specified language.
 
         Args:
             date: Date object to format.
             language: Language code ('fr', 'en', 'es').
+            mode: 'SHORT' or 'LONG' format.
 
         Returns:
             str: Formatted date as clear text.
@@ -54,10 +55,14 @@ class ArticleService:
         """
         if date is None:
             return None
+        
+        # Validate mode
+        if mode not in ('SHORT', 'LONG'):
+            raise ValueError(f"Unsupported mode: {mode}. Use 'SHORT' or 'LONG'.")        
 
         # Save the current locale
         old_locale = locale.getlocale(locale.LC_TIME)
-
+        
         try:
             if language  == 'fr':
                 # Set the locale to French
@@ -66,20 +71,30 @@ class ArticleService:
                 month = date.strftime("%B")
                 year = date.year
                 day_str = f"{day}er" if day == 1 else str(day)
-                return f"Article mis en ligne le {day_str} {month} {year}"
+                short_date = f"{day_str} {month} {year}"
+                if mode == 'SHORT':
+                    return short_date
+                return f"Article mis en ligne le {short_date}"
 
             elif language  == 'en':
                 # Set the locale to English
                 locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
-                return date.strftime("Article published online on %B %e, %Y").replace('  ', ' ')
+                short_date = date.strftime("%B %e, %Y").replace('  ', ' ')
+                if mode == 'SHORT':
+                    return short_date
+                else:
+                    return f"Article published online on {short_date}"
 
             elif language  == 'es':
                 # Set the locale to Spanish
                 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
-                return date.strftime("Artículo publicado en línea el %d de %B de %Y")
-
+                short_date = date.strftime("%d de %B de %Y")
+                if mode == 'SHORT':
+                    return short_date
+                return f"Artículo publicado en línea el {short_date}"
+                                     
             else:
-                raise ValueError(f"Unsupported language: {language}")
+                raise ValueError(f"Unsupported language: {language}. Use 'fr', 'en', or 'es'")
 
         finally:
             # Always restore the original locale
@@ -94,7 +109,7 @@ class ArticleService:
         rows = (
             Comment.objects
             .filter(art_id=article_id, com_approved=1)
-            .values('id', 'com_author', 'com_author_email', 'com_date', 'com_content', 'parent_id')
+            .values('id', 'com_author', 'com_author_email', 'com_date', 'com_content')
         )    
         
         for row in rows:
@@ -104,7 +119,6 @@ class ArticleService:
                 'author_email': row['com_author_email'],
                 'date': row['com_date'],
                 'content': row['com_content'],
-                'parent_id': row['parent_id'],
             })
         return comments
 
