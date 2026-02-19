@@ -49,9 +49,9 @@ def detect_language(text: str) -> str:
     except:
         return 'en'  # Default language
 
-def preprocess_message(msg_name, msg_email, msg_subject, msg_text, msg_address, msg_event, msg_date, msg_time, msg_makeup):
+def preprocess_message(msg_name, msg_email, msg_subject, msg_text, msg_address, msg_event, msg_date, msg_time, msg_people, msg_makeup):
     """Combine les champs textuels pour former le texte complet."""
-    return f"{msg_name} {msg_email} {msg_subject} {msg_text} {msg_address}, {msg_event}, {msg_date}, {msg_time}, {msg_makeup}"
+    return f"{msg_name} {msg_email} {msg_subject} {msg_text} {msg_address}, {msg_event}, {msg_date}, {msg_time}, {msg_people}, {msg_makeup}"
 
 
 def load_models_and_vectorizers(current_path: str) -> Dict[str, Any]:
@@ -111,6 +111,7 @@ def predict_spams(models: Dict[str, Any], vectorizers: Dict[str, Any]) -> None:
                 IFNULL(msg_event, '') AS msg_event, 
                 IFNULL(msg_date, '') AS msg_date, 
                 IFNULL(msg_time, '') AS msg_time, 
+                IFNULL(msg_people, '') AS msg_people, 
                 IFNULL(msg_makeup, '') AS msg_makeup
             FROM beautifuldata_jp.message
             WHERE is_spam IS NULL
@@ -120,7 +121,7 @@ def predict_spams(models: Dict[str, Any], vectorizers: Dict[str, Any]) -> None:
         rows = cursor.fetchall()    
 
         for row in rows:
-            full_text = preprocess_message(row['msg_name'], row['msg_email'], row['msg_subject'], row['msg_text'], row['msg_address'], row['msg_event'], row['msg_date'], row['msg_time'], row['msg_makeup'])
+            full_text = preprocess_message(row['msg_name'], row['msg_email'], row['msg_subject'], row['msg_text'], row['msg_address'], row['msg_event'], row['msg_date'], row['msg_time'], row['msg_people'], row['msg_makeup'])
             lang = detect_language(full_text)
 
             if lang in BLOCKED_LANGUAGES:
@@ -143,10 +144,10 @@ def predict_spams(models: Dict[str, Any], vectorizers: Dict[str, Any]) -> None:
             # Update the database
             sql_update = """
                 UPDATE beautifuldata_jp.message
-                SET calc_spam = %s
+                SET calc_spam = %s, calc_lg=%s
                 WHERE id = %s
             """
-            cursor.execute(sql_update, (calc_spam, row['id']))
+            cursor.execute(sql_update, (calc_spam, lang, row['id']))
             connexion.commit()
             print(f'✅ Message #{row["id"]} (lang: {lang}) updated with calc_spam={calc_spam}')
     

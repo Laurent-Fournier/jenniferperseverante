@@ -72,11 +72,17 @@ def train_models():
     # Fetch qualified data
     sql = """
         SELECT 
-            id, is_spam, 
+            id, is_spam,
             IFNULL(msg_name, '') AS msg_name, 
-            IFNULL(msg_email, '') AS msg_email, 
+            IFNULL(msg_email, '') AS msg_email,
             IFNULL(msg_subject, '') AS msg_subject, 
-            IFNULL(msg_text, '') AS msg_text
+            IFNULL(msg_text, '') AS msg_text,
+            IFNULL(msg_address, '') AS msg_address, 
+            IFNULL(msg_event, '') AS msg_event, 
+            IFNULL(msg_date, '') AS msg_date, 
+            IFNULL(msg_time, '') AS msg_time, 
+            IFNULL(msg_people, '') AS msg_people, 
+            IFNULL(msg_makeup, '') AS msg_makeup
         FROM beautifuldata_jp.message
         WHERE is_spam IS NOT NULL
         ORDER BY id ASC
@@ -87,14 +93,14 @@ def train_models():
     # Create DataFrame
     df = pd.DataFrame(rows, columns=[
         'msg_name', 'msg_email', 'msg_subject', 'msg_text', 
-         'msg_address', 'msg_event', 'msg_date', 'msg_time', 'msg_makeup',
+        'msg_address', 'msg_event', 'msg_date', 'msg_time', 'msg_people', 'msg_makeup',
         'is_spam'
     ])
     df = df.fillna('') # Replace missing values with an empty string    
 
     # Combine text fields
     df['full_text'] = df['msg_name'] + ' ' + df['msg_email'] + ' ' + df['msg_subject'] + ' ' + df['msg_text'] + ' '
-    df['full_text'] += df['msg_address'] + ' ' + df['msg_event'] + ' ' + df['msg_date'] + ' ' + df['msg_time'] + ' ' + df['msg_makeup']
+    df['full_text'] += df['msg_address'] + ' ' + df['msg_event'] + ' ' + df['msg_date'] + ' ' + df['msg_time'] + ' ' + df['msg_people'] + ' ' + df['msg_makeup']
 
     print("Data preview:")
     print(df.head())
