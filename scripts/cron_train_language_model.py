@@ -4,7 +4,7 @@
 Usage : 
 cd ~/www/jpdev_site/
 source env/bin/activate
-python scripts/cron_process_messages.py
+python scripts/cron_train_language_model.py
 """
 
 import os
@@ -33,7 +33,7 @@ nltk.download('stopwords')
 DetectorFactory.seed = 0
 
 # Languages to always mark as spam
-BLOCKED_LANGUAGES = {'ru', 'hu', 'et', 'pl', 'id'}
+BLOCKED_LANGUAGES = {'ru', 'hu', 'et', 'pl', 'id', 'de'}
 
 
 def detect_language(text):
@@ -73,8 +73,10 @@ def train_models():
     sql = """
         SELECT 
             id, is_spam, 
-            msg_name, msg_email, msg_subject, msg_text, 
-            msg_address, msg_event, msg_date, msg_time, msg_makeup
+            IFNULL(msg_name, '') AS msg_name, 
+            IFNULL(msg_email, '') AS msg_email, 
+            IFNULL(msg_subject, '') AS msg_subject, 
+            IFNULL(msg_text, '') AS msg_text
         FROM beautifuldata_jp.message
         WHERE is_spam IS NOT NULL
         ORDER BY id ASC
@@ -177,7 +179,7 @@ async def main():
     start_time = time.time()
     
     current_path = os.path.dirname(os.path.abspath(__file__))
-    lock_file = os.path.join(current_path, 'token',  'cron_process_messages.lock')
+    lock_file = os.path.join(current_path, 'token',  'cron_train_language_model.lock')
 
     # Check if the lock file already exists
     if Path(lock_file).exists():
