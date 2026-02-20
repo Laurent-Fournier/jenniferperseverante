@@ -173,7 +173,7 @@ def main():
             continue
         
     # Save models and vectorizers
-    output_dir = os.path.join(current_path, 'output')
+    output_dir = os.getenv('OUTPUT_DIR')
     os.makedirs(output_dir, exist_ok=True)
 
     for lang in models:

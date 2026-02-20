@@ -49,25 +49,24 @@ def preprocess_message(msg_name, msg_email, msg_subject, msg_text, msg_address, 
     return f"{msg_name} {msg_email} {msg_subject} {msg_text} {msg_address}, {msg_event}, {msg_date}, {msg_time}, {msg_people}, {msg_makeup}"
 
 
-def load_models_and_vectorizers(current_path: str) -> Dict[str, Any]:
+def load_models_and_vectorizers(model_path: str) -> Dict[str, Any]:
     """
     Load all pre-trained models and vectorizers from the output directory.
 
     Args:
-        current_path: Path to the script directory.
+        model_path: Path to the models directory.
 
     Returns:
         Dictionary of models and vectorizers, keyed by language.
     """    
     models = {}
     vectorizers = {}
-    output_dir = os.path.join(current_path, 'output')
 
-    for file in os.listdir(output_dir):
+    for file in os.listdir(model_path):
         if file.startswith('spam_classifier_') and file.endswith('.joblib'):
             lang = file.split('_')[2].split('.')[0]
-            models[lang] = joblib.load(os.path.join(output_dir, file))
-            vectorizers[lang] = joblib.load(os.path.join(output_dir, f'tfidf_vectorizer_{lang}.joblib'))
+            models[lang] = joblib.load(os.path.join(model_path, file))
+            vectorizers[lang] = joblib.load(os.path.join(model_path, f'tfidf_vectorizer_{lang}.joblib'))
 
     print("Loaded models and vectorizers for languages:", models.keys())
     return models, vectorizers
@@ -82,7 +81,6 @@ def predict_spams(models: Dict[str, Any], vectorizers: Dict[str, Any]) -> None:
         vectorizers: Dictionary of TF-IDF vectorizers, keyed by language.
     """    
     load_dotenv()  # Load environment variables from .env
-    current_path = os.path.dirname(os.path.abspath(__file__))
 
     try:
         # Connect to the database
@@ -162,7 +160,9 @@ async def main() -> None:
     """    
     start_time = time.time()
     current_path = os.path.dirname(os.path.abspath(__file__))
-    lock_file = os.path.join(current_path, 'token',  'cron_train_language_model.lock')
+    lock_file = os.path.join(current_path, 'cron_predict_spams.lock')
+
+    load_dotenv()  # Load environment variables from .env
 
     # Check if the lock file already exists
     if Path(lock_file).exists():
@@ -176,7 +176,7 @@ async def main() -> None:
         print("✅ Lock acquired. Starting execution.")
 
         # Load models and vectorizers
-        models, vectorizers = load_models_and_vectorizers(current_path)
+        models, vectorizers = load_models_and_vectorizers( os.getenv('OUTPUT_DIR') )
         if not models:
             print("❌ No models found. Exiting.")
             sys.exit(1)

@@ -234,7 +234,7 @@ class Contact:
     def load_models_and_vectorizers(self):
         models = {}
         vectorizers = {}
-        output_dir = '/home/beautifuldata/www/jpdev_site/scripts/output'
+        output_dir = os.getenv('OUTPUT_DIR')
 
         for file in os.listdir(output_dir):
             if file.startswith('spam_classifier_') and file.endswith('.joblib'):

@@ -163,7 +163,7 @@ def train_models():
             continue
         
     # Save models and vectorizers
-    output_dir = os.path.join(current_path, 'output')
+    output_dir = os.getenv('OUTPUT_DIR')
     os.makedirs(output_dir, exist_ok=True)
 
     for lang in models:
@@ -185,7 +185,7 @@ async def main():
     start_time = time.time()
     
     current_path = os.path.dirname(os.path.abspath(__file__))
-    lock_file = os.path.join(current_path, 'token',  'cron_train_language_model.lock')
+    lock_file = os.path.join(current_path, 'cron_train_language_model.lock')
 
     # Check if the lock file already exists
     if Path(lock_file).exists():
