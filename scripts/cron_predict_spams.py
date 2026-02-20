@@ -19,13 +19,8 @@ from typing import Dict, Any, Optional
 
 from dotenv import load_dotenv
 import mysql.connector
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
 from langdetect import detect, DetectorFactory, LangDetectException
 import joblib
-from nltk.corpus import stopwords
-import nltk
 
 
 # Ensure consistent language detection

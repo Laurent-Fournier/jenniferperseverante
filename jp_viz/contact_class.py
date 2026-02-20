@@ -8,6 +8,11 @@ from django.utils import timezone
 
 import os
 from dotenv import load_dotenv
+from langdetect import detect, DetectorFactory, LangDetectException
+import joblib
+
+DetectorFactory.seed = 0
+BLOCKED_LANGUAGES = {'ru', 'hu', 'et', 'pl', 'id'}
 
 load_dotenv()  # load variables from .env
 
@@ -213,9 +218,31 @@ class Contact:
 
         return texts
 
+
+    def detect_language(self, text: str) -> str:
+        try:
+            return detect(text)
+        except LangDetectException:
+            return 'en'
+
     # ---------------------------------
     # Send email and Save in Db
     # ---------------------------------
+    def preprocess_message(self, msg_name, msg_email, msg_subject, msg_text, msg_address, msg_event, msg_date, msg_time, msg_people, msg_makeup):
+        return f"{msg_name} {msg_email} {msg_subject} {msg_text} {msg_address}, {msg_event}, {msg_date}, {msg_time}, {msg_people}, {msg_makeup}"
+
+    def load_models_and_vectorizers(self):
+        models = {}
+        vectorizers = {}
+        output_dir = '/home/beautifuldata/www/jpdev_site/scripts/output'
+
+        for file in os.listdir(output_dir):
+            if file.startswith('spam_classifier_') and file.endswith('.joblib'):
+                lang = file.split('_')[2].split('.')[0]
+                models[lang] = joblib.load(os.path.join(output_dir, file))
+                vectorizers[lang] = joblib.load(os.path.join(output_dir, f'tfidf_vectorizer_{lang}.joblib'))
+        return models, vectorizers                
+        
     def process(self, request):
 
         if request.method != 'POST':
@@ -235,26 +262,31 @@ class Contact:
         msg_people = request.POST.get('people')  # Number of people to be made up
         msg_makeup = request.POST.get('makeup')  # Desired makeup
 
-        # Validations
-        #errors = []
-        is_spam = None
-        if '@mail.ru' in msg_email:
-            is_spam = 1
-            message = 'identified as spam: Email contains @mail.ru pattern'
-        elif 'и' in msg_text:
-            is_spam = 1
-            message = 'identified as spam: Text contains и character'
-        elif 'AI-powered' in msg_text:
-            is_spam = 1
-            message = 'identified as spam: Text contains AI-powered pattern'
-            
-        if is_spam != 1:
+        # Predict spam status
+        models, vectorizers = self.load_models_and_vectorizers()
+        full_text = self.preprocess_message(msg_name, msg_email, msg_subject, msg_text, msg_address, msg_event, msg_date, msg_time, msg_people, msg_makeup)
+        lang = self.detect_language(full_text)
+
+        if lang in BLOCKED_LANGUAGES:
+            calc_spam = True
+        elif lang in models:
+            vec = vectorizers[lang]
+            X_new = vec.transform([full_text])
+            prediction = models[lang].predict(X_new)
+            calc_spam = bool(prediction[0])
+        else:
+            fallback_lang = next(iter(models.keys()))
+            vec = vectorizers[fallback_lang]
+            X_new = vec.transform([full_text])
+            prediction = models[fallback_lang].predict(X_new)
+            calc_spam = bool(prediction[0])                
+
+        if calc_spam != 1:
             # Send email
             msg_text_cleaned = msg_text.replace('\n', '<br>')
             email_body = ''
             email_body += f"<strong>Url :</strong> {self.url}<br>\n"
             email_body += f"<strong>User agent :</strong> {user_agent}<br>\n"
-            # email_body += f"<strong>Message:</strong><br>{request.limited}<br>\n"
             email_body += f"<strong>Date :</strong> {timezone.now()}<br>\n"
             email_body += f"<strong>Type :</strong> {contact_type}<br>\n"
             email_body += f"<strong>Langue :</strong> {self.lg}<br>\n"
@@ -283,13 +315,13 @@ class Contact:
             except Exception as e:
                 r = { 'status': 'ERROR', 'message': str(e), 'count': 0}
         else:
-            r = { 'status': 'EMAIL NOT SENT', 'message': message, 'count': 0}
-            
+            r = { 'status': 'NO EMAIL', 'message': None, 'count': 0}
 
         # Save message in Database
         message = Message(
             datetime = timezone.now(),
-            is_spam = is_spam,
+            calc_spam = calc_spam,
+            calc_lg = lang,
             msg_name = msg_name,
             msg_email = msg_email,
             msg_subject = msg_subject,
@@ -306,7 +338,6 @@ class Contact:
             response_status = r['status'],
             response_message = r['message'],
             user_agent = user_agent,
-            # request_limited = request.limited,
         )
         message.save()
 

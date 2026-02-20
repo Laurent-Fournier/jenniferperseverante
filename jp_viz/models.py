@@ -51,6 +51,8 @@ class Comment(models.Model):
 class Message(models.Model):
     datetime = models.DateTimeField(blank=True, null=True, db_comment='Placer dans models.py: datetime = models.DateTimeField(auto_now_add=True)')
     is_spam = models.PositiveIntegerField(blank=True, null=True)
+    calc_spam = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
+    calc_lg = models.CharField(max_length=2, blank=True, null=True)
     msg_name = models.CharField(max_length=255, blank=True, null=True)
     msg_email = models.CharField(max_length=255, blank=True, null=True)
     msg_subject = models.CharField(max_length=255, blank=True, null=True)
@@ -66,7 +68,7 @@ class Message(models.Model):
     msg_makeup = models.CharField(max_length=45, blank=True, null=True, db_comment='Maquillage souhaité')
     response_status = models.CharField(max_length=45, blank=True, null=True)
     response_message = models.CharField(max_length=255, blank=True, null=True)
-    user_agent = models.TextField(blank=True, null=True)
+    user_agent = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
