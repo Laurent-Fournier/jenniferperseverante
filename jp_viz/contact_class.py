@@ -306,8 +306,8 @@ class Contact:
                 email = EmailMessage(
                     subject = f'Formulaire de contact du site JenniferPerseverante [{os.getenv('ENVIRONMENT')}]',
                     body = email_body,
-                    from_email = 'laurent@beautifuldata.fr',
-                    to = ['laurent@beautifuldata.fr'],
+                    from_email = os.getenv('CONTACT_FROM'),
+                    to = os.getenv('CONTACT_RECIPIENTS').split(','),
                 )
                 email.content_subtype = 'html'
                 nb = email.send()
