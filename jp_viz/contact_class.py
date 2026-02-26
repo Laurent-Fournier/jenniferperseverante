@@ -308,6 +308,7 @@ class Contact:
                     body = email_body,
                     from_email = os.getenv('CONTACT_FROM'),
                     to = os.getenv('CONTACT_RECIPIENTS').split(','),
+                    reply_to = [msg_email],
                 )
                 email.content_subtype = 'html'
                 nb = email.send()
