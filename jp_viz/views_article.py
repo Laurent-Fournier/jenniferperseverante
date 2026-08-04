@@ -271,7 +271,7 @@ def remplacer_h4(match):
     return f'''
         <div class="text-with-divider">
           <div class="divider"></div>
-          <h4 class="font-italic text-opacity-black">{contenu}</h4>
+          <h4>{contenu}</h4>
         </div>'''
 
 def extract_title_subtitle(html):

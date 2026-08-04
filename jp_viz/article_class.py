@@ -40,7 +40,7 @@ class ArticleService:
     
     def get_date_lg(self, date: date, language : str, mode : str) -> str:
         """
-        Formats a date as clear text according to the specified language.
+        Formats a date as clear text according to the specified language. 
 
         Args:
             date: Date object to format.

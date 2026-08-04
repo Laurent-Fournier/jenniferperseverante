@@ -1,46 +1,66 @@
-<!-- RD Navbar-->
+<!-- Navbar-->
+<style>
+    /* Changement de couleur au survol pour le bouton CTA */
+    .rd-nav-item .btn-primary {
+        background-color: #f87b7f;
+    }
+    .rd-nav-item .btn-primary:hover {
+        background-color: #f87b7f;
+        border-color: #f87b7f;
+    }
+</style>
+
 <div class="rd-navbar-wrap">
   <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
     <div class="rd-navbar-main-outer">
       <div class="rd-navbar-main">
-        <!-- RD Navbar Panel-->
+        <!-- Navbar Panel-->
         <div class="rd-navbar-panel">
-          <!-- RD Navbar Toggle-->
+          <!-- Navbar Toggle-->
           <button id="navbar-toggle-button" aria-label="Responsive Navbar" class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-          <!-- RD Navbar Brand-->
-          <div class="rd-navbar-brand"><a href="/"><img class="brand-logo-light" src="/static/images/logo-transbeaute.png" alt="Transbeauté" width="243" height="41"></a></div>
+          <!-- Navbar Brand-->
+          <div class="rd-navbar-brand"><a href="/"><img class="brand-logo-light" src="/static/images/logo-transbeaute-w.svg" alt="Transbeauté" width="243" height="41"></a></div>
         </div>
         <div class="rd-navbar-main-element"> 
           <div class="rd-navbar-nav-wrap">
-            <!-- RD Navbar Nav-->
+            <!-- Navbar Nav-->
             <ul class="rd-navbar-nav">
               <li class="rd-nav-item{% if active == 'home' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/">{{ navbar.home.nav }}</a></li>
 
               <li class="rd-nav-item"><a class="rd-nav-link" href="#">{{ navbar.services.nav }}</a>
                 <ul class="rd-menu rd-navbar-dropdown">
-                  <!--<li class="rd-dropdown-item"><a class="rd-dropdown-link" href="#">Cours de féministation pour homme</a></li>-->
-                  <!--<li class="rd-dropdown-item"><a class="rd-dropdown-link" href="#">Un maquillage spécialisé pour travesti – transgenre</a></li>-->
-                  <!--<li class="rd-dropdown-item"><a class="rd-dropdown-link" href="#">Maquillage et coaching en Ligne</a></li>-->
-                  <!--<li class="rd-dropdown-item"><a class="rd-dropdown-link" href="#">Personal Shopper</a></li>-->
-                  <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="/fr/sorties-transgenres-et-travestis">Sorties</a></li>
-                  <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="/fr/gardiennage">Gardiennage de vêtements</a></li>
-                  <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="/fr/cours-maquillage-groupe">Cours de maquillage en groupe</a></li>
+                  <li>{{ navbar.discover.nav }}</li>
+                  <li class="rd-dropdown-item{% if active == 'feminization' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.feminization.slug }}">{{ navbar.feminization.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'relooking' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.relooking.slug }}">{{ navbar.relooking.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'private_lessons' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.private_lessons.slug }}">{{ navbar.private_lessons.nav }}</a></li>
+                  <li class="dropdown-separator"></li>
+                  <li>{{ navbar.share.nav }}</li>
+                  <li class="rd-dropdown-item{% if active == 'transbeaute_evenings' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.transbeaute_evenings.slug }}">{{ navbar.transbeaute_evenings.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'group_classes' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.group_classes.slug }}">{{ navbar.group_classes.nav }}</a></li>
+                  <li class="dropdown-separator"></li>
+                  <li>{{ navbar.company.nav }}</li>
+                  <li class="rd-dropdown-item{% if active == 'makeover_day' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.makeover_day.slug }}">{{ navbar.makeover_day.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'guided_weekend' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.guided_weekend.slug }}">{{ navbar.guided_weekend.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'personalized_stay' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.personalized_stay.slug }}">{{ navbar.personalized_stay.nav }}</a></li>
                 </ul>
               </li>
-              <li class="rd-nav-item{% if active == 'studio' %} active{% endif %}"><a class="rd-nav-link" href="/fr/temoignages">Témoignages intimes</a>
-              <li class="rd-nav-item"><a class="rd-nav-link" href="#">Blog</a>
+              <li class="rd-nav-item{% if active == 'testimony' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.testimony.slug }}">{{ navbar.testimony.nav }}</a>
+              <li class="rd-nav-item"><a class="rd-nav-link" href="#">{{ navbar.blog.nav }}</a>
                 <ul class="rd-menu rd-navbar-dropdown">
-                  <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="/fr/blog">Tous les articles</a></li>
-                  <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="/fr/conseils-beaute">Conseils beauté</a></li>
-                  <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="/fr/confiance-en-soi">Confiance en soi</a></li>
-                  <!--<li class="rd-dropdown-item"><a class="rd-dropdown-link" href="#">Histoires transgenres & travestis</a></li>-->
-                  <li class="rd-dropdown-item{% if active == 'out' %} active{% endif %}"><a class="rd-dropdown-link" href="/fr/sorties-transgenres-et-travestis">Sorties</a></li>
-                  <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="/fr/abonnement-blog">Abonnement aux articles du blog</a></li>
+                  <li class="rd-dropdown-item{% if active == 'all_articles' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.all_articles.slug }}">{{ navbar.all_articles.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'beauty' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.beauty.slug }}">{{ navbar.beauty.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'confidence' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.confidence.slug }}">{{ navbar.confidence.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'clothing' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.clothing.slug }}">{{ navbar.clothing.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'social' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.social.slug }}">{{ navbar.social.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'culture' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.culture.slug }}">{{ navbar.culture.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'evening' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.evening.slug }}">{{ navbar.evening.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'weekend' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.weekend.slug }}">{{ navbar.weekend.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'event' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.event.slug }}">{{ navbar.event.nav }}</a></li>
+                  <li class="rd-dropdown-item{% if active == 'subscribe' %} active{% endif %}"><a class="rd-dropdown-link" href="/{{lg}}/{{ navbar.subscribe.slug }}">{{ navbar.subscribe.nav }}</a></li>
                 </ul>
               </li>
-              <li class="rd-nav-item"><a class="rd-nav-link" href="#">A propos</a>
-              <li class="rd-nav-item"><a class="rd-nav-link" href="#">Contact</a>
-
+              <li class="rd-nav-item{% if active == 'about' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.about.slug }}">{{ navbar.about.nav }}</a>
+              <li class="rd-nav-item{% if active == 'contact' %} active{% endif %}"><a class="rd-nav-link btn btn-primary text-white" href="/{{lg}}/{{ navbar.contact.slug }}">{{ navbar.contact.nav }}</a>
 
 {% if slugs_lg %}
   {% if lg == 'fr' %}
