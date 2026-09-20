@@ -2,22 +2,49 @@
 
 :root {
 	/* Site Jennifer Perseverante */
-	--navbar-background: #444141;
+	--navbar-background-color: #444141;
 	--navbar-text-color: #fff;
-	--hero-background: #232323;
+	--navbar-border-bottom-color: rgba(255, 255, 255, 0.15);
+	--hero-background-color: #232323;
+	--hero-background-gradient: linear-gradient(193.03deg, #151515 -28.3%, rgba(21, 21, 21, 0.26) 112.54%);
 	--hero-title-color: #fff;
+	--hero-title-color2: rgba(255, 255, 255, 0.5);
 	--hero-subtitle-color: rgba(255, 255, 255, 0.7);
 	--highlight-color: #f38e91;
+	--title-image-url: url("../images/title-image.png");
 }
 
 .tb {
 	/* Site Transbeauté */
-	--navbar-background: transparent;
+	--navbar-background-color: transparent;
 	--navbar-text-color: #000;
-	--hero-background: #fff;
+	--navbar-border-bottom-color: rgba(0, 0, 0, 0.15);
+	--hero-background-color: #fff;
+	--hero-background-gradient: linear-gradient(193.03deg, #eaeaea -28.3%, rgba(234, 234, 234, 0.26) 112.54%);
 	--hero-title-color: #000;
+	--hero-title-color2: rgba(0, 0, 0, 0.5);
 	--hero-subtitle-color: rgba(5, 5, 5, 0.7);
-	--highlight-color: #daa520
+	--highlight-color: #daa520;
+	--title-image-url: url("../images/title-image-tb.png");
+}
+
+
+/* Changement de couleur au survol pour le bouton CTA */
+.rd-nav-item .btn-primary {
+	background-color: var(--highlight-color);
+	border-color: var(--highlight-color);
+	border-radius: 100px;
+	padding-left: 16px;
+	padding-right: 16px;
+
+}
+
+.rd-nav-item .btn-primary:hover {
+	background-color: var(--highlight-color);
+	border-color: var(--highlight-color);
+	border-radius: 100px;
+	padding-left: 16px;
+	padding-right: 16px;
 }
 
 /*
@@ -458,7 +485,7 @@ p [style*='max-width'] {
 	bottom: 0;
 	width: 145px;
 	height: 21px;
-	background: url("../images/title-image.png") no-repeat center;
+	background: var(--title-image-url) no-repeat center;
 	left: 50%;
 	transform: translateX(-50%);
 }
@@ -2658,7 +2685,7 @@ img {
 }
 
 .icon-secondary {
-	color: #FBB8C8;
+	color: var(--highlight-color);
 }
 
 .icon-bg-white {
@@ -4507,7 +4534,7 @@ ul.blog-post-meta li .icon {
 	position: relative;
 	padding: 60px 0 65px;
 	text-align: center;
-	background: linear-gradient(193.03deg, #151515 -28.3%, rgba(21, 21, 21, 0.26) 112.54%);
+	background: var(--hero-background-gradient)
 }
 
 .breadcrumbs-custom-title {
@@ -4532,7 +4559,7 @@ ul.blog-post-meta li .icon {
 .breadcrumbs-custom-path a,
 .breadcrumbs-custom-path a:active,
 .breadcrumbs-custom-path a:focus {
-	color: #ffffff;
+	color: var(--hero-title-color);
 }
 
 .breadcrumbs-custom-path li {
@@ -4544,7 +4571,7 @@ ul.blog-post-meta li .icon {
 	text-transform: uppercase;
 	font-weight: 400;
 	line-height: 1.7;
-	color: rgba(255, 255, 255, 0.5);
+	color: var(--hero-title-color2);
 }
 
 .breadcrumbs-custom-path li::after {
@@ -4566,7 +4593,7 @@ ul.blog-post-meta li .icon {
 
 .breadcrumbs-custom-path a:hover,
 .breadcrumbs-custom-path li.active {
-	color: rgba(255, 255, 255, 0.5);
+	color: var(--hero-title-color2);
 }
 
 *+.breadcrumbs-custom-path {
@@ -5629,7 +5656,7 @@ html [class*='section-'].section-bottom-0 {
 
 .section-main-bunner {
 	position: relative;
-	background: var(--hero-background);
+	background: var(--hero-background-color);
 	overflow: hidden;
 }
 
@@ -7440,7 +7467,7 @@ html.tablet .ui-to-top {
 	font-family: "Material Design Icons";
 	font-size: 16px;
 	cursor: pointer;
-	color: #ffffff;
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-static .rd-nav-item>.rd-navbar-submenu-toggle::before {
@@ -8143,12 +8170,12 @@ html.tablet .ui-to-top {
 
 .rd-navbar-fixed .rd-navbar-panel {
 	color: #9b9b9b;
-	background: var(--navbar-background);
+	background: var(--navbar-background-color);
 }
 
 .rd-navbar-fixed .rd-navbar-nav-wrap {
 	color: #ffffff;
-	background: var(--navbar-background);
+	background: var(--navbar-background-color);
 	border: 1px solid #444141;
 	box-shadow: 0px 0px 15px rgba(21, 21, 21, 0.35);
 }
@@ -8169,12 +8196,12 @@ html.tablet .ui-to-top {
 }
 
 .rd-navbar-fixed .rd-nav-link {
-	color: #9b9b9b;
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-fixed .rd-megamenu-list>li>a,
 .rd-navbar-fixed .rd-navbar-dropdown>li>a {
-	color: #9b9b9b;
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-fixed .rd-megamenu-list>li:hover>a,
@@ -8185,7 +8212,7 @@ html.tablet .ui-to-top {
 .rd-navbar-fixed .rd-navbar-dropdown>li.focus>a,
 .rd-navbar-fixed .rd-navbar-dropdown>li.active>a,
 .rd-navbar-fixed .rd-navbar-dropdown>li.opened>a {
-	color: #ffffff;
+	color: var(--navbar-text-color);
 	background: var(--highlight-color);
 }
 
@@ -8200,15 +8227,15 @@ html.tablet .ui-to-top {
 .rd-navbar-fixed .rd-navbar-megamenu .rd-megamenu-title a,
 .rd-navbar-fixed .rd-navbar-megamenu .rd-megamenu-title a:focus,
 .rd-navbar-fixed .rd-navbar-megamenu .rd-megamenu-title a:active {
-	color: #ffffff;
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-fixed .rd-navbar-megamenu .rd-megamenu-title a:hover {
-	color: var(--highlight-color);
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-fixed .rd-navbar-submenu-toggle {
-	color: #9b9b9b;
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-fixed .rd-navbar-search .rd-search-form-submit {
@@ -8771,7 +8798,7 @@ html.rd-navbar-fixed-linked .page {
 	padding-right: 15px;
 	margin-left: auto;
 	margin-right: auto;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	border-bottom: 1px solid var(--navbar-border-bottom-color);
 }
 
 .rd-navbar-modern.rd-navbar-static .rd-navbar-aside .button,
