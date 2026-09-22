@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Article(models.Model):
     art_date = models.DateField(blank=True, null=True)
     art_family = models.CharField(max_length=45, blank=True, null=True)
@@ -12,12 +13,12 @@ class Article(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'article'
+        db_table = "article"
 
 
 class ArticleLg(models.Model):
-    pk = models.CompositePrimaryKey('id', 'language_code')
-    id = models.ForeignKey(Article, models.DO_NOTHING, db_column='id')
+    pk = models.CompositePrimaryKey("id", "language_code")
+    id = models.ForeignKey(Article, models.DO_NOTHING, db_column="id")
     language_code = models.CharField(max_length=2)
     active = models.CharField(max_length=10, blank=True, null=True)
     nav = models.CharField(max_length=25, blank=True, null=True)
@@ -30,49 +31,93 @@ class ArticleLg(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'article_lg'
+        db_table = "article_lg"
+
+
+class ArticleTracking(models.Model):
+    subscriber_id = models.PositiveIntegerField()
+    article_id = models.PositiveIntegerField()
+    language_code = models.CharField(max_length=2)
+    tracking_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = "article_tracking"
 
 
 class Comment(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
+    language_code = models.CharField(max_length=2, blank=True, null=True)
     art_id = models.PositiveIntegerField()
-    com_author = models.CharField(max_length=255, blank=True, null=True)
-    com_author_email = models.CharField(max_length=100, blank=True, null=True)
-    com_date = models.DateTimeField(blank=True, null=True)
-    com_content = models.TextField(blank=True, null=True)
-    com_approved = models.PositiveIntegerField(blank=True, null=True)
-    parent_id = models.IntegerField(blank=True, null=True)
+    com_author = models.TextField(
+        db_collation="utf8mb4_unicode_520_ci", db_comment="Pseudo / Nom de l'auteur"
+    )
+    com_email = models.CharField(
+        max_length=100,
+        db_collation="utf8mb4_unicode_520_ci",
+        db_comment="E-mail de l'auteur",
+    )
+    com_date = models.DateTimeField(db_comment="Date du commentaire")
+    com_content = models.TextField(
+        db_collation="utf8mb4_unicode_520_ci", db_comment="Texte du commentaire"
+    )
+    com_approved = models.PositiveIntegerField(db_comment="Status (approuvé ou non)")
 
     class Meta:
         managed = False
-        db_table = 'comment'
+        db_table = "comment"
+
+
+class LabelLg(models.Model):
+    pk = models.CompositePrimaryKey("code", "language_code")
+    code = models.CharField(max_length=255)
+    language_code = models.CharField(max_length=2)
+    label = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = "label_lg"
 
 
 class Message(models.Model):
-    datetime = models.DateTimeField(blank=True, null=True, db_comment='Placer dans models.py: datetime = models.DateTimeField(auto_now_add=True)')
-    is_spam = models.PositiveIntegerField(blank=True, null=True)
-    calc_spam = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
-    calc_lg = models.CharField(max_length=2, blank=True, null=True)
-    msg_name = models.CharField(max_length=255, blank=True, null=True)
-    msg_email = models.CharField(max_length=255, blank=True, null=True)
-    msg_subject = models.CharField(max_length=255, blank=True, null=True)
-    msg_text = models.TextField(blank=True, null=True, db_comment='Votre message... ou Plus de détails...')
+    datetime = models.DateTimeField(
+        blank=True,
+        null=True,
+        db_comment="Placer dans models.py: datetime = models.DateTimeField(auto_now_add=True)",
+    )
     language_code = models.CharField(max_length=2, blank=True, null=True)
     msg_url = models.CharField(max_length=255, blank=True, null=True)
     contact_type = models.CharField(max_length=45, blank=True, null=True)
-    msg_address = models.CharField(max_length=255, blank=True, null=True, db_comment='Adresse exacte')
-    msg_event = models.CharField(max_length=255, blank=True, null=True, db_comment='Pour quel événement ?')
-    msg_date = models.CharField(max_length=45, blank=True, null=True, db_comment='Date de la séance')
-    msg_time = models.CharField(max_length=45, blank=True, null=True, db_comment='Horaire')
-    msg_people = models.CharField(max_length=45, blank=True, null=True, db_comment='Nb de personnes à maquiller')
-    msg_makeup = models.CharField(max_length=45, blank=True, null=True, db_comment='Maquillage souhaité')
+    msg_name = models.CharField(max_length=255, blank=True, null=True)
+    msg_email = models.CharField(max_length=255, blank=True, null=True)
+    msg_subject = models.CharField(max_length=255, blank=True, null=True)
+    msg_address = models.CharField(
+        max_length=255, blank=True, null=True, db_comment="Adresse exacte"
+    )
+    msg_event = models.CharField(
+        max_length=255, blank=True, null=True, db_comment="Pour quel événement ?"
+    )
+    msg_date = models.CharField(
+        max_length=45, blank=True, null=True, db_comment="Date de la séance"
+    )
+    msg_time = models.CharField(
+        max_length=45, blank=True, null=True, db_comment="Horaire"
+    )
+    msg_people = models.CharField(
+        max_length=45, blank=True, null=True, db_comment="Nb de personnes à maquiller"
+    )
+    msg_makeup = models.CharField(
+        max_length=45, blank=True, null=True, db_comment="Maquillage souhaité"
+    )
+    msg_text = models.TextField(
+        blank=True, null=True, db_comment="Votre message... ou Plus de détails..."
+    )
     response_status = models.CharField(max_length=45, blank=True, null=True)
     response_message = models.CharField(max_length=255, blank=True, null=True)
-    user_agent = models.CharField(max_length=255, blank=True, null=True)
+    user_agent = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'message'
+        db_table = "message"
 
 
 class UxSearch(models.Model):
@@ -84,4 +129,47 @@ class UxSearch(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'ux_search'
+        db_table = "ux_search"
+
+
+class Newsletter(models.Model):
+    article_id = models.PositiveIntegerField()
+    created_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = "newsletter"
+
+
+class Subscriber(models.Model):
+    sub_pseudo = models.CharField(max_length=45, blank=True, null=True)
+    sub_email = models.CharField(unique=True, max_length=255, blank=True, null=True)
+    is_active = models.PositiveIntegerField(blank=True, null=True)
+    subscription_date = models.DateField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = "subscriber"
+        db_table_comment = "Newsletter recipients"
+
+
+class PixelTracking(models.Model):
+    subscriber_id = models.PositiveIntegerField()
+    article_id = models.PositiveIntegerField()
+    tracking_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = "pixel_tracking"
+        db_table_comment = "Tracking of transparent pixel"
+
+
+class ArticleTracking(models.Model):
+    subscriber_id = models.PositiveIntegerField()
+    article_id = models.PositiveIntegerField()
+    language_code = models.CharField(max_length=2)
+    tracking_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = "article_tracking"

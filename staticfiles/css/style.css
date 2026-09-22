@@ -7,6 +7,7 @@
 	--navbar-border-bottom-color: rgba(255, 255, 255, 0.15);
 	--hero-background-color: #232323;
 	--hero-background-gradient: linear-gradient(193.03deg, #151515 -28.3%, rgba(21, 21, 21, 0.26) 112.54%);
+	--hero-bunner-color: #FDFF9C;
 	--hero-title-color: #fff;
 	--hero-title-color2: rgba(255, 255, 255, 0.5);
 	--hero-subtitle-color: rgba(255, 255, 255, 0.7);
@@ -16,11 +17,12 @@
 
 .tb {
 	/* Site Transbeauté */
-	--navbar-background-color: transparent;
+	--navbar-background-color: #fff;
 	--navbar-text-color: #000;
 	--navbar-border-bottom-color: rgba(0, 0, 0, 0.15);
 	--hero-background-color: #fff;
 	--hero-background-gradient: linear-gradient(193.03deg, #eaeaea -28.3%, rgba(234, 234, 234, 0.26) 112.54%);
+	--hero-bunner-color: #daa520;
 	--hero-title-color: #000;
 	--hero-title-color2: rgba(0, 0, 0, 0.5);
 	--hero-subtitle-color: rgba(5, 5, 5, 0.7);
@@ -5720,7 +5722,7 @@ html [class*='section-'].section-bottom-0 {
 	font-family: "Playfair Display", serif;
 	margin: 0 auto;
 	text-align: center;
-	color: #FDFF9C;
+	color: var(--hero-bunner-color);
 	display: block;
 	position: relative;
 	padding-top: 30px;
@@ -5753,6 +5755,7 @@ html [class*='section-'].section-bottom-0 {
 	display: inline-block;
 	letter-spacing: -0.01em;
 	font-family: "Playfair Display", serif;
+	white-space: pre-line;
 }
 
 @media (min-width: 768px) {
@@ -8174,7 +8177,7 @@ html.tablet .ui-to-top {
 }
 
 .rd-navbar-fixed .rd-navbar-nav-wrap {
-	color: #ffffff;
+	color: var(--navbar-text-color);
 	background: var(--navbar-background-color);
 	border: 1px solid #444141;
 	box-shadow: 0px 0px 15px rgba(21, 21, 21, 0.35);
@@ -8184,7 +8187,7 @@ html.tablet .ui-to-top {
 .rd-navbar-fixed .rd-nav-item.focus .rd-nav-link,
 .rd-navbar-fixed .rd-nav-item.active .rd-nav-link,
 .rd-navbar-fixed .rd-nav-item.opened .rd-nav-link {
-	color: #ffffff;
+	color: var(--navbar-text-color);
 	background: var(--highlight-color);
 }
 
@@ -8192,7 +8195,7 @@ html.tablet .ui-to-top {
 .rd-navbar-fixed .rd-nav-item.focus>.rd-navbar-submenu-toggle,
 .rd-navbar-fixed .rd-nav-item.active>.rd-navbar-submenu-toggle,
 .rd-navbar-fixed .rd-nav-item.opened>.rd-navbar-submenu-toggle {
-	color: #ffffff;
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-fixed .rd-nav-link {
@@ -8274,7 +8277,7 @@ html.rd-navbar-fixed-linked .page {
 */
 .rd-navbar-sidebar {
 	display: block;
-	background: #ffffff;
+	background: var(--navbar-background-color);
 }
 
 .rd-navbar-sidebar .rd-navbar-main-outer {
@@ -8831,7 +8834,7 @@ html.rd-navbar-fixed-linked .page {
 	right: 0;
 	height: 4px;
 	width: 100%;
-	background: #ffffff;
+	background: var(--navbar-text-color);
 	transition: all .3s;
 	transform: translateY(35px);
 	will-change: transform;
@@ -8840,12 +8843,12 @@ html.rd-navbar-fixed-linked .page {
 
 .rd-navbar-modern.rd-navbar-static .rd-nav-item.active>.rd-navbar-submenu-toggle,
 .rd-navbar-modern.rd-navbar-static .rd-nav-item:hover>.rd-navbar-submenu-toggle {
-	color: #ffffff;
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-modern.rd-navbar-static .rd-nav-item .rd-nav-link:hover,
 .rd-navbar-modern.rd-navbar-static .rd-nav-item.active .rd-nav-link {
-	color: #ffffff;
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-modern.rd-navbar-static .rd-nav-item .rd-nav-link:hover:before,

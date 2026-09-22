@@ -23,20 +23,21 @@ from .navbar_class import Navbar
 # ----------------------
 # Page Article
 # ----------------------
-@ratelimit(key='ip', rate='3/m', method='POST', block=True)
-def article(request, lg, slug=''):
-    #return HttpResponse(f"[DEBUG] le language est : {lg}")
+@ratelimit(key="ip", rate="3/m", method="POST", block=True)
+def article(request, lg, slug=""):
+    # return HttpResponse(f"[DEBUG] le language est : {lg}")
     url = request.build_absolute_uri()
-    
+
     # Read article data from database
     hero = None
     article = {}
-    if lg in ['fr', 'en', 'es']:
+    if lg in ["fr", "en", "es"]:
         hero, article = get_article_by_slug(lg, slug)
     else:
-        lg='fr'
+        lg = "fr"
+    request.lg = lg
 
-    all_languages = ['fr', 'en', 'es']
+    all_languages = ["fr", "en", "es"]
     other_languages = [lang for lang in all_languages if lang != lg]
 
     parsed_url = urlparse(url)
@@ -44,38 +45,34 @@ def article(request, lg, slug=''):
 
     # Page 404 si l'article n'existe pas
     if article == {}:  # slug not found
-        
         subtitle = {
-            'fr': 'Maquilleuse professionnelle<br>à Paris et Ile-de-France',
-            'en': 'Professional makeup artist<br>in Paris and Ile-de-France',
-            'es': 'Maquilladora profesional<br>en París y Île-de-France',
+            "fr": "Maquilleuse professionnelle<br>à Paris et Ile-de-France",
+            "en": "Professional makeup artist<br>in Paris and Ile-de-France",
+            "es": "Maquilladora profesional<br>en París y Île-de-France",
         }
         body = {
-            'fr': '<h2>Page non trouvée (404)</h2><p>Oups ! La page que vous cherchez n’existe pas.</p>',
-            'en': '<h2>Page not found (404)</h2><p>Oops! The page you are looking for does not exist.</p>',
-            'es': '<h2>Página no encontrada (404)</h2><p>¡Uy! La página que buscas no existe.</p>',
+            "fr": "<h2>Page non trouvée (404)</h2><p>Oups ! La page que vous cherchez n’existe pas.</p>",
+            "en": "<h2>Page not found (404)</h2><p>Oops! The page you are looking for does not exist.</p>",
+            "es": "<h2>Página no encontrada (404)</h2><p>¡Uy! La página que buscas no existe.</p>",
         }
-        
+
         return render(
             request,
             "404.html",
             {
-                "environment": os.getenv('ENVIRONMENT'),            
-                'base_url': base_url,
+                "environment": os.getenv("ENVIRONMENT"),
+                "base_url": base_url,
                 "html": {
-                    'title': '404 error page' + os.getenv('HTML_TITLE_SUFFIX'),
-                    'description': '404 error page',
+                    "title": "404 error page" + os.getenv("HTML_TITLE_SUFFIX"),
+                    "description": "404 error page",
                 },
                 "lg": lg,
-                'other_languages': other_languages,
+                "other_languages": other_languages,
                 "navbar": Navbar(lg).to_json(),
                 "active": None,
                 "hero": {
                     "nav": "",
-                    "image": {
-                        "src": "contact.avif",
-                        "alt": ""
-                    },
+                    "image": {"src": "contact.avif", "alt": ""},
                     "title": "Jennifer Perseverante",
                     "subtitle": subtitle[lg],
                 },
@@ -96,7 +93,7 @@ def article(request, lg, slug=''):
 
     # Send email and save in DB ?
     r = None
-    if request.method == 'POST':
+    if request.method == "POST":
         r = Contact(lg, contact_type, url, no_section).process(request)
 
     map = None
@@ -105,36 +102,37 @@ def article(request, lg, slug=''):
             map = "STUDIO"
         elif article["family"][:7] == "AT_HOME":
             map = "AT_HOME"
-    
+
     comments = None
-    if int(os.getenv('DISPLAY_COMMENTS'))==1:
+    if int(os.getenv("DISPLAY_COMMENTS")) == 1:
         comments = ArticleService().get_comments(article["id"])
-    
+
     return render(
         request,
-        'article.html',
+        "article.html",
         {
-            "environment": os.getenv('ENVIRONMENT'),
-            'base_url': base_url,
+            "environment": os.getenv("ENVIRONMENT"),
+            "base_url": base_url,
             "html": {
-                "title": article['title'] + os.getenv('HTML_TITLE_SUFFIX'),
-                "description": article['description'],
+                "title": article["title"] + os.getenv("HTML_TITLE_SUFFIX"),
+                "description": article["description"],
             },
-            'lg': lg,
-            'other_languages': other_languages,
-            'navbar': Navbar(lg).to_json(),      
-            'slug': slug,
-            'hero': hero,
-            'slugs_lg': ArticleService().get_slugs(article["id"]),
-            'article': article,
-            "with_article_date": int(os.getenv('DISPLAY_ARTICLE_DATE')),
-            'map': map,
+            "lg": lg,
+            "other_languages": other_languages,
+            "navbar": Navbar(lg).to_json(),
+            "slug": slug,
+            "hero": hero,
+            "slugs_lg": ArticleService().get_slugs(article["id"]),
+            "article": article,
+            "with_article_date": int(os.getenv("DISPLAY_ARTICLE_DATE")),
+            "map": map,
             "contact_form": Contact(lg, contact_type, url, no_section).get_texts(),
-            'response': r,
-            'related_articles': get_related_articles(article, lg),
-            'comments': comments,
+            "response": r,
+            "related_articles": get_related_articles(article, lg),
+            "comments": comments,
         },
     )
+
 
 # -------------------
 # Get Artcle by Slug
@@ -167,9 +165,19 @@ def get_article_by_slug(lg, slug=None):
 
     # Colonnes correspondant à la requête SQL
     columns = [
-        "id", "art_date", "art_cover", "art_family", "is_page",
-        "active", "art_slug", "nav", "art_title", "art_description", "markdown_text",
-        "hero_title", "hero_subtitle"
+        "id",
+        "art_date",
+        "art_cover",
+        "art_family",
+        "is_page",
+        "active",
+        "art_slug",
+        "nav",
+        "art_title",
+        "art_description",
+        "markdown_text",
+        "hero_title",
+        "hero_subtitle",
     ]
 
     data = dict(zip(columns, row))
@@ -184,23 +192,53 @@ def get_article_by_slug(lg, slug=None):
         "subtitle": data["hero_subtitle"],
     }
 
-    sections = parse_sections(data['markdown_text'], lg)
+    sections = parse_sections(data["markdown_text"], lg)
     for section in sections:
         if section["type"] == "TEXT":
-            section['titles'], section['subtitles'], section["htmls"], section["images"], section["videos"] = parse_texts(section["markdown"], lg)
+            (
+                section["titles"],
+                section["subtitles"],
+                section["htmls"],
+                section["images"],
+                section["videos"],
+            ) = parse_texts(section["markdown"], lg)
         elif section["type"] == "MAIN-TEXT":
-            section['titles'], section['subtitles'], section["htmls"], section["images"], section["videos"] = parse_texts(section["markdown"], lg)
+            (
+                section["titles"],
+                section["subtitles"],
+                section["htmls"],
+                section["images"],
+                section["videos"],
+            ) = parse_texts(section["markdown"], lg)
         # elif section["type"] == "TEXT-CENTERED":
         #     section["htmls"], section["images"], section["videos"] = manyTextsParse(section["markdown"], lg)
         elif section["type"] == "TEXT-IMAGE":
-            section['titles'], section['subtitles'], section["htmls"], section["images"], section["videos"] = parse_text_image(section["markdown"], lg)
+            (
+                section["titles"],
+                section["subtitles"],
+                section["htmls"],
+                section["images"],
+                section["videos"],
+            ) = parse_text_image(section["markdown"], lg)
         elif section["type"] == "IMAGE-TEXT":
-            section['titles'], section['subtitles'], section["htmls"], section["images"], section["videos"] = parse_text_image(section["markdown"], lg)
+            (
+                section["titles"],
+                section["subtitles"],
+                section["htmls"],
+                section["images"],
+                section["videos"],
+            ) = parse_text_image(section["markdown"], lg)
         elif section["type"] == "IMAGE":
-            section['titles'], section['subtitles'], section["htmls"], section["images"], section["videos"] = parse_images(section["markdown"], lg)
+            (
+                section["titles"],
+                section["subtitles"],
+                section["htmls"],
+                section["images"],
+                section["videos"],
+            ) = parse_images(section["markdown"], lg)
         else:
-            section['titles'] = []
-            section['subtitles'] = []
+            section["titles"] = []
+            section["subtitles"] = []
             section["htmls"] = []
             section["images"] = []
             section["videos"] = []
@@ -214,15 +252,16 @@ def get_article_by_slug(lg, slug=None):
         "description": data["art_description"],
         "markdown_text": data["markdown_text"],
         "date": data["art_date"],
-        "date_lg": ArticleService().get_date_lg(data["art_date"], lg, 'LONG'),
+        "date_lg": ArticleService().get_date_lg(data["art_date"], lg, "LONG"),
         "family": data["art_family"],
         "is_page": bool(data["is_page"]) if data["is_page"] is not None else False,
         "cover": data["art_cover"],
         "translated_slugs": ArticleService().get_slugs(data["id"]),
         "sections": sections,
     }
-   
+
     return hero, article
+
 
 # ----------------------------------------------
 def parse_sections(s, language_code):
@@ -268,34 +307,35 @@ def parse_sections(s, language_code):
 # Fonction de remplacement
 def remplacer_h4(match):
     contenu = match.group(1)
-    return f'''
+    return f"""
         <div class="text-with-divider">
           <div class="divider"></div>
           <h4>{contenu}</h4>
-        </div>'''
+        </div>"""
+
 
 def extract_title_subtitle(html):
     # Extract <h3>title</h3>
     match = re.search(r"<h3>(.*?)</h3>", html, re.IGNORECASE | re.DOTALL)
     title = match.group(1) if match else None
-    html = html.replace(f'<h3>%s</h3>' % title, '')  # remove title from text
+    html = html.replace(f"<h3>%s</h3>" % title, "")  # remove title from text
     if title is not None:
-        title = title.replace('<strong>', '').replace('</strong>', '')
+        title = title.replace("<strong>", "").replace("</strong>", "")
 
     # Extract <h4>subtitle</h4>
-    pattern = r'<h4>(.*?)</h4>'
+    pattern = r"<h4>(.*?)</h4>"
 
     # Remplacement
-    new_html = re.sub(pattern, remplacer_h4, html)    
-    
-    #match = re.search(r"<h4>(.*?)</h4>", html, re.IGNORECASE | re.DOTALL)
-    #subtitle = match.group(1) if match else None
-    #html = html.replace(f'<h4>%s</h4>' % subtitle, '')  # remove subtitle from texte
-    #if subtitle is not None:
+    new_html = re.sub(pattern, remplacer_h4, html)
+
+    # match = re.search(r"<h4>(.*?)</h4>", html, re.IGNORECASE | re.DOTALL)
+    # subtitle = match.group(1) if match else None
+    # html = html.replace(f'<h4>%s</h4>' % subtitle, '')  # remove subtitle from texte
+    # if subtitle is not None:
     #    subtitle = subtitle.replace('<strong>', '').replace('</strong>', '')
-        
+
     return title, None, new_html
-    
+
 
 # ----------------------------------------------
 # Many texts
@@ -311,7 +351,9 @@ def parse_texts(text, language_code):
         ss = text[0:p].strip()
         ss = Pattern(ss, language_code).preProcess()
         html = markdown2.markdown(ss.strip())
-        html = Pattern(html, language_code).postProcess()  # replace keywords and pattern
+        html = Pattern(
+            html, language_code
+        ).postProcess()  # replace keywords and pattern
         title, subtitle, html = extract_title_subtitle(html)
 
         htmls.append(html)
@@ -322,15 +364,22 @@ def parse_texts(text, language_code):
         p = text.find("::")
 
     html = markdown2.markdown(text.strip())
-    html = Pattern(html, language_code).postProcess()  # finally replace keywords and pattern
+    html = Pattern(
+        html, language_code
+    ).postProcess()  # finally replace keywords and pattern
     title, subtitle, html = extract_title_subtitle(html)
 
     htmls.append(html)
     titles.append(title)
     subtitles.append(subtitle)
 
-    return titles, subtitles, htmls, [], []  # Many titles | Many subtitles | Many texts | No image | No video
-
+    return (
+        titles,
+        subtitles,
+        htmls,
+        [],
+        [],
+    )  # Many titles | Many subtitles | Many texts | No image | No video
 
 
 # ----------------------------------------------
@@ -353,7 +402,14 @@ def parse_text_image(text, lg):
     html = Pattern(html, lg).postProcess()
     title, subtitle, html = extract_title_subtitle(html)
 
-    return [title], [subtitle], [html], [{"alt": alt, "url": url}], []  # One title | One subtitle | One text | One image | No video
+    return (
+        [title],
+        [subtitle],
+        [html],
+        [{"alt": alt, "url": url}],
+        [],
+    )  # One title | One subtitle | One text | One image | No video
+
 
 # ---------------
 # Parse images
@@ -373,12 +429,18 @@ def parse_images(text, language_code):
         text = text[p3 + 1 :]
         p1 = text.find("![")
 
-    return [], [], [], images, []  # No title | No subtitle | No text | Many images | No video
+    return (
+        [],
+        [],
+        [],
+        images,
+        [],
+    )  # No title | No subtitle | No text | Many images | No video
 
 
 def get_related_articles(article, lg):
     article_id = article["id"]
-    families = article["family"] if article["family"] is not None else ''
+    families = article["family"] if article["family"] is not None else ""
 
     # family1, family2, family3 => "family1", "family2", "family3"
     tabs = families.split(",")
@@ -410,12 +472,9 @@ def get_related_articles(article, lg):
             "lg": lg,
             "slug": row.art_slug,
             "date": row.art_date,
-            "date_lg": ArticleService().get_date_lg(row.art_date, lg, 'SHORT'),
+            "date_lg": ArticleService().get_date_lg(row.art_date, lg, "SHORT"),
             "cover": row.art_cover.replace("1024", "230"),
-            "hero": {
-                "title": row.hero_title,
-                "subtitle": row.hero_subtitle
-            }
+            "hero": {"title": row.hero_title, "subtitle": row.hero_subtitle},
         }
 
         related_articles.append(related_article)
@@ -423,48 +482,52 @@ def get_related_articles(article, lg):
     return related_articles
 
 
-
 # ------------------
 # Search Article
 # ------------------
 def search(request, lg):
-    '''Search pattern in hero_title, hero_subtitle and art_text'''
+    """Search pattern in hero_title, hero_subtitle and art_text"""
     url = request.build_absolute_uri()
-    
-    all_languages = ['fr', 'en', 'es']
+
+    all_languages = ["fr", "en", "es"]
     other_languages = [lang for lang in all_languages if lang != lg]
 
     # Read parameters
-    query  = request.GET.get("p", '').strip()
-    
+    query = request.GET.get("p", "").strip()
+
     # Store search text in DB
     ux_search = UxSearch(
-        datetime = datetime.now(),
-        language_code = lg,
-        search_url = request.META.get('HTTP_REFERER', '/'),
-        search_text = query,
-        user_agent = request.headers.get('User-Agent')
+        datetime=datetime.now(),
+        language_code=lg,
+        search_url=request.META.get("HTTP_REFERER", "/"),
+        search_text=query,
+        user_agent=request.headers.get("User-Agent"),
     )
     ux_search.save()
 
-    rows = Article.objects.filter(
-        Q(articlelg__hero_title__icontains=query) | 
-        Q(articlelg__hero_subtitle__icontains=query) | 
-        Q(articlelg__art_text__icontains=query),
-        articlelg__language_code=lg,
-    ).prefetch_related('articlelg_set').distinct().order_by('-art_date')
+    rows = (
+        Article.objects.filter(
+            Q(articlelg__hero_title__icontains=query)
+            | Q(articlelg__hero_subtitle__icontains=query)
+            | Q(articlelg__art_text__icontains=query),
+            articlelg__language_code=lg,
+        )
+        .prefetch_related("articlelg_set")
+        .distinct()
+        .order_by("-art_date")
+    )
 
     # Sélectionner les champs souhaités
     rows = rows.values(
-         'id',
-         'art_date',
-         'art_family',
-         'art_cover',
-         'is_page',
-         'articlelg__art_slug',
-         'articlelg__art_title',
-         'articlelg__hero_title',
-         'articlelg__hero_subtitle'
+        "id",
+        "art_date",
+        "art_family",
+        "art_cover",
+        "is_page",
+        "articlelg__art_slug",
+        "articlelg__art_title",
+        "articlelg__hero_title",
+        "articlelg__hero_subtitle",
     )
 
     articles = []
@@ -472,52 +535,54 @@ def search(request, lg):
     for row in rows:
         article = {}
         article["no"] = i
-        article["id"] = row['id']
-        article["slug"] = row['articlelg__art_slug']
-        article["date"] = row['art_date']
-        article["family"] = row['art_family']
-        article["is_page"] = row['is_page']
+        article["id"] = row["id"]
+        article["slug"] = row["articlelg__art_slug"]
+        article["date"] = row["art_date"]
+        article["family"] = row["art_family"]
+        article["is_page"] = row["is_page"]
         article["hero"] = {"image": {}}
-        article["cover"] = row['art_cover']
-        article["alt"] = row['articlelg__art_title']
-        article["title"] = row['articlelg__hero_title']
-        article["subtitle"] = row['articlelg__hero_subtitle']
-        article["style"] = 'even' if i%2 == 0 else 'odd'
+        article["cover"] = row["art_cover"]
+        article["alt"] = row["articlelg__art_title"]
+        article["title"] = row["articlelg__hero_title"]
+        article["subtitle"] = row["articlelg__hero_subtitle"]
+        article["style"] = "even" if i % 2 == 0 else "odd"
         articles.append(article)
         i += 1
 
     # Translations
-    if lg == 'en':
-        html_title_lg = 'Search Page'        
+    if lg == "en":
+        html_title_lg = "Search Page"
         html_description_lg = "Search Page"
-        nav_lg = 'Search'
+        nav_lg = "Search"
         title_lg = f"Search on query '{query}'"
-    elif lg == 'es':
-        html_title_lg = 'Página de búsqueda'        
+    elif lg == "es":
+        html_title_lg = "Página de búsqueda"
         html_description_lg = "Página de búsqueda"
-        nav_lg = 'Buscar'
+        nav_lg = "Buscar"
         title_lg = f"Buscar en la consulta '{query}'"
     else:
-        html_title_lg = 'Page de recherche'        
+        html_title_lg = "Page de recherche"
         html_description_lg = "Page de recherche"
-        nav_lg = 'Recherche'
+        nav_lg = "Recherche"
         title_lg = f"Recherche sur la requête '{query}'"
 
     parsed_url = urlparse(url)
     base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
-        
-    return render(request, "search.html",
+
+    return render(
+        request,
+        "search.html",
         {
-            "environment": os.getenv('ENVIRONMENT'),
-            'base_url': base_url,
+            "environment": os.getenv("ENVIRONMENT"),
+            "base_url": base_url,
             "html": {
-                "title": html_title_lg + os.getenv('HTML_TITLE_SUFFIX'),
+                "title": html_title_lg + os.getenv("HTML_TITLE_SUFFIX"),
                 "description": html_description_lg,
             },
-            'lg': lg,
-            'other_languages': other_languages,
-            'navbar': Navbar(lg).to_json(),
-            'slug': None,
+            "lg": lg,
+            "other_languages": other_languages,
+            "navbar": Navbar(lg).to_json(),
+            "slug": None,
             "hero": {
                 "nav": nav_lg,
                 "title": title_lg,
