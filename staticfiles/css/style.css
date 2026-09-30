@@ -15,6 +15,7 @@
 	--principale-color: #f38e91;
 	--principale-dark-color: #f38e91;
 	--title-image-url: url("../images/title-image.png");
+	--footer-background-color: #444141;
 }
 
 .tb {
@@ -32,8 +33,16 @@
 	--principale-color: #e0a869;
 	--principale-dark-color: #c48c4c;
 	--title-image-url: url("../images/title-image-tb.png");
+	--footer-background-color: #444141;
 }
 
+.footer-logo-background {
+	background: var(--navbar-background-color);
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
 
 /*
 * Trunk version 2.0.1
@@ -2564,7 +2573,7 @@ ul.list-color li {
 }
 
 ul.list-contact-info li+li {
-	margin-top: 24px;
+	margin-top: 12px;
 }
 
 ul.list-contact-info li {
@@ -2593,9 +2602,9 @@ ul.social-list>li {
 }
 
 ul.social-list>* {
-	margin-top: 20px;
+	/*	margin-top: 20px;
 	padding-left: 10px;
-	padding-right: 10px;
+	padding-right: 10px;*/
 }
 
 ul.social-list a:hover {
@@ -4801,7 +4810,7 @@ ul.blog-post-meta li .icon {
 .footer-classic {
 	padding: 90px 0;
 	font-weight: 400;
-	background: #3C3C3C;
+	background: var(--footer-background-color);
 }
 
 .footer-classic .button-white-outline {
@@ -4820,6 +4829,7 @@ ul.blog-post-meta li .icon {
 
 .footer-classic .footer-title {
 	color: #ffffff;
+	text-transform: uppercase;
 }
 
 .footer-classic p {
@@ -8856,8 +8866,8 @@ html.rd-navbar-fixed-linked .page {
 
 .rd-navbar-modern.rd-navbar-static.rd-navbar--is-stuck,
 .rd-navbar-modern.rd-navbar-static.rd-navbar--is-clone {
-	background: #444141;
-	border-bottom-color: #444141;
+	background: var(--navbar-background-color);
+	border-bottom-color: var(--navbar-background-color);
 	box-shadow: 0px 0px 15px rgba(21, 21, 21, 0.35);
 }
 

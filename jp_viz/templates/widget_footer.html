@@ -16,11 +16,11 @@
               </ul>
               <div>
                 <ul class="social-list">
-                  <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-facebook"
+                  <li><a class="icon icon-sm icon-circle icon-circle-md icon-secondary fa-facebook"
                       href="https://www.facebook.com/jenniferperseverante/" aria-label="Facebook"></a></li>
-                  <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-instagram"
+                  <li><a class="icon icon-sm icon-circle icon-circle-md icon-secondary fa-instagram"
                       href="https://www.instagram.com/jenniferperseverante/" aria-label="Instagram"></a></li>
-                  <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-youtube"
+                  <li><a class="icon icon-sm icon-circle icon-circle-md icon-secondary fa-youtube"
                       href="https://www.youtube.com/channel/UCypPiuUYTPCPGUn5n_rXYcQ" aria-label="Youtube"> </a></li>
                 </ul>
               </div>
@@ -32,15 +32,8 @@
       <div class="col-lg-4 order-lg-1 pr-xl-5 wow-outer">
         <div class="wow slideInLeft">
           <div class="row row-30">
-            <div class="col-12"><img class="brand-logo-light"
-                src="/static/images/logo-jennifer-perseverante-maquilleuse-professionnelle-w.svg"
-                alt="Jennifer Perseverante, maquilleuse professionnelle" width="243" height="41" /></div>
-            <div class="col-12">
-              {{labels.FOOTER_CONTENT}}
-              <div class="footer-divider"></div>
-              <p class="rights"><span>&copy;&nbsp;</span><span
-                  class="copyright-year"></span><span>&nbsp;</span><span>{{labels.FOOTER_COPYRIGHT}}</span><span>.&nbsp;</span>
-              </p>
+            <div class="col-12 footer-logo-background"><img class="brand-logo-light"
+                src="/static/images/{{labels.FOOTER_LOGO_FILENAME}}" alt="{{labels.FOOTER_LOGO_FILENAME}}" />
             </div>
           </div>
         </div>
@@ -50,22 +43,25 @@
         <div class="wow slideInLeft">
           <div class="row row-30">
             <div class="col-12">
-              <h5 class="footer-title">
-                {{labels.FOOTER_INFORMATION_TITLE}}
-              </h5>
-            </div>
-            <div class="col-12">
-              <ul class="list-contact-info">
-                <li>
-                  <span class="icon mdi mdi-tag icon-md icon-secondary"></span>
-                  {{labels.FOOTER_LEGAL_NOTICES}}
-                </li>
-              </ul>
+              <p>{{labels.FOOTER_CONTENT}}</p>
             </div>
           </div>
         </div>
       </div>
 
     </div>
-  </div>
+
+    <div class="row row-50">
+      <div class="col-6 footer-divider">
+        <p class="rights">
+          <span>&copy;&nbsp;</span>
+          <span class="copyright-year"></span>
+          <span>&nbsp;</span><span>{{labels.FOOTER_COPYRIGHT}}</span>
+        </p>
+      </div>
+      <div class="col-6 footer-divider d-flex justify-content-end">
+        <p class="rights uppercase"><a href="#">{{labels.FOOTER_LEGAL_NOTICES}}</a></p>
+      </div>
+    </div>
+
 </footer>
