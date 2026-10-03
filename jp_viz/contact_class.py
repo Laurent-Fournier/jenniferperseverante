@@ -12,7 +12,10 @@ from langdetect import detect, DetectorFactory, LangDetectException
 import joblib
 
 DetectorFactory.seed = 0
-BLOCKED_LANGUAGES = {'ru', 'hu', 'et', 'pl', 'id'}
+BLOCKED_LANGUAGES = {
+    "af", "bg", "cs", "cy", "da", "de", "et", "hr", "hu", "id", "it", "lt", "nl", "no", "pl", "pt",
+    "ro", "ru", "sk", "sl", "so", "sq", "sv", "sw", "vi",
+}
 
 load_dotenv()  # load variables from .env
 
