@@ -67,9 +67,9 @@
                                 </ul>
                             </li>
 
-                            <li class="rd-nav-item"><a class="rd-nav-link" href="#">{{labels.NAVBAR_NAV_BLOG}}</a></li>
+                            <li class="rd-nav-item{% if active == 'blog' %} active{% endif %}"><a class="rd-nav-link" href="#">{{labels.NAVBAR_NAV_BLOG}}</a></li>
 
-                            <li class="rd-nav-item{% if active == 'testimony' %} active{% endif %}"><a href="/{{lg}}/{{ navbar.testimony.slug }}">{{navbar.testimony.nav}}</a>
+                            <li class="rd-nav-item{% if active == 'testimony' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.testimony.slug }}">{{labels.NAVBAR_NAV_TESTIMONIALS}}</a>
 
                             <li class="rd-nav-item{% if active == 'about' %} active{% endif %}"><a class="rd-nav-link"
                                     href="/{{lg}}/{{navbar.about.slug}}">{{navbar.about.nav}}</a>
