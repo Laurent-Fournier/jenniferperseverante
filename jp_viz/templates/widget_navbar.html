@@ -21,6 +21,8 @@
           <div class="rd-navbar-nav-wrap">
             <!-- Navbar Nav-->
             <ul class="rd-navbar-nav">
+              <li class="rd-nav-item{% if active == 'home' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/">{{labels.NAVBAR_NAV_HOME}}</a></li>
+              
               <li class="rd-nav-item"><a class="rd-nav-link" href="#">{{labels.NAVBAR_NAV_SERVICES}}</a>
                 <ul class="rd-menu rd-navbar-dropdown">
                   <li class="rd-dropdown-item{% if active == 'wedding' %} active{% endif %}"><a class="rd-dropdown-link"
