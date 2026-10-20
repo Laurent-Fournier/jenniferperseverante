@@ -21,61 +21,65 @@
                     <div class="rd-navbar-nav-wrap">
                         <!-- Navbar Nav-->
                         <ul class="rd-navbar-nav">
-                            <li class="rd-nav-item{% if active == 'home' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/">{{labels.NAVBAR_NAV_HOME}}</a></li>
+                            <li class="rd-nav-item{% if active == 'home' %} active{% endif %}"><a class="rd-nav-link"
+                                    href="/{{lg}}/">{{labels.NAVBAR_NAV_HOME}}</a></li>
 
                             <li class="rd-nav-item"><a class="rd-nav-link" href="#">{{labels.NAVBAR_NAV_SERVICES}}</a>
                                 <ul class="rd-menu rd-navbar-dropdown">
-                                    <li>{{navbar.discover.nav}}</li>
+                                    <li>{{labels.NAVBAR_NAV_SERVICES_DISCOVER}}</li>
                                     <li class="rd-dropdown-item{% if active == 'feminization' %} active{% endif %}"><a
                                             class="rd-dropdown-link"
-                                            href="/{{lg}}/{{ navbar.feminization.slug }}">{{navbar.feminization.nav}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_FEMINIZATION_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_FEMINIZATION}}</a>
                                     </li>
-                                    <li class="rd-dropdown-item{% if active == 'relooking' %} active{% endif %}"><a
+                                    <li class="rd-dropdown-item{% if active == 'makeover' %} active{% endif %}"><a
                                             class="rd-dropdown-link"
-                                            href="/{{lg}}/{{ navbar.relooking.slug }}">{{navbar.relooking.nav}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_MAKEOVER_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_MAKEOVER}}</a>
                                     </li>
                                     <li class="rd-dropdown-item{% if active == 'private_lessons' %} active{% endif %}">
                                         <a class="rd-dropdown-link"
-                                            href="/{{lg}}/{{ navbar.private_lessons.slug }}">{{navbar.private_lessons.nav}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_INDIVIDUAL_LESSONS_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_INDIVIDUAL_LESSONS}}</a>
                                     </li>
                                     <li class="dropdown-separator"></li>
-                                    <li>{{navbar.share.nav}}</li>
+                                    <li>{{labels.NAVBAR_NAV_SERVICES_SHARE}}</li>
                                     <li
                                         class="rd-dropdown-item{% if active == 'transbeaute_evenings' %} active{% endif %}">
                                         <a class="rd-dropdown-link"
-                                            href="/{{lg}}/{{ navbar.transbeaute_evenings.slug }}">{{navbar.transbeaute_evenings.nav}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_EVENINGS_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_EVENINGS}}</a>
                                     </li>
                                     <li class="rd-dropdown-item{% if active == 'group_classes' %} active{% endif %}"><a
                                             class="rd-dropdown-link"
-                                            href="/{{lg}}/{{ navbar.group_classes.slug }}">{{navbar.group_classes.nav}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_GROUP_CLASSES_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_GROUP_CLASSES}}</a>
                                     </li>
                                     <li class="dropdown-separator"></li>
-                                    <li>{{navbar.company.nav}}</li>
+                                    <li>{{labels.NAVBAR_NAV_SERVICES_ACCOMPANIED}}</li>
                                     <li class="rd-dropdown-item{% if active == 'makeover_day' %} active{% endif %}"><a
                                             class="rd-dropdown-link"
-                                            href="/{{lg}}/{{ navbar.makeover_day.slug }}">{{navbar.makeover_day.nav}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_DAY_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_DAY}}</a>
                                     </li>
                                     <li class="rd-dropdown-item{% if active == 'guided_weekend' %} active{% endif %}"><a
                                             class="rd-dropdown-link"
-                                            href="/{{lg}}/{{ navbar.guided_weekend.slug }}">{{navbar.guided_weekend.nav}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_WEEK_END_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_WEEK_END}}</a>
                                     </li>
                                     <li
                                         class="rd-dropdown-item{% if active == 'personalized_stay' %} active{% endif %}">
                                         <a class="rd-dropdown-link"
-                                            href="/{{lg}}/{{ navbar.personalized_stay.slug }}">{{navbar.personalized_stay.nav}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_STAY_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_STAY}}</a>
                                     </li>
                                 </ul>
                             </li>
 
-                            <li class="rd-nav-item{% if active == 'blog' %} active{% endif %}"><a class="rd-nav-link" href="#">{{labels.NAVBAR_NAV_BLOG}}</a></li>
+                            <li class="rd-nav-item{% if active == 'blog' %} active{% endif %}"><a class="rd-nav-link"
+                                    href="{{labels.NAVBAR_NAV_BLOG_SLUG}}">{{labels.NAVBAR_NAV_BLOG}}</a></li>
 
-                            <li class="rd-nav-item{% if active == 'testimony' %} active{% endif %}"><a class="rd-nav-link" href="/{{lg}}/{{ navbar.testimony.slug }}">{{labels.NAVBAR_NAV_TESTIMONIALS}}</a>
+                            <li class="rd-nav-item{% if active == 'testimony' %} active{% endif %}"><a
+                                    class="rd-nav-link"
+                                    href="/{{lg}}/{{labels.NAVBAR_NAV_TESTIMONIALS_SLUG}}">{{labels.NAVBAR_NAV_TESTIMONIALS}}</a>
 
                             <li class="rd-nav-item{% if active == 'about' %} active{% endif %}"><a class="rd-nav-link"
-                                    href="/{{lg}}/{{navbar.about.slug}}">{{navbar.about.nav}}</a>
+                                    href="/{{lg}}/{{labels.NAVBAR_NAV_ABOUT_SLUG}}">{{labels.NAVBAR_NAV_ABOUT}}</a>
                             <li class="rd-nav-item{% if active == 'contact' %} active{% endif %}"><a
                                     class="rd-nav-link btn btn-primary"
-                                    href="/{{lg}}/{{navbar.contact.slug}}">{{labels.NAVBAR_NAV_CONTACT}}</a>
+                                    href="/{{lg}}/{{labels.NAVBAR_NAV_CONTACT_SLUG}}">{{labels.NAVBAR_NAV_CONTACT}}</a>
                                 {% if slugs_lg %}
                                 {% if lg == 'fr' %}
                             <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{slugs_lg.en}}"
