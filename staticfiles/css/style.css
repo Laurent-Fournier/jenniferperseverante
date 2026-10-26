@@ -4,6 +4,7 @@
 :root {
 	/* Site Jennifer Perseverante */
 	--font-family3: "Playfair Display", serif;
+	--navbar-transform: translateY(28px);
 	--navbar-background-color: #444141;
 	--navbar-text-font-family: "Raleway", sans-serif;
 	--navbar-text-color: #fff;
@@ -42,6 +43,7 @@
 .tb {
 	/* Site Transbeauté */
 	--navbar-background-color: #fff;
+	--navbar-transform: translateY(48px);
 	--navbar-text-font-family: "DM Serif Display", serif;
 	--hero-title-text-transform: uppercase;
 	--navbar-text-color: #2b2524;
@@ -8939,14 +8941,14 @@ html.rd-navbar-fixed-linked .page {
 .rd-navbar-modern.rd-navbar-static.rd-navbar--is-stuck .rd-nav-item.active .rd-nav-link,
 .rd-navbar-modern.rd-navbar-static.rd-navbar--is-clone .rd-nav-item .rd-nav-link:hover,
 .rd-navbar-modern.rd-navbar-static.rd-navbar--is-clone .rd-nav-item.active .rd-nav-link {
-	color: #ffffff;
+	color: var(--navbar-text-color);
 }
 
 .rd-navbar-modern.rd-navbar-static.rd-navbar--is-stuck .rd-nav-item .rd-nav-link:hover:before,
 .rd-navbar-modern.rd-navbar-static.rd-navbar--is-stuck .rd-nav-item.active .rd-nav-link:before,
 .rd-navbar-modern.rd-navbar-static.rd-navbar--is-clone .rd-nav-item .rd-nav-link:hover:before,
 .rd-navbar-modern.rd-navbar-static.rd-navbar--is-clone .rd-nav-item.active .rd-nav-link:before {
-	transform: translateY(28px);
+	transform: var(--navbar-transform);
 	opacity: 1;
 }
 
