@@ -3,9 +3,10 @@
 
 :root {
 	/* Site Jennifer Perseverante */
+	--font-family3: "Playfair Display", serif;
 	--navbar-background-color: #444141;
-	--navbar-text-color: #fff;
 	--navbar-text-font-family: "Raleway", sans-serif;
+	--navbar-text-color: #fff;
 	--navbar-text-font-weight: 500;
 	--navbar-text-font-size: 13px;
 	--navbar-border-bottom-color: rgba(255, 255, 255, 0.15);
@@ -14,10 +15,24 @@
 	--navbar-cta-text-color: #fff;
 	--hero-background-color: #232323;
 	--hero-background-gradient: linear-gradient(193.03deg, #151515 -28.3%, rgba(21, 21, 21, 0.26) 112.54%);
+	--hero-bunner-font-family: "Playfair Display", serif;
 	--hero-bunner-color: #FDFF9C;
+	--hero-bunner-font-weight: 900;
+	--hero-bunner-text-transform: uppercase;
+	--hero-bunner-background-content: "";
+	--hero-bunner-padding-left: 70px;
+	--hero-bunner-order: 1;
+	--hero-title-font-family: "Playfair Display", serif;
+	--hero-title-text-transform: none;
 	--hero-title-color: #fff;
-	--hero-title-color2: rgba(255, 255, 255, 0.5);
+	--hero-title-color2: #fff;
+	--hero-title-order: 2;
 	--hero-subtitle-color: rgba(255, 255, 255, 0.7);
+	--hero-subtitle-font-family: "Playfair Display", serif;
+	--hero-subtitle-text-transform: none;
+	--hero-subtitle-font-style: italic;
+	--hero-subtitle-font-weight: 400;
+	--hero-subtitle-order: 3;
 	--principale-color: #f38e91;
 	--principale-dark-color: #f38e91;
 	--title-image-url: url("../images/title-image.png");
@@ -27,8 +42,9 @@
 .tb {
 	/* Site Transbeauté */
 	--navbar-background-color: #fff;
-	--navbar-text-color: #2b2524;
 	--navbar-text-font-family: "DM Serif Display", serif;
+	--hero-title-text-transform: uppercase;
+	--navbar-text-color: #2b2524;
 	--navbar-text-font-weight: 700;
 	--navbar-text-font-size: 13px;
 	--navbar-border-bottom-color: rgba(70, 64, 59, 0.15);
@@ -37,10 +53,24 @@
 	--navbar-cta-text-color: #fffcf9;
 	--hero-background-color: #fff;
 	--hero-background-gradient: linear-gradient(193.03deg, #eaeaea -28.3%, rgba(234, 234, 234, 0.26) 112.54%);
+	--hero-bunner-font-family: "Raleway", sans-serif;
 	--hero-bunner-color: #c48c4c;
+	--hero-bunner-font-weight: 600;
+	--hero-bunner-text-transform: none;
+	--hero-bunner-background-content: none;
+	--hero-bunner-padding-left: 0;
+	--hero-bunner-order: 3;
+	--hero-title-font-family: "DM Serif Display", serif;
+	--hero-title-text-transform: uppercase;
 	--hero-title-color: #000;
-	--hero-title-color2: rgba(0, 0, 0, 0.5);
-	--hero-subtitle-color: rgba(5, 5, 5, 0.7);
+	--hero-title-color2: #c48c4c;
+	--hero-title-order: 1;
+	--hero-subtitle-font-family: "DM Serif Display", serif;
+	--hero-title-text-transform: uppercase;
+	--hero-subtitle-color: #2b2524;
+	--hero-subtitle-font-style: normal;
+	--hero-subtitle-font-weight: 700;
+	--hero-subtitle-order: 2;
 	--principale-color: #e0a869;
 	--principale-dark-color: #c48c4c;
 	--title-image-url: url("../images/title-image-tb.png");
@@ -5729,11 +5759,11 @@ html [class*='section-'].section-bottom-0 {
 
 .section-main-bunner .main-bunner-inner .bunner-location {
 	letter-spacing: .08em;
-	text-transform: uppercase;
-	font-weight: 900;
+	text-transform: var(--hero-bunner-text-transform);
+	font-weight: var(--hero-bunner-font-weight);
 	font-size: 13px;
-	font-family: "Playfair Display", serif;
-	margin: 0 auto;
+	font-family: var(--hero-bunner-font-family);
+	/*	margin: 0 auto;*/
 	text-align: center;
 	color: var(--hero-bunner-color);
 	display: block;
@@ -5744,12 +5774,12 @@ html [class*='section-'].section-bottom-0 {
 @media (min-width: 992px) {
 	.section-main-bunner .main-bunner-inner .bunner-location {
 		text-align: left;
-		padding-left: 70px;
+		padding-left: var(--hero-bunner-padding-left);
 		padding-top: 0;
 	}
 
 	.section-main-bunner .main-bunner-inner .bunner-location:before {
-		content: '';
+		content: var(--hero-bunner-background-content);
 		display: block;
 		position: absolute;
 		left: 0;
@@ -5761,19 +5791,20 @@ html [class*='section-'].section-bottom-0 {
 }
 
 .italic-subtitle {
-	font-style: italic;
+	font-style: var(--hero-subtitle-font-style);
+	font-weight: var(--hero-subtitle-font-weight);
 	font-size: 26px;
 	line-height: 42px;
-	color: var(--subtitle-color);
+	color: var(--hero-subtitle-color);
 	display: inline-block;
 	letter-spacing: -0.01em;
-	font-family: "Playfair Display", serif;
 	white-space: pre-line;
+	padding-bottom: 30px;
 }
 
 @media (min-width: 768px) {
 	.section-main-bunner .italic-subtitle {
-		padding-left: 70px;
+		padding-left: var(--hero-bunner-padding-left);
 	}
 }
 
@@ -14854,4 +14885,37 @@ Changement de couleur au survol pour le bouton CTA
 	border-radius: 5px;
 	padding-left: 16px;
 	padding-right: 16px;
+}
+
+.main-bunner-inner h1 {
+	color: var(--hero-title-color);
+	font-family: var(--hero-title-font-family);
+	text-transform: var(--hero-title-text-transform);
+	/* font-weight: 700;
+	font-size: 50px; */
+}
+
+.main-bunner-inner h1 span.color2 {
+	color: var(--hero-title-color2);
+}
+
+/* 
+Ordre dans la hero section
+*/
+
+.hero-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.hero-content h1 {
+	order: 1;
+}
+
+.hero-content .italic-subtitle {
+	order: 2;
+}
+
+.hero-content .bunner-location {
+	order: 3;
 }
