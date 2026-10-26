@@ -1,11 +1,17 @@
 @charset "UTF-8";
 
+
 :root {
 	/* Site Jennifer Perseverante */
 	--navbar-background-color: #444141;
 	--navbar-text-color: #fff;
+	--navbar-text-font-family: "Raleway", sans-serif;
+	--navbar-text-font-weight: 500;
+	--navbar-text-font-size: 13px;
 	--navbar-border-bottom-color: rgba(255, 255, 255, 0.15);
 	--navbar-padding: 32px 0;
+	--navbar-cta-background-color: #f87b7f;
+	--navbar-cta-text-color: #fff;
 	--hero-background-color: #232323;
 	--hero-background-gradient: linear-gradient(193.03deg, #151515 -28.3%, rgba(21, 21, 21, 0.26) 112.54%);
 	--hero-bunner-color: #FDFF9C;
@@ -21,9 +27,14 @@
 .tb {
 	/* Site Transbeauté */
 	--navbar-background-color: #fff;
-	--navbar-text-color: #46403b;
+	--navbar-text-color: #2b2524;
+	--navbar-text-font-family: "DM Serif Display", serif;
+	--navbar-text-font-weight: 700;
+	--navbar-text-font-size: 13px;
 	--navbar-border-bottom-color: rgba(70, 64, 59, 0.15);
 	--navbar-padding: 13px 0;
+	--navbar-cta-background-color: #2b2524;
+	--navbar-cta-text-color: #fffcf9;
 	--hero-background-color: #fff;
 	--hero-background-gradient: linear-gradient(193.03deg, #eaeaea -28.3%, rgba(234, 234, 234, 0.26) 112.54%);
 	--hero-bunner-color: #c48c4c;
@@ -35,6 +46,12 @@
 	--title-image-url: url("../images/title-image-tb.png");
 	--footer-background-color: #444141;
 }
+
+.rd-nav-item {
+	font-family: var(--navbar-text-font-family);
+	text-transform: uppercase;
+}
+
 
 .footer-logo-background {
 	background: var(--navbar-background-color);
@@ -3440,13 +3457,13 @@ hr {
 .btn-primary,
 .btn-primary:active,
 .btn-primary:focus {
-	color: #ffffff;
+	color: #fff;
 	background: var(--principale-color);
 	border-color: var(--principale-color);
 }
 
 .btn-primary:hover {
-	color: #ffffff;
+	color: #fff;
 	background: #000000;
 	border-color: #000000;
 }
@@ -7491,10 +7508,10 @@ html.tablet .ui-to-top {
 	position: relative;
 	display: inline-block;
 	color: var(--navbar-text-color);
-	font-size: 13px;
+	font-size: var(--navbar-text-font-size);
 	line-height: normal;
 	letter-spacing: 0.04em;
-	font-weight: 500;
+	font-weight: var(--navbar-text-font-weight);
 	text-transform: uppercase;
 	transition: .25s;
 }
@@ -7556,7 +7573,7 @@ html.tablet .ui-to-top {
 .rd-navbar-static .rd-navbar-dropdown li>a,
 .rd-navbar-static .rd-megamenu-list li>a {
 	position: relative;
-	left: -3px;
+	left: 10px;
 	display: flex;
 	padding: 1px 14px 1px 0;
 	text-align: left;
@@ -14822,17 +14839,19 @@ html:not(.ie-11):not(.ios) .parallax-disabled {
 Changement de couleur au survol pour le bouton CTA 
 */
 .rd-nav-item .btn-primary {
-	background-color: var(--principale-color);
+	color: var(--navbar-cta-text-color);
+	background-color: var(--navbar-cta-background-color);
 	border: 0;
-	border-radius: 130px;
+	border-radius: 5px;
 	padding-left: 16px;
 	padding-right: 16px;
 }
 
-.rd-nav-item .btn-primary:hover {
-	background-color: var(--principale-dark-color);
+.rd-nav-item .btn-primary.rd-nav-link:hover {
+	color: var(--navbar-cta-text-color) !important;
+	background-color: var(--navbar-cta-background-color);
 	border: 0;
-	border-radius: 130px;
+	border-radius: 5px;
 	padding-left: 16px;
 	padding-right: 16px;
 }
