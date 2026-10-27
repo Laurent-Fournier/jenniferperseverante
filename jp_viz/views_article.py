@@ -148,6 +148,7 @@ def article(request, lg, slug=""):
             "contact_form": Contact(lg, contact_type, url, no_section).get_texts(),
             "response": r,
             "related_articles": get_related_articles(article, lg),
+            "last_articles": get_last_articles(lg, 3),
             "comments": comments,
         },
     )
@@ -499,6 +500,42 @@ def get_related_articles(article, lg):
         related_articles.append(related_article)
 
     return related_articles
+
+
+def get_last_articles(lg, nb):
+    # Blog section
+
+    rows = Article.objects.raw(
+        f"""
+        SELECT 
+            article.id,
+            article.art_date, article.art_cover, 
+            art_slug, hero_title, hero_subtitle
+        FROM article
+        LEFT OUTER JOIN article_lg ON
+			article.id = article_lg.id AND language_code='{lg}'
+        WHERE is_page=0
+        ORDER BY art_date DESC
+        LIMIT {nb}
+        """
+    )
+
+    last_articles = []
+
+    # Add all related articles
+    for row in rows:
+        last_article = {
+            "lg": lg,
+            "slug": row.art_slug,
+            "date": row.art_date,
+            "date_lg": ArticleService().get_date_lg(row.art_date, lg, "SHORT"),
+            "cover": row.art_cover.replace("1024", "230"),
+            "hero": {"title": row.hero_title, "subtitle": row.hero_subtitle},
+        }
+
+        last_articles.append(last_article)
+
+    return last_articles
 
 
 # ------------------

@@ -1,0 +1,22 @@
+<!-- Newsletter subscription form -->
+<section class="section section-lg{% if contact_form.style == 'odd'%} bg-default bg-gray-light{% endif %}">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-9 col-lg-7">
+        <h3 class="title-decorate title-decorate-center">Inscription à la Newsletter Transbeauté</h3>
+        <form class="rd-form" data-form-output="form-output-global" data-form-type="subscribe" method="post" action="/{{lg}}/subscribe" name="subscribe">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="email" name="email" placeholder="email">
+            </div>
+            <div class="col-md-12 form-btn text-center">
+              <button class="btn btn-block button-lg" style="background-color: #d3c1c4;" type="submit" name="submit">S'inscrire</button>
+            </div>
+          </div>
+          <br>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

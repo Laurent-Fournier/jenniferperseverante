@@ -8,55 +8,56 @@
     {% include "widget_navbar.html" %}
 </header>
 {% if article.id == 1 %}
-	{% include "row_home_hero.html" with hero=hero %}
+{% include "row_home_hero.html" with hero=hero %}
 {% else %}
-	{% include "row_hero.html" with hero=hero %}
+{% include "row_hero.html" with hero=hero %}
 {% endif %}
 {% include "row_alert.html" with response=response %}
 {% if project == 'JP' %}
-	{% include "row_who_am_i.html" %}
+{% include "row_who_am_i.html" %}
 {% endif %}
 {% if project == 'TB' %}
-	{% include "row_services.html" %}
+{% include "row_services.html" %}
+{% include "row_blog.html" %}
 {% endif %}
 {% if with_article_date == 1 and article.date %}
-	{% include "row_article_date.html" %}
+{% include "row_article_date.html" %}
 {% endif %}
 
 {% for section in article.sections %}
-	{% if section.type == 'TEXT' %}
-		{% include "row_text.html" with section=section %}
-	{% elif section.type == 'MAIN-TEXT' %}
-		{% include "row_main_text.html" with section=section %}
-	{% elif section.type == 'IMAGE-TEXT' %}
-		{% include "row_image_text.html" with section=section %}
-	{% elif section.type == 'TEXT-IMAGE' %}
-		{% include "row_text_image.html" with section=section %}
-	{% elif section.type == 'IMAGE' %}
-		{% include "row_image.html" with section=section %}
-	{% endif %}
+{% if section.type == 'TEXT' %}
+{% include "row_text.html" with section=section %}
+{% elif section.type == 'MAIN-TEXT' %}
+{% include "row_main_text.html" with section=section %}
+{% elif section.type == 'IMAGE-TEXT' %}
+{% include "row_image_text.html" with section=section %}
+{% elif section.type == 'TEXT-IMAGE' %}
+{% include "row_text_image.html" with section=section %}
+{% elif section.type == 'IMAGE' %}
+{% include "row_image.html" with section=section %}
+{% endif %}
 {% endfor %}
 
 {% if map %}
-	{% if map == 'AT_HOME' %}
-		{% include "row_map_at_home.html" with section=section %}
-	{% elif map == 'STUDIO' %}
-		{% include "row_map_studio.html" with section=section %}
-	{% endif %}
+{% if map == 'AT_HOME' %}
+{% include "row_map_at_home.html" with section=section %}
+{% elif map == 'STUDIO' %}
+{% include "row_map_studio.html" with section=section %}
+{% endif %}
 {% endif %}
 
 {% if contact_form %}
-	{% include "row_contact_form.html" %}
+{% include "row_contact_form.html" %}
 {% endif %}
 
 {% if related_articles|length > 0 %}
-	{% include "row_related_articles.html" %}
+{% include "row_related_articles.html" %}
 {% endif %}
 
 {% include "row_comments.html" %}
 
 {% if project == 'TB' %}
-	{% include "row_newsletter_inscription_form.html" with section=section %}
+{% include "row_newsletter_inscription_form.html" with section=section %}
 {% endif %}
 
 {% if environment == 'DEV' %}
@@ -77,6 +78,7 @@
                 <h3>Contact Form</h3> {{contact_form}}
                 <h3>Article:</h3>{{article}}<br /><br />
                 <h3>Related articles:</h3>{{related_articles}}<br /><br />
+                <h3>Last articles:</h3>{{last_articles}}<br /><br />
                 <h3>Sections:</h3><br />
                 {% for section in article.sections %}
                 <br />
