@@ -5,81 +5,89 @@
 
 {% block body %}
 <header class="section page-header">
-    {% include "widget_navbar.html" with lg=lg active=article.active other_languages=other_languages navbar=navbar translated_slugs=article.translated_slugs %}
+    {% include "widget_navbar.html" %}
 </header>
 {% if article.id == 1 %}
-    {% include "row_home_hero.html"  with hero=hero %}    
+	{% include "row_home_hero.html" with hero=hero %}
 {% else %}
-    {% include "row_hero.html" with hero=hero %}
+	{% include "row_hero.html" with hero=hero %}
 {% endif %}
 {% include "row_alert.html" with response=response %}
-{% include "row_who_am_i.html" %}
+{% if project == 'JP' %}
+	{% include "row_who_am_i.html" %}
+{% endif %}
+{% if project == 'TB' %}
+	{% include "row_services.html" %}
+{% endif %}
 {% if with_article_date == 1 and article.date %}
-    {% include "row_article_date.html" %}
+	{% include "row_article_date.html" %}
 {% endif %}
 
 {% for section in article.sections %}
-    {% if section.type == 'TEXT' %}
-        {% include "row_text.html" with section=section %}
-    {% elif section.type == 'MAIN-TEXT' %}
-        {% include "row_main_text.html" with section=section %}
-    {% elif section.type == 'IMAGE-TEXT' %}
-        {% include "row_image_text.html" with section=section %}
-    {% elif section.type == 'TEXT-IMAGE' %}
-        {% include "row_text_image.html" with section=section %}
-    {% elif section.type == 'IMAGE' %}
-        {% include "row_image.html" with section=section %}        
-    {% endif %}
+	{% if section.type == 'TEXT' %}
+		{% include "row_text.html" with section=section %}
+	{% elif section.type == 'MAIN-TEXT' %}
+		{% include "row_main_text.html" with section=section %}
+	{% elif section.type == 'IMAGE-TEXT' %}
+		{% include "row_image_text.html" with section=section %}
+	{% elif section.type == 'TEXT-IMAGE' %}
+		{% include "row_text_image.html" with section=section %}
+	{% elif section.type == 'IMAGE' %}
+		{% include "row_image.html" with section=section %}
+	{% endif %}
 {% endfor %}
 
 {% if map %}
-    {% if map == 'AT_HOME' %}
-        {% include "row_map_at_home.html" with section=section %}
-    {% elif map == 'STUDIO' %}
-        {% include "row_map_studio.html" with section=section %}
-    {% endif %}
+	{% if map == 'AT_HOME' %}
+		{% include "row_map_at_home.html" with section=section %}
+	{% elif map == 'STUDIO' %}
+		{% include "row_map_studio.html" with section=section %}
+	{% endif %}
 {% endif %}
 
 {% if contact_form %}
-    {% include "row_contact_form.html" %}
+	{% include "row_contact_form.html" %}
 {% endif %}
 
 {% if related_articles|length > 0 %}
-    {% include "row_related_articles.html" %}
+	{% include "row_related_articles.html" %}
 {% endif %}
 
-{% if comments|length > 0 %}
-    {% include "row_comments.html" %}
+{% include "row_comments.html" %}
+
+{% if project == 'TB' %}
+	{% include "row_newsletter_inscription_form.html" with section=section %}
 {% endif %}
 
-
-{% comment %}
+{% if environment == 'DEV' %}
 <section class="section section-lg bg-default bg-gray-light">
-  <div class="container">
-    <div class="row row-50">
-      <div class="col-lg-12">
-
-        <h3>Language:</h3> {{lg}}<br/>
-        <h3>Map:</h3> {{map}}<br/>
-        <h3>Navbar:</h3> {{navbar}}<br/>
-        <h3>Slug:</h3> {{slug}}<br/>
-        <h3>Hero:</h3> {{hero}}<br/>
-        <h3>Display Article date:</h3> {{with_article_date}}<br/>
-        <h3>All slugs:</h3> {{slugs_lg}}<br/>
-        <h3>Contact Form</h3> {{contact_form}}
-        <h3>Article:</h3>{{article}}<br/><br/>
-        <h3>Related articles:</h3>{{related_articles}}<br/><br/>
-        <h3>Sections:</h3><br/>
-{% for section in article.sections %}
-        <br/>
-        <strong>No:</strong> {{section.no}}<br/>
-        Type: {{section.type}}<br/>
-        Markdown: {{section.markdown}}<br/><br/>
-{% endfor %}
-      </div>
+    <div class="container">
+        <div class="row row-50">
+            <div class="col-lg-12">
+                <h2>DEV</h2>
+                <h3>Environment:</h3> {{environment}}<br />
+                <h3>Project:</h3> {{project}}<br />
+                <h3>Language:</h3> {{lg}}<br />
+                <h3>Map:</h3> {{map}}<br />
+                <h3>Navbar:</h3> {{navbar}}<br />
+                <h3>Slug:</h3> {{slug}}<br />
+                <h3>Hero:</h3> {{hero}}<br />
+                <h3>Display Article date:</h3> {{with_article_date}}<br />
+                <h3>All slugs:</h3> {{slugs_lg}}<br />
+                <h3>Contact Form</h3> {{contact_form}}
+                <h3>Article:</h3>{{article}}<br /><br />
+                <h3>Related articles:</h3>{{related_articles}}<br /><br />
+                <h3>Sections:</h3><br />
+                {% for section in article.sections %}
+                <br />
+                <strong>No:</strong> {{section.no}}<br />
+                Type: {{section.type}}<br />
+                Markdown: {{section.markdown}}<br /><br />
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </div>
-</section> 
-{% endcomment %}
+</section>
+{% endif %}
 
 {% endblock %}

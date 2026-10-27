@@ -1,12 +1,17 @@
 # Markdow source: https://github.com/trentm/python-markdown2
 
+
 from django.shortcuts import render
 from django.db import connection
 from django.http import HttpResponse, Http404
+from django.utils import timezone
 from django.db.models import Q
 from django_ratelimit.decorators import ratelimit
+from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
+from django.shortcuts import redirect
+from django.urls import reverse
 
-from .models import Article, ArticleLg, UxSearch
+from .models import Article, UxSearch, ArticleTracking, Comment
 
 from datetime import datetime
 import markdown2
@@ -18,6 +23,8 @@ from .contact_class import Contact
 from .article_class import ArticleService
 from .pattern_class import *
 from .navbar_class import Navbar
+
+signer = TimestampSigner()
 
 
 # ----------------------
@@ -35,7 +42,18 @@ def article(request, lg, slug=""):
         hero, article = get_article_by_slug(lg, slug)
     else:
         lg = "fr"
-    request.lg = lg
+    request.lg = lg  # pour contaxt_processors
+
+    # Article tracking.
+    token = request.GET.get("token")
+    if token:
+        subscriber_id = signer.unsign(token, max_age=60 * 60 * 24)
+        ArticleTracking.objects.create(
+            subscriber_id=subscriber_id,
+            article_id=article["id"],
+            language_code=lg,
+            tracking_date=timezone.now(),
+        )
 
     all_languages = ["fr", "en", "es"]
     other_languages = [lang for lang in all_languages if lang != lg]
@@ -105,13 +123,14 @@ def article(request, lg, slug=""):
 
     comments = None
     if int(os.getenv("DISPLAY_COMMENTS")) == 1:
-        comments = ArticleService().get_comments(article["id"])
+        comments = ArticleService().get_comments(article["id"], lg, 1)
 
     return render(
         request,
         "article.html",
         {
-            "environment": os.getenv("ENVIRONMENT"),
+            "environment": os.getenv("ENVIRONMENT"),  # DEV, UAT, PROD
+            "project": os.getenv("PROJECT"),  # JP, TB
             "base_url": base_url,
             "html": {
                 "title": article["title"] + os.getenv("HTML_TITLE_SUFFIX"),
@@ -310,7 +329,7 @@ def remplacer_h4(match):
     return f"""
         <div class="text-with-divider">
           <div class="divider"></div>
-          <h4>{contenu}</h4>
+          <h4 class="text-opacity-black">{contenu}</h4>
         </div>"""
 
 
@@ -597,3 +616,31 @@ def search(request, lg):
             "row": row,
         },
     )
+
+
+# ------------------
+# Add comment
+# ------------------
+def add_comment(request, lg):
+    if request.method == "POST":
+        article_id = request.POST.get("art_id")
+        article_slug = request.POST.get("art_slug")
+        author = request.POST.get("author")
+        email = request.POST.get("email")
+        content = request.POST.get("content")
+
+        # Comment creation
+        comment = Comment.objects.create(
+            art_id=article_id,
+            language_code=lg,
+            com_author=author,
+            com_email=email,
+            com_content=content,
+            com_approved=0,
+            com_date=timezone.now(),
+        )
+
+        url = reverse("article_detail", kwargs={"lg": lg, "slug": article_slug})
+        return redirect(f"{url}?msg=comment_added")
+
+    # return HttpResponse(f"[DEBUG]<br>L'article est : {article_id}<br>Le slug est : {article_slug}<br>L'auteur est : {author}<br>La langue est : {lg}<br>Le commentaire est : {content}")
