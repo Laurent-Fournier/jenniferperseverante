@@ -34,6 +34,11 @@
 	--hero-subtitle-font-style: italic;
 	--hero-subtitle-font-weight: 400;
 	--hero-subtitle-order: 3;
+	--section-title-text-transform: none;
+	--section-title-font-family: "Playfair Display", serif;
+	--section-dark-background-color: #f6eee7;
+	--section-medium-background-color: #fffcf9;
+	--section-light-background-color: #fff;
 	--principale-color: #f38e91;
 	--principale-dark-color: #f38e91;
 	--title-image-url: url("../images/title-image.png");
@@ -68,11 +73,15 @@
 	--hero-title-color2: #c48c4c;
 	--hero-title-order: 1;
 	--hero-subtitle-font-family: "DM Serif Display", serif;
-	--hero-title-text-transform: uppercase;
 	--hero-subtitle-color: #2b2524;
 	--hero-subtitle-font-style: normal;
 	--hero-subtitle-font-weight: 700;
 	--hero-subtitle-order: 2;
+	--section-title-text-transform: uppercase;
+	--section-title-font-family: "DM Serif Display", serif;
+	--section-dark-background-color: #f6eee7;
+	--section-medium-background-color: #fffcf9;
+	--section-light-background-color: #fff;
 	--principale-color: #e0a869;
 	--principale-dark-color: #c48c4c;
 	--title-image-url: url("../images/title-image-tb.png");
@@ -339,6 +348,9 @@ h6,
 	font-weight: normal;
 	color: #151515;
 	letter-spacing: 0;
+	text-transform: var(--section-title-text-transform);
+	font-family: var(--section-title-font-family);
+
 }
 
 h1 a,
@@ -14901,6 +14913,10 @@ Changement de couleur au survol pour le bouton CTA
 	color: var(--hero-title-color2);
 }
 
+.color2 {
+	color: var(--hero-title-color2);
+}
+
 /* 
 Ordre dans la hero section
 */
@@ -14920,4 +14936,19 @@ Ordre dans la hero section
 
 .hero-content .bunner-location {
 	order: 3;
+}
+
+.section-dark {
+	background-color: var(--section-dark-background-color);
+
+}
+
+.section-medium {
+	background-color: var(--section-medium-background-color);
+
+}
+
+.section-light {
+	background-color: var(--section-light-background-color);
+
 }

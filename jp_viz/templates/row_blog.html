@@ -19,8 +19,11 @@
               <p class="post-modern-date">{{article.date_lg}}</p>
               {% endif %}
               <a href="/{{article.lg}}/{{article.slug}}" aria-label="{{article.hero.subtitle}}">
-                <h5 class="post-modern-title">{{article.hero.title}}</h5>
-                {% if article.hero.subtitle %}<p class="post-modern-text">{{article.hero.subtitle}}</p>{% endif %}
+                <h5 class="post-modern-title">
+                  {{article.hero.title}}{% if article.hero.subtitle%}
+                  <br>
+                  {{article.hero.subtitle}}{% endif %}
+                </h5>
               </a>
             </div>
           </div>
@@ -30,7 +33,8 @@
     </div>
     <div class="row row-50">
       <div class="col-12 text-center">
-        <a class="button button-lg button-block section-light" href="#">Voir toutes les articles</a>
+        <a class="button button-lg button-block section-light" href="{{labels.NAVBAR_NAV_BLOG_SLUG}}">Voir toutes les
+          articles</a>
       </div>
     </div>
 
