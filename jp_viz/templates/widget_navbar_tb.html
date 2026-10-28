@@ -80,24 +80,30 @@
                             <li class="rd-nav-item{% if active == 'contact' %} active{% endif %}"><a
                                     class="rd-nav-link btn btn-primary"
                                     href="/{{lg}}/{{labels.NAVBAR_NAV_CONTACT_SLUG}}">{{labels.NAVBAR_NAV_CONTACT}}</a>
-                                {% if slugs_lg %}
-                                {% if lg == 'fr' %}
-                            <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{slugs_lg.en}}"
-                                    aria-label="version anglaise">EN</a></li>
-                            <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{slugs_lg.es}}"
-                                    aria-label="version espagnole">ES</a></li>
-                            {% elif lg == 'en' %}
-                            <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{slugs_lg.fr}}"
-                                    aria-label="French version">FR</a></li>
-                            <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{slugs_lg.es}}"
-                                    aria-label="Spanish version">ES</a></li>
-                            {% elif lg == 'es' %}
-                            <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{slugs_lg.fr}}"
-                                    aria-label="versión francesa">FR</a></li>
-                            <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{slugs_lg.en}}"
-                                    aria-label="versión en inglés">EN</a></li>
-                            {% endif %}
-                            {% endif %}
+{% if slugs_lg %}
+<li class="rd-nav-item">
+    <a class="rd-nav-link" href="#" aria-label="Choisir la langue" aria-haspopup="true">{{ lg | upper }}</a>
+
+    <ul class="rd-menu rd-navbar-dropdown">
+        {% if lg != 'fr' %}
+        <li class="rd-dropdown-item">
+            <a class="rd-dropdown-link" href="/fr/{{ slugs_lg.fr }}" lang="fr" aria-label="Version française">FR</a>
+        </li>
+        {% endif %}
+        {% if lg != 'en' %}
+        <li class="rd-dropdown-item">
+            <a class="rd-dropdown-link" href="/en/{{ slugs_lg.en }}" lang="en" aria-label="English version">EN</a>
+        </li>
+        {% endif %}
+        {% if lg != 'es' %}
+        <li class="rd-dropdown-item">
+            <a class="rd-dropdown-link" href="/es/{{ slugs_lg.es }}" lang="es" aria-label="Versión española">ES</a>
+        </li>
+        {% endif %}
+    </ul>
+</li>
+{% endif %}
+
                             {% if environment == 'DEV' %}
                             <li class="rd-nav-item"><a class="rd-nav-link" href="#">DEV</a>
                                 <ul class="rd-menu rd-navbar-dropdown">
