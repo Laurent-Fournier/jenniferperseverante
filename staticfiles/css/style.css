@@ -39,6 +39,7 @@
 	--section-dark-background-color: #f6eee7;
 	--section-medium-background-color: #fffcf9;
 	--section-light-background-color: #fff;
+	--section-main-background-color: #986326;
 	--principale-color: #f38e91;
 	--principale-dark-color: #f38e91;
 	--title-image-url: url("../images/title-image.png");
@@ -14950,5 +14951,10 @@ Ordre dans la hero section
 
 .section-light {
 	background-color: var(--section-light-background-color);
+
+}
+
+.section-main {
+	background-color: var(--hero-title-color2);
 
 }

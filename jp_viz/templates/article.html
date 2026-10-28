@@ -19,7 +19,10 @@
 {% if project == 'TB' and article.id == 1 %}
 {% include "row_services.html" %}
 {% include "row_blog.html" %}
+{% include "row_newsletter_inscription_form.html" %}
 {% include "row_testimonials.html" %}
+{% include "row_about.html" %}
+{% include "row_studio.html" %}
 {% endif %}
 {% if with_article_date == 1 and article.date %}
 {% include "row_article_date.html" %}
@@ -55,10 +58,8 @@
 {% include "row_related_articles.html" %}
 {% endif %}
 
+{% if article.id != 1 %}
 {% include "row_comments.html" %}
-
-{% if project == 'TB' %}
-{% include "row_newsletter_inscription_form.html" with section=section %}
 {% endif %}
 
 {% if environment == 'DEV' %}
