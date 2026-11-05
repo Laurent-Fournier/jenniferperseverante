@@ -52,12 +52,12 @@
 	--navbar-transform: translateY(48px);
 	--navbar-text-font-family: "DM Serif Display", serif;
 	--hero-title-text-transform: uppercase;
-	--navbar-text-color: #2b2524;
+	--navbar-text-color: #37312D;
 	--navbar-text-font-weight: 700;
 	--navbar-text-font-size: 13px;
 	--navbar-border-bottom-color: rgba(70, 64, 59, 0.15);
 	--navbar-padding: 13px 0;
-	--navbar-cta-background-color: #2b2524;
+	--navbar-cta-background-color: #37312D;
 	--navbar-cta-text-color: #fffcf9;
 	--hero-background-color: #fff;
 	--hero-background-gradient: linear-gradient(193.03deg, #eaeaea -28.3%, rgba(234, 234, 234, 0.26) 112.54%);
@@ -74,7 +74,7 @@
 	--hero-title-color2: #c48c4c;
 	--hero-title-order: 1;
 	--hero-subtitle-font-family: "DM Serif Display", serif;
-	--hero-subtitle-color: #2b2524;
+	--hero-subtitle-color: #37312D;
 	--hero-subtitle-font-style: normal;
 	--hero-subtitle-font-weight: 700;
 	--hero-subtitle-order: 2;
@@ -86,7 +86,7 @@
 	--principale-color: #e0a869;
 	--principale-dark-color: #c48c4c;
 	--title-image-url: url("../images/title-image-tb.png");
-	--footer-background-color: #444141;
+	--footer-background-color: #1B1917;
 }
 
 .rd-nav-item {
