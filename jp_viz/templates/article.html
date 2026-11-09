@@ -50,7 +50,7 @@
 {% endif %}
 {% endif %}
 
-{% if project != 'TB' or article.id != 1 %}
+{% if project != 'TB' or article.id not in "1,4" %}
 {% if contact_form %}
 {% include "row_contact_form.html" %}
 {% endif %}
@@ -60,9 +60,16 @@
 {% include "row_related_articles.html" %}
 {% endif %}
 
+{% if project == 'JP' %}
 {% if article.id != 1 %}
 {% include "row_comments.html" %}
 {% endif %}
+{% else %}
+{% if article.id not in "1,4" %}
+{% include "row_comments.html" %}
+{% endif %}
+{% endif %}
+
 
 {% if environment == 'DEV' %}
 <section class="section section-lg bg-default bg-gray-light">

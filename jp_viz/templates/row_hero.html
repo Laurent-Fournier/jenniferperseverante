@@ -1,22 +1,17 @@
 <!-- Row Hero -->
-<section class="section parallax-container breadcrumb-media-content" data-parallax-img="/images/1024/{{hero.image.src}}">
-  <div class="parallax-content breadcrumbs-custom context-dark">
+<section class="section parallax-container breadcrumb-media-content"
+  data-parallax-img="/images/1024/{{hero.image.src}}">
+  <div class="parallax-content breadcrumbs-custom context-dark main-bunner-inner">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-9">
-          <h2 class="breadcrumbs-custom-title">{{hero.title|safe}}</h2>
+          <h1>{{hero.title|safe}}</h1>
           {% if hero.subtitle %}<h3 class="offset-top-30">{{hero.subtitle|safe}}</h3>{% endif %}
           <ul class="breadcrumbs-custom-path">
-{% if lg == 'es' %}
-            <li><a href="/es/">Inicio</a></li>
-{% elif lg == 'en' %}
-            <li><a href="/en/">Home</a></li>
-{% else %}
-            <li><a href="/fr/">Accueil</a></li>
-{% endif %}
-{% if hero.nav %}
+            <li><a href="/{{lg}}/">{{labels.NAVBAR_NAV_HOME}}</a></li>
+            {% if hero.nav %}
             <li class="active">{{hero.nav}}</li>
-{% endif %}
+            {% endif %}
           </ul>
         </div>
       </div>

@@ -1,6 +1,5 @@
 # Markdow source: https://github.com/trentm/python-markdown2
 
-
 from django.shortcuts import render
 from django.db import connection
 from django.http import HttpResponse, Http404
@@ -147,7 +146,7 @@ def article(request, lg, slug=""):
             "map": map,
             "contact_form": Contact(lg, contact_type, url, no_section).get_texts(),
             "response": r,
-            "related_articles": get_related_articles(article, lg),
+            "related_articles": get_related_articles(article, lg, 6),
             "last_articles": get_last_articles(lg, 3),
             "comments": comments,
         },
@@ -458,7 +457,7 @@ def parse_images(text, language_code):
     )  # No title | No subtitle | No text | Many images | No video
 
 
-def get_related_articles(article, lg):
+def get_related_articles(article, lg, nb):
     article_id = article["id"]
     families = article["family"] if article["family"] is not None else ""
 
@@ -481,6 +480,7 @@ def get_related_articles(article, lg):
 			article.id = article_lg.id AND language_code='{lg}'
         WHERE is_page=0 AND ({sql}) AND article.id<>{article_id}
         ORDER BY art_date DESC
+        LIMIT {nb}
         """
     )
 
