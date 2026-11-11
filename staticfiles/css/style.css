@@ -562,7 +562,7 @@ p [style*='max-width'] {
 .text-with-divider {
 	position: relative;
 	padding-left: 60px;
-	max-width: 470px;
+	/* max-width: 470px; */
 }
 
 .text-with-divider .divider {

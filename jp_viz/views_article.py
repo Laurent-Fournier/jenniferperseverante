@@ -148,6 +148,7 @@ def article(request, lg, slug=""):
             "response": r,
             "related_articles": get_related_articles(article, lg, 6),
             "last_articles": get_last_articles(lg, 3),
+            "families": get_families(lg),
             "comments": comments,
         },
     )
@@ -270,6 +271,7 @@ def get_article_by_slug(lg, slug=None):
         "title": data["art_title"],
         "description": data["art_description"],
         "markdown_text": data["markdown_text"],
+        "families": get_families(lg),
         "date": data["art_date"],
         "date_lg": ArticleService().get_date_lg(data["art_date"], lg, "LONG"),
         "family": data["art_family"],
@@ -500,6 +502,33 @@ def get_related_articles(article, lg, nb):
         related_articles.append(related_article)
 
     return related_articles
+
+
+def get_families(lg):
+    # Read Data
+    rows = Article.objects.raw(
+        f"""
+        SELECT 
+            family.id,
+            family.fam_code,
+            family.fam_name
+        FROM family
+        WHERE fam_lg='{lg}'
+        ORDER BY fam_name ASC
+        """
+    )
+    families = []
+
+    # Add all families
+    for row in rows:
+        family = {
+            "code": row.fam_code,
+            "name": row.fam_name,
+        }
+
+        families.append(family)
+
+    return families
 
 
 def get_last_articles(lg, nb):

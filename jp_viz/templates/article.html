@@ -13,6 +13,9 @@
 {% include "row_hero.html" with hero=hero %}
 {% endif %}
 {% include "row_alert.html" with response=response %}
+{% if project == 'TB' and article.id == 8 %}
+{% include "row_families.html" with families=families %}
+{% endif %}
 {% if project == 'JP' %}
 {% include "row_who_am_i.html" %}
 {% endif %}
@@ -90,6 +93,7 @@
                 <h3>Article:</h3>{{article}}<br /><br />
                 <h3>Related articles:</h3>{{related_articles}}<br /><br />
                 <h3>Last articles:</h3>{{last_articles}}<br /><br />
+                <h3>Families:</h3>{{families}}<br /><br />
                 <h3>Sections:</h3><br />
                 {% for section in article.sections %}
                 <br />

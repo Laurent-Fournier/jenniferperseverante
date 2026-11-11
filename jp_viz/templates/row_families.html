@@ -1,0 +1,12 @@
+<!-- Families section -->
+<section class="section section-lg {% if section.style == 'odd'%}section-dark{% else %}section-light{% endif %}">
+  <div class="container">
+    <div class="row row-50">
+      <div class="col-lg-12">
+        {% for family in families %}
+        <a href="?filter={{family.code|lower}}">{{family.name}}</a> |
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
