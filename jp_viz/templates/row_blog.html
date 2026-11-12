@@ -7,7 +7,7 @@
         <img class="d-block mx-auto" src="/static/images/separator-star.svg">
         <p class="font-weight-bold">{{labels.BLOG_CHAPO}}</p>
       </div>
-      {% for article in last_articles %}
+      {% for article in related_articles %}
       <div class="col-md-6 col-lg-4 wow-outer">
         <div class="wow fadeInUp">
           <div class="post-modern section-light">
@@ -31,12 +31,5 @@
       </div>
       {% endfor %}
     </div>
-    <div class="row row-50">
-      <div class="col-12 text-center">
-        <a class="button button-lg button-block section-light"
-          href="{{labels.NAVBAR_NAV_BLOG_SLUG}}">{{labels.BTN_ALL_ARTICLES}}</a>
-      </div>
-    </div>
-
   </div>
 </section>

@@ -1,0 +1,42 @@
+<!-- Blog Intro -->
+<section class="section section-lg section-dark">
+  <div class="container">
+    <div class="row row-50">
+      <div class="col-12 text-center">
+        <h3>{{labels.BLOG_TITLE|safe}}</h3>
+        <img class="d-block mx-auto" src="/static/images/separator-star.svg">
+        <p class="font-weight-bold">{{labels.BLOG_CHAPO}}</p>
+      </div>
+      {% for article in related_articles %}
+      <div class="col-md-6 col-lg-4 wow-outer">
+        <div class="wow fadeInUp">
+          <div class="post-modern section-light">
+            <div class="post-modern-figure"><a href="{{article.slug}}"><img src="/images/370/{{article.cover}}" alt=""
+                  width="370" height="255" /></a>
+            </div>
+            <div class="post-modern-caption section-light">
+              {% if with_article_date == 1 and article.date %}
+              <p class="post-modern-date">{{article.date_lg}}</p>
+              {% endif %}
+              <a href="/{{article.lg}}/{{article.slug}}" aria-label="{{article.hero.subtitle}}">
+                <h5 class="post-modern-title">
+                  {{article.hero.title}}{% if article.hero.subtitle%}
+                  <br>
+                  {{article.hero.subtitle}}{% endif %}
+                </h5>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="row row-50">
+      <div class="col-12 text-center">
+        <a class="button button-lg button-block section-light"
+          href="{{labels.NAVBAR_NAV_BLOG_SLUG}}">{{labels.BTN_ALL_ARTICLES}}</a>
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -43,6 +43,11 @@ def article(request, lg, slug=""):
         lg = "fr"
     request.lg = lg  # pour contaxt_processors
 
+    # Filter on Family
+    filter = request.GET.get("filter")
+
+    related_title_code, related_articles = get_related_articles(article, lg, filter)
+
     # Article tracking.
     token = request.GET.get("token")
     if token:
@@ -146,8 +151,10 @@ def article(request, lg, slug=""):
             "map": map,
             "contact_form": Contact(lg, contact_type, url, no_section).get_texts(),
             "response": r,
-            "related_articles": get_related_articles(article, lg, 6),
-            "last_articles": get_last_articles(lg, 3),
+            "related_title_code": related_title_code,
+            "related_articles": related_articles,
+            # "related_articles": get_related_articles(article, lg, 6, filter),
+            # "last_articles": get_last_articles(lg, 3, filter),
             "families": get_families(lg),
             "comments": comments,
         },
@@ -459,16 +466,86 @@ def parse_images(text, language_code):
     )  # No title | No subtitle | No text | Many images | No video
 
 
-def get_related_articles(article, lg, nb):
-    article_id = article["id"]
-    families = article["family"] if article["family"] is not None else ""
+# def get_related_articles(article, lg, nb, filter):
+#     article_id = article["id"]
 
-    # family1, family2, family3 => "family1", "family2", "family3"
-    tabs = families.split(",")
-    sql_parts = []
-    for tab in tabs:
-        sql_parts.append(f"art_family LIKE '%%{tab}%%'")
-    sql = " OR ".join(sql_parts)
+#     families = article["family"] if article["family"] is not None else ""
+
+#     # family1, family2, family3 => "family1", "family2", "family3"
+#     tabs = families.split(",")
+#     sql_parts = []
+#     for tab in tabs:
+#         sql_parts.append(f"art_family LIKE '%%{tab}%%'")
+#     sql = " OR ".join(sql_parts)
+
+#     # Read Data
+#     rows = Article.objects.raw(
+#         f"""
+#         SELECT
+#             article.id,
+#             article.art_date, article.art_cover,
+#             art_slug, hero_title, hero_subtitle
+#         FROM article
+#         LEFT OUTER JOIN article_lg ON
+# 			article.id = article_lg.id AND language_code='{lg}'
+#         WHERE is_page=0 AND ({sql}) AND article.id<>{article_id}
+#         ORDER BY art_date DESC
+#         LIMIT {nb}
+#         """
+#     )
+
+#     related_articles = []
+
+#     # Add all related articles
+#     for row in rows:
+#         related_article = {
+#             "lg": lg,
+#             "slug": row.art_slug,
+#             "date": row.art_date,
+#             "date_lg": ArticleService().get_date_lg(row.art_date, lg, "SHORT"),
+#             "cover": row.art_cover.replace("1024", "230"),
+#             "hero": {"title": row.hero_title, "subtitle": row.hero_subtitle},
+#         }
+
+#         related_articles.append(related_article)
+
+#     return related_articles
+
+
+def get_related_articles(article, lg, filter):
+    article_id = article["id"]
+    families = article["family"]
+
+    if filter is not None:
+        # a filter is defined = > use it
+        sql = f" AND art_family = '{filter.upper()}'"
+        nb = 24
+        related_title_code = "LATEST_ARTICLES"
+    else:
+        if families is None:
+            # The Home page  ou About page => 3 last articles
+            sql = ""
+            nb = 3
+            related_title_code = "LATEST_ARTICLES"
+        elif families.upper() == "ALL":
+            # The Blog generic page => no filter
+            sql = ""
+            nb = 24
+            related_title_code = "LATEST_ARTICLES"
+        else:
+            # family1, family2, family3 => "family1", "family2", "family3"
+            tabs = families.split(",")
+            if len(tabs) == 1:
+                sql = f" AND art_family = '{families.upper()}'"
+            else:
+                sql_parts = []
+                for tab in tabs:
+                    sql_parts.append(f"art_family LIKE '%%{tab}%%'")
+                sql = " AND ("
+                sql += " OR ".join(sql_parts)
+                sql += ")"
+            nb = 6
+            related_title_code = "RELATED_ARTICLES"
 
     # Read Data
     rows = Article.objects.raw(
@@ -480,7 +557,7 @@ def get_related_articles(article, lg, nb):
         FROM article
         LEFT OUTER JOIN article_lg ON
 			article.id = article_lg.id AND language_code='{lg}'
-        WHERE is_page=0 AND ({sql}) AND article.id<>{article_id}
+        WHERE is_page=0 {sql} AND article.id<>{article_id}
         ORDER BY art_date DESC
         LIMIT {nb}
         """
@@ -501,7 +578,7 @@ def get_related_articles(article, lg, nb):
 
         related_articles.append(related_article)
 
-    return related_articles
+    return related_title_code, related_articles
 
 
 def get_families(lg):
@@ -531,40 +608,39 @@ def get_families(lg):
     return families
 
 
-def get_last_articles(lg, nb):
-    # Blog section
+# def get_last_articles(lg, nb, filter):
+#     # Blog section
+#     rows = Article.objects.raw(
+#         f"""
+#         SELECT
+#             article.id,
+#             article.art_date, article.art_cover,
+#             art_slug, hero_title, hero_subtitle
+#         FROM article
+#         LEFT OUTER JOIN article_lg ON
+# 			article.id = article_lg.id AND language_code='{lg}'
+#         WHERE is_page=0
+#         ORDER BY art_date DESC
+#         LIMIT {nb}
+#         """
+#     )
 
-    rows = Article.objects.raw(
-        f"""
-        SELECT 
-            article.id,
-            article.art_date, article.art_cover, 
-            art_slug, hero_title, hero_subtitle
-        FROM article
-        LEFT OUTER JOIN article_lg ON
-			article.id = article_lg.id AND language_code='{lg}'
-        WHERE is_page=0
-        ORDER BY art_date DESC
-        LIMIT {nb}
-        """
-    )
+#     last_articles = []
 
-    last_articles = []
+#     # Add all related articles
+#     for row in rows:
+#         last_article = {
+#             "lg": lg,
+#             "slug": row.art_slug,
+#             "date": row.art_date,
+#             "date_lg": ArticleService().get_date_lg(row.art_date, lg, "SHORT"),
+#             "cover": row.art_cover.replace("1024", "230"),
+#             "hero": {"title": row.hero_title, "subtitle": row.hero_subtitle},
+#         }
 
-    # Add all related articles
-    for row in rows:
-        last_article = {
-            "lg": lg,
-            "slug": row.art_slug,
-            "date": row.art_date,
-            "date_lg": ArticleService().get_date_lg(row.art_date, lg, "SHORT"),
-            "cover": row.art_cover.replace("1024", "230"),
-            "hero": {"title": row.hero_title, "subtitle": row.hero_subtitle},
-        }
+#         last_articles.append(last_article)
 
-        last_articles.append(last_article)
-
-    return last_articles
+#     return last_articles
 
 
 # ------------------

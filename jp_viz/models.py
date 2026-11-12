@@ -34,17 +34,6 @@ class ArticleLg(models.Model):
         db_table = "article_lg"
 
 
-class ArticleTracking(models.Model):
-    subscriber_id = models.PositiveIntegerField()
-    article_id = models.PositiveIntegerField()
-    language_code = models.CharField(max_length=2)
-    tracking_date = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = "article_tracking"
-
-
 class Comment(models.Model):
     language_code = models.CharField(max_length=2, blank=True, null=True)
     art_id = models.PositiveIntegerField()
@@ -67,11 +56,22 @@ class Comment(models.Model):
         db_table = "comment"
 
 
+class Family(models.Model):
+    pk = models.CompositePrimaryKey("fam_code", "fam_lg")
+    fam_code = models.CharField(max_length=20)
+    fam_lg = models.CharField(max_length=2)
+    fam_name = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = "family"
+
+
 class LabelLg(models.Model):
     pk = models.CompositePrimaryKey("code", "language_code")
     code = models.CharField(max_length=255)
     language_code = models.CharField(max_length=2)
-    label = models.CharField(max_length=45, blank=True, null=True)
+    label = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False

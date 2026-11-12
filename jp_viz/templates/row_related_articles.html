@@ -1,9 +1,11 @@
+{% load tags %}
+
 <!-- Related articles -->
 <section class="section section-lg section-dark">
   <div class="container">
     <div class="row row-50">
       <div class="col-12 text-center">
-        <h3>{{labels.RELATED_ARTICLES}}</h3>
+        <h3>{{ labels|get_item:related_title_code }}</h3>
         <img class="d-block mx-auto" src="/static/images/separator-star.svg">
       </div>
       {% for article in related_articles %}

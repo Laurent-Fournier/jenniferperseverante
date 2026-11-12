@@ -1,106 +1,134 @@
-<!-- Navbar-->
 <div class="rd-navbar-wrap">
-  <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
-    data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed"
-    data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static"
-    data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px"
-    data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
-    <div class="rd-navbar-main-outer">
-      <div class="rd-navbar-main">
-        <!-- Navbar Panel-->
-        <div class="rd-navbar-panel">
-          <!-- Navbar Toggle-->
-          <button id="navbar-toggle-button" aria-label="Responsive Navbar" class="rd-navbar-toggle"
-            data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-          <!-- Navbar Brand-->
-          <div class="rd-navbar-brand"><a href="/{{lg}}/"><img class="brand-logo-light"
-                src="/static/images/{{labels.NAVBAR_LOGO_FILENAME}}" alt="{{labels.NAVBAR_LOGO_ALT}}"></a>
-          </div>
-        </div>
-        <div class="rd-navbar-main-element">
-          <div class="rd-navbar-nav-wrap">
-            <!-- Navbar Nav-->
-            <ul class="rd-navbar-nav">
-              <li class="rd-nav-item{% if active == 'home' %} active{% endif %}"><a class="rd-nav-link"
-                  href="/{{lg}}/">{{labels.NAVBAR_NAV_HOME}}</a></li>
+    <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
+        data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed"
+        data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static"
+        data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px"
+        data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+        <div class="rd-navbar-main-outer">
+            <div class="rd-navbar-main">
+                <!-- Navbar Panel-->
+                <div class="rd-navbar-panel">
+                    <!-- Navbar Toggle-->
+                    <button id="navbar-toggle-button" aria-label="Responsive Navbar" class="rd-navbar-toggle"
+                        data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                    <!-- Navbar Brand-->
+                    <div class="rd-navbar-brand"><a href="/{{lg}}/"><img class="brand-logo-light"
+                                src="/static/images/{{labels.NAVBAR_LOGO_FILENAME}}"
+                                alt="{{labels.NAVBAR_LOGO_ALT}}"></a>
+                    </div>
+                </div>
+                <div class="rd-navbar-main-element">
+                    <div class="rd-navbar-nav-wrap">
+                        <!-- Navbar Nav-->
+                        <ul class="rd-navbar-nav">
+                            <li class="rd-nav-item{% if active == 'home' %} active{% endif %}"><a class="rd-nav-link"
+                                    href="/{{lg}}/">{{labels.NAVBAR_NAV_HOME}}</a></li>
 
-              <li class="rd-nav-item"><a class="rd-nav-link" href="#">{{labels.NAVBAR_NAV_SERVICES}}</a>
-                <ul class="rd-menu rd-navbar-dropdown">
-                  <li class="rd-dropdown-item{% if active == 'wedding' %} active{% endif %}"><a class="rd-dropdown-link"
-                      href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_WEDDING_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_WEDDING}}</a>
-                  </li>
-                  <li class="rd-dropdown-item{% if active == 'lesson' %} active{% endif %}"><a class="rd-dropdown-link"
-                      href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_LESSONS_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_LESSONS}}</a>
-                  </li>
-                  <li class="rd-dropdown-item{% if active == 'evjf' %} active{% endif %}"><a class="rd-dropdown-link"
-                      href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_EVJF_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_EVJF}}</a>
-                  </li>
-                  <li class="rd-dropdown-item{% if active == 'shooting' %} active{% endif %}"><a
-                      class="rd-dropdown-link"
-                      href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_SHOOTING_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_SHOOTING}}</a>
-                  </li>
-                  <li class="rd-dropdown-item{% if active == 'evening' %} active{% endif %}"><a class="rd-dropdown-link"
-                      href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_EVENING_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_EVENING}}</a>
-                  </li>
-                  <li class="rd-dropdown-item{% if active == 'party' %} active{% endif %}"><a class="rd-dropdown-link"
-                      href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_PARTY_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_PARTY}}</a>
-                  </li>
-                  <li class="rd-dropdown-item{% if active == 'business' %} active{% endif %}"><a
-                      class="rd-dropdown-link"
-                      href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_BUSINESS_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_BUSINESS}}</a>
-                  </li>
-                  <li class="rd-dropdown-item{% if active == 'gift' %} active{% endif %}"><a class="rd-dropdown-link"
-                      href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_GIFT_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_GIFT}}</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="rd-nav-item{% if active == 'studio' %} active{% endif %}"><a class="rd-nav-link"
-                  href="/{{lg}}/{{labels.NAVBAR_NAV_STUDIO_SLUG}}">{{labels.NAVBAR_NAV_STUDIO}}</a>
-              <li class="rd-nav-item{% if active == 'about' %} active{% endif %}"><a class="rd-nav-link"
-                  href="/{{lg}}/{{labels.NAVBAR_NAV_ABOUT_SLUG}}">{{labels.NAVBAR_NAV_ABOUT}}</a>
-              <li class="rd-nav-item{% if active == 'contact' %} active{% endif %}"><a
-                  class="rd-nav-link btn btn-primary"
-                  href="/{{lg}}/{{labels.NAVBAR_NAV_CONTACT_SLUG}}">{{labels.NAVBAR_NAV_CONTACT}}</a>
-                {% if slugs_lg %}
-                {% if lg == 'fr' %}
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{slugs_lg.en}}"
-                  aria-label="version anglaise">EN</a></li>
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{slugs_lg.es}}"
-                  aria-label="version espagnole">ES</a></li>
-              {% elif lg == 'en' %}
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{slugs_lg.fr}}"
-                  aria-label="French version">FR</a></li>
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/es/{{slugs_lg.es}}"
-                  aria-label="Spanish version">ES</a></li>
-              {% elif lg == 'es' %}
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/fr/{{slugs_lg.fr}}"
-                  aria-label="versión francesa">FR</a></li>
-              <li class="rd-nav-item"><a class="rd-nav-link" href="/en/{{slugs_lg.en}}"
-                  aria-label="versión en inglés">EN</a></li>
-              {% endif %}
-              {% endif %}
-              {% if environment == 'DEV' %}
-              <li class="rd-nav-item"><a class="rd-nav-link" href="#">DEV</a>
-                <ul class="rd-menu rd-navbar-dropdown">
-                  <li class="rd-dropdown-item{% if active == 'demo' %} active{% endif %}"><a class="rd-dropdown-link"
-                      href="/demo">Page démo</a></li>
-                  <li class="rd-dropdown-item{% if active == 'gallery' %} active{% endif %}"><a class="rd-dropdown-link"
-                      href="/gallery">Gallerie</a></li>
-                </ul>
-              </li>
-              {% endif %}
+                            <li class="rd-nav-item"><a class="rd-nav-link" href="#">{{labels.NAVBAR_NAV_SERVICES}}</a>
+                                <ul class="rd-menu rd-navbar-dropdown">
+                                    <li>{{labels.NAVBAR_NAV_SERVICES_DISCOVER}}</li>
+                                    <li class="rd-dropdown-item{% if active == 'feminization' %} active{% endif %}"><a
+                                            class="rd-dropdown-link"
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_FEMINIZATION_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_FEMINIZATION}}</a>
+                                    </li>
+                                    <li class="rd-dropdown-item{% if active == 'makeover' %} active{% endif %}"><a
+                                            class="rd-dropdown-link"
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_MAKEOVER_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_MAKEOVER}}</a>
+                                    </li>
+                                    <li class="rd-dropdown-item{% if active == 'private_lessons' %} active{% endif %}">
+                                        <a class="rd-dropdown-link"
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_INDIVIDUAL_LESSONS_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_INDIVIDUAL_LESSONS}}</a>
+                                    </li>
+                                    <li class="dropdown-separator"></li>
+                                    <li>{{labels.NAVBAR_NAV_SERVICES_SHARE}}</li>
+                                    <li
+                                        class="rd-dropdown-item{% if active == 'transbeaute_evenings' %} active{% endif %}">
+                                        <a class="rd-dropdown-link"
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_EVENINGS_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_EVENINGS}}</a>
+                                    </li>
+                                    <li class="rd-dropdown-item{% if active == 'group_classes' %} active{% endif %}"><a
+                                            class="rd-dropdown-link"
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_GROUP_CLASSES_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_GROUP_CLASSES}}</a>
+                                    </li>
+                                    <li class="dropdown-separator"></li>
+                                    <li>{{labels.NAVBAR_NAV_SERVICES_ACCOMPANIED}}</li>
+                                    <li class="rd-dropdown-item{% if active == 'makeover_day' %} active{% endif %}"><a
+                                            class="rd-dropdown-link"
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_DAY_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_DAY}}</a>
+                                    </li>
+                                    <li class="rd-dropdown-item{% if active == 'guided_weekend' %} active{% endif %}"><a
+                                            class="rd-dropdown-link"
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_WEEK_END_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_WEEK_END}}</a>
+                                    </li>
+                                    <li
+                                        class="rd-dropdown-item{% if active == 'personalized_stay' %} active{% endif %}">
+                                        <a class="rd-dropdown-link"
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_STAY_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_STAY}}</a>
+                                    </li>
+                                </ul>
+                            </li>
 
-            </ul>
-          </div>
+                            <li class="rd-nav-item{% if active == 'blog' %} active{% endif %}"><a class="rd-nav-link"
+                                    href="{{labels.NAVBAR_NAV_BLOG_SLUG}}">{{labels.NAVBAR_NAV_BLOG}}</a>
+                            </li>
+
+                            <li class="rd-nav-item{% if active == 'testimony' %} active{% endif %}"><a
+                                    class="rd-nav-link"
+                                    href="/{{lg}}/{{labels.NAVBAR_NAV_TESTIMONIALS_SLUG}}">{{labels.NAVBAR_NAV_TESTIMONIALS}}</a>
+
+                            <li class="rd-nav-item{% if active == 'about' %} active{% endif %}"><a class="rd-nav-link"
+                                    href="/{{lg}}/{{labels.NAVBAR_NAV_ABOUT_SLUG}}">{{labels.NAVBAR_NAV_ABOUT}}</a>
+                            <li class="rd-nav-item{% if active == 'contact' %} active{% endif %}"><a
+                                    class="rd-nav-link btn btn-primary"
+                                    href="/{{lg}}/{{labels.NAVBAR_NAV_CONTACT_SLUG}}">{{labels.NAVBAR_NAV_CONTACT}}</a>
+                                {% if slugs_lg %}
+                            <li class="rd-nav-item">
+                                <a class="rd-nav-link" href="#" aria-label="Choisir la langue" aria-haspopup="true">
+                                    {{ lg | upper }}</a>
+
+                                <ul class="rd-menu rd-navbar-dropdown">
+                                    {% if lg != 'fr' %}
+                                    <li class="rd-dropdown-item">
+                                        <a class="rd-dropdown-link" href="/fr/{{ slugs_lg.fr }}" lang="fr"
+                                            aria-label="Version française">FR</a>
+                                    </li>
+                                    {% endif %}
+                                    {% if lg != 'en' %}
+                                    <li class="rd-dropdown-item">
+                                        <a class="rd-dropdown-link" href="/en/{{ slugs_lg.en }}" lang="en"
+                                            aria-label="English version">EN</a>
+                                    </li>
+                                    {% endif %}
+                                    {% if lg != 'es' %}
+                                    <li class="rd-dropdown-item">
+                                        <a class="rd-dropdown-link" href="/es/{{ slugs_lg.es }}" lang="es"
+                                            aria-label="Versión española">ES</a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                            {% endif %}
+                            <!-- ---------------------------------------------------- -->
+                            {% if environment == 'DEV' %}
+                            <li class="rd-nav-item"><a class="rd-nav-link" href="#">DEV</a>
+                                <ul class="rd-menu rd-navbar-dropdown">
+                                    <li class="rd-dropdown-item{% if active == 'demo' %} active{% endif %}"><a
+                                            class="rd-dropdown-link" href="/demo">Page démo</a></li>
+                                    <li class="rd-dropdown-item{% if active == 'gallery' %} active{% endif %}"><a
+                                            class="rd-dropdown-link" href="/gallery">Gallerie</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </nav>
+    </nav>
 </div>
-
 {% comment %}
-Active: {{ active }}<br /><br />
-Slugs_lg: {{slugs_lg}}<br /><br />
+Active: {{ active }}<br />
 Navbar: {{ navbar }}<br /><br />
 Article: {{ article }}<br /><br />
 {% endcomment %}
