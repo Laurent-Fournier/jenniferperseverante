@@ -1,19 +1,20 @@
 <!-- Comments -->
- <section class="section section-lg">
-  <div class="container">
-    <div class="row row-50">
-      <div class="col-12 text-center">
-        <h3 class="title-decorate">Commentaires</h3>
-      </div>        
-{% for comment in comments %}
-  <hr>
-  {{comment.date}} - {{comment.author}} : <br>
-  {{comment.content}}<br><br>
-{% endfor %}
-
-{% for comment in comments %}
-   {{comment}}<hr>
-{% endfor %}
+<section class="section section-lg {% if section.style == 'odd'%}section-dark{% else %}section-light{% endif %}">
+    <div class="container">
+        <div class="row row-50">
+            <div class="col-12 text-center">
+                <h3>Commentaires</h3>
+                <img class="d-block mx-auto" src="/static/images/separator-star.svg">
+            </div>
+            {% if root_comments %}
+            <div class="comments">
+                {% for com in root_comments %}
+                {% include 'widget_comment.html' with comment=com %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-muted">Aucun commentaire pour le moment.</p>
+            {% endif %}
+        </div>
     </div>
-  </div>
 </section>

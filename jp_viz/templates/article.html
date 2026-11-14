@@ -65,12 +65,8 @@
 {% endif %}
 {% endif %}
 
-{% if project == 'JP' %}
-{% if article.id != 1 %}
-{% include "row_comments.html" %}
-{% endif %}
-{% else %}
-{% if article.id not in "1,4" %}
+{% if project == 'TB' %}
+{% if article.id != 1 and not article.is_page %}
 {% include "row_comments.html" %}
 {% endif %}
 {% endif %}

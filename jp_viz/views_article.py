@@ -125,9 +125,28 @@ def article(request, lg, slug=""):
         elif article["family"][:7] == "AT_HOME":
             map = "AT_HOME"
 
-    comments = None
-    if int(os.getenv("DISPLAY_COMMENTS")) == 1:
-        comments = ArticleService().get_comments(article["id"], lg, 1)
+    # Affichage des commentaires
+    root_comments = None
+    if os.getenv("DISPLAY_COMMENTS", "0") == "1":
+        comments = Comment.objects.filter(
+            art_id=article["id"], com_approved=1
+        ).order_by("com_date")
+
+        # Arbre : {parent_id: [commentaires enfants]}
+        tree_comments = {}
+        for com in comments:
+            tree_comments.setdefault(com.com_parent_id, []).append(com)
+
+        # Attacher les enfants à chaque commentaire pour le template
+        for com in comments:
+            com.enfants = tree_comments.get(com.id, [])
+
+        # Racines : sans parent, ou dont le parent n'est pas dans le queryset
+        # (filet de sécurité pour ne jamais perdre un commentaire)
+        ids = {c.id for c in comments}
+        root_comments = [
+            c for c in comments if c.com_parent_id is None or c.com_parent_id not in ids
+        ]
 
     return render(
         request,
@@ -156,7 +175,7 @@ def article(request, lg, slug=""):
             # "related_articles": get_related_articles(article, lg, 6, filter),
             # "last_articles": get_last_articles(lg, 3, filter),
             "families": get_families(lg),
-            "comments": comments,
+            "root_comments": root_comments,
         },
     )
 

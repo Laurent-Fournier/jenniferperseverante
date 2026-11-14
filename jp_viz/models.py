@@ -37,6 +37,7 @@ class ArticleLg(models.Model):
 class Comment(models.Model):
     language_code = models.CharField(max_length=2, blank=True, null=True)
     art_id = models.PositiveIntegerField()
+    com_parent_id = models.PositiveIntegerField(blank=True, null=True)
     com_author = models.TextField(
         db_collation="utf8mb4_unicode_520_ci", db_comment="Pseudo / Nom de l'auteur"
     )
@@ -45,6 +46,8 @@ class Comment(models.Model):
         db_collation="utf8mb4_unicode_520_ci",
         db_comment="E-mail de l'auteur",
     )
+    com_ip = models.CharField(max_length=45, blank=True, null=True)
+    com_agent = models.CharField(max_length=500, blank=True, null=True)
     com_date = models.DateTimeField(db_comment="Date du commentaire")
     com_content = models.TextField(
         db_collation="utf8mb4_unicode_520_ci", db_comment="Texte du commentaire"
