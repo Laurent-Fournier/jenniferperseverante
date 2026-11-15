@@ -103,6 +103,10 @@
 	text-transform: uppercase;
 }
 
+.help {
+	font-style: italic;
+}
+
 /*
 * Trunk version 2.0.1
 */

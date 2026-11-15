@@ -786,6 +786,7 @@ def add_comment(request, lg):
     if request.method == "POST":
         article_id = request.POST.get("art_id")
         article_slug = request.POST.get("art_slug")
+        parent_id = request.POST.get("parent_id")
         author = request.POST.get("author")
         email = request.POST.get("email")
         content = request.POST.get("content")
@@ -794,6 +795,7 @@ def add_comment(request, lg):
         comment = Comment.objects.create(
             art_id=article_id,
             language_code=lg,
+            com_parent_id=parent_id,
             com_author=author,
             com_email=email,
             com_content=content,

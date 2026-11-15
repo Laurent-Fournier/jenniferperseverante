@@ -9,34 +9,31 @@
 
         <!-- Bouton Répondre : affiche le formulaire ci-dessous via JS -->
         <button type="button" class="btn btn-sm btn-outline-primary"
-            onclick="toggleReponse('reponse-form-{{ comment.id }}')">
-            Répondre
-        </button>
+            onclick="toggleReponse('reponse-form-{{ comment.id }}')">{{labels.BTN_REPLY}}</button>
 
         <!-- Formulaire de réponse : caché par défaut, pas d'URL dédiée nécessaire -->
-        <form method="post" action="#" id="reponse-form-{{ comment.id }}" style="display: none;"
+        <form method="post" action="/{{lg}}/add-comment" id="reponse-form-{{ comment.id }}" style="display: none;"
             class="mt-3 reponse-form">
             {% csrf_token %}
-            <input type="hidden" name="com_parent_id" value="{{ comment.id }}">
+            <input type="hidden" id="art_id" name="art_id" value="{{article.id}}">
+            <input type="hidden" id="art_slug" name="art_slug" value="{{article.slug}}">
+            <input type="hidden" name="parent_id" value="{{ comment.id }}">
 
             <div class="form-group">
-                <label for="author-{{ comment.id }}">Nom</label>
-                <input type="text" class="form-control" id="author-{{ comment.id }}" name="com_author" required>
+                <label for="author-{{ comment.id }}">{{labels.COMMENT_FIELD_NAME}}</label>
+                <input type="text" class="form-control" id="author-{{ comment.id }}" name="author" required>
             </div>
             <div class="form-group">
-                <label for="email-{{ comment.id }}">E-mail</label>
-                <input type="email" class="form-control" id="email-{{ comment.id }}" name="com_email" required>
+                <label for="email-{{ comment.id }}">{{labels.COMMENT_FIELD_EMAIL}}</label>
+                <input type="email" class="form-control" id="email-{{ comment.id }}" name="email" required>
             </div>
             <div class="form-group">
-                <label for="content-{{ comment.id }}">Réponse</label>
-                <textarea class="form-control" id="content-{{ comment.id }}" name="com_content" rows="3"
+                <label for="content-{{ comment.id }}">{{labels.COMMENT_FIELD_RESPONSE}}</label>
+                <textarea class="form-control" id="content-{{ comment.id }}" name="content" rows="3"
                     required></textarea>
             </div>
-            <button type="submit" class="btn btn-sm btn-primary">Envoyer</button>
-            <button type="button" class="btn btn-sm btn-link js-btn-annuler"
-                data-target="#reponse-form-{{ comment.id }}">
-                Annuler
-            </button>
+            <button type="submit" class="btn btn-sm btn-primary">{{labels.BTN_SEND}}</button>
+            <p class="help">{{labels.COMMENTS_HELP}}</p>
         </form>
     </div>
     {% if comment.enfants %}

@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row row-50">
             <div class="col-12 text-center">
-                <h3>Commentaires</h3>
+                <h3>{{labels.COMMENTS_TITLE}}</h3>
                 <img class="d-block mx-auto" src="/static/images/separator-star.svg">
             </div>
             {% if root_comments %}
@@ -13,7 +13,7 @@
                 {% endfor %}
             </div>
             {% else %}
-            <p class="text-muted">Aucun commentaire pour le moment.</p>
+            <p class="text-muted">{{labels.COMMENTS_NONE}}</p>
             {% endif %}
         </div>
     </div>
