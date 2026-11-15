@@ -1,5 +1,5 @@
 <!-- Widget Comment -->
-<div class="card mb-3">
+<div class="card mb-3" id="comment-{{ comment.id }}">
     <div class="card-body">
         <h6 class="card-subtitle mb-2 text-muted">
             {{ comment.com_author }}
@@ -7,8 +7,37 @@
         </h6>
         <p class="card-text">{{ comment.com_content|linebreaks }}</p>
 
-        <!-- Lien pour répondre : renvoie vers un formulaire, sans JavaScript -->
-        <a href="#" class="btn btn-sm btn-outline-primary">Répondre</a>
+        <!-- Bouton Répondre : affiche le formulaire ci-dessous via JS -->
+        <button type="button" class="btn btn-sm btn-outline-primary"
+            onclick="toggleReponse('reponse-form-{{ comment.id }}')">
+            Répondre
+        </button>
+
+        <!-- Formulaire de réponse : caché par défaut, pas d'URL dédiée nécessaire -->
+        <form method="post" action="#" id="reponse-form-{{ comment.id }}" style="display: none;"
+            class="mt-3 reponse-form">
+            {% csrf_token %}
+            <input type="hidden" name="com_parent_id" value="{{ comment.id }}">
+
+            <div class="form-group">
+                <label for="author-{{ comment.id }}">Nom</label>
+                <input type="text" class="form-control" id="author-{{ comment.id }}" name="com_author" required>
+            </div>
+            <div class="form-group">
+                <label for="email-{{ comment.id }}">E-mail</label>
+                <input type="email" class="form-control" id="email-{{ comment.id }}" name="com_email" required>
+            </div>
+            <div class="form-group">
+                <label for="content-{{ comment.id }}">Réponse</label>
+                <textarea class="form-control" id="content-{{ comment.id }}" name="com_content" rows="3"
+                    required></textarea>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary">Envoyer</button>
+            <button type="button" class="btn btn-sm btn-link js-btn-annuler"
+                data-target="#reponse-form-{{ comment.id }}">
+                Annuler
+            </button>
+        </form>
     </div>
     {% if comment.enfants %}
     <div class="ml-4 border-left pl-3">
