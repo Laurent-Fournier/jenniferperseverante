@@ -10,7 +10,7 @@
           <ul class="breadcrumbs-custom-path">
             <li><a href="/{{lg}}/">{{labels.NAVBAR_NAV_HOME}}</a></li>
             {% if hero.nav %}
-            <li class="active">{{hero.nav}}</li>
+            <li class="active">{{hero.nav|safe}}</li>
             {% endif %}
           </ul>
         </div>

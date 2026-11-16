@@ -3,7 +3,7 @@
     <div class="card-body">
         <h6 class="card-subtitle mb-2 text-muted">
             {{ comment.com_author }}
-            <small>· {{ comment.com_date|date:"d F Y à H:i" }}</small>
+            <small>· {{ comment.date_lg }}</small>
         </h6>
         <p class="card-text">{{ comment.com_content|linebreaks }}</p>
 

@@ -116,7 +116,12 @@ def article(request, lg, slug=""):
     # Send email and save in DB ?
     r = None
     if request.method == "POST":
+        # Envoi d'un message
         r = Contact(lg, contact_type, url, no_section).process(request)
+
+    # Comment Added ?
+    if request.GET.get("message") == "comment_added":
+        r = {"status": "SUCCESS", "message": "comment_added", "count": None}
 
     map = None
     if article["family"] is not None:
@@ -140,6 +145,7 @@ def article(request, lg, slug=""):
         # Attacher les enfants à chaque commentaire pour le template
         for com in comments:
             com.enfants = tree_comments.get(com.id, [])
+            com.date_lg = ArticleService().get_date_lg(com.com_date, lg, "LONG")
 
         # Racines : sans parent, ou dont le parent n'est pas dans le queryset
         # (filet de sécurité pour ne jamais perdre un commentaire)
@@ -228,8 +234,11 @@ def get_article_by_slug(lg, slug=None):
 
     data = dict(zip(columns, row))
 
+    is_page = bool(data["is_page"]) if data["is_page"] is not None else False
+    blog_link = f'<a href="/{lg}/blog">Blog</a>'
+
     hero = {
-        "nav": data["nav"],
+        "nav": blog_link if not is_page else data["nav"],
         "image": {
             "src": data["art_cover"],
             "alt": data["art_title"],  # TODO specific db field
@@ -301,7 +310,7 @@ def get_article_by_slug(lg, slug=None):
         "date": data["art_date"],
         "date_lg": ArticleService().get_date_lg(data["art_date"], lg, "LONG"),
         "family": data["art_family"],
-        "is_page": bool(data["is_page"]) if data["is_page"] is not None else False,
+        "is_page": is_page,
         "cover": data["art_cover"],
         "translated_slugs": ArticleService().get_slugs(data["id"]),
         "sections": sections,
@@ -777,33 +786,3 @@ def search(request, lg):
             "row": row,
         },
     )
-
-
-# ------------------
-# Add comment
-# ------------------
-def add_comment(request, lg):
-    if request.method == "POST":
-        article_id = request.POST.get("art_id")
-        article_slug = request.POST.get("art_slug")
-        parent_id = request.POST.get("parent_id")
-        author = request.POST.get("author")
-        email = request.POST.get("email")
-        content = request.POST.get("content")
-
-        # Comment creation
-        comment = Comment.objects.create(
-            art_id=article_id,
-            language_code=lg,
-            com_parent_id=parent_id,
-            com_author=author,
-            com_email=email,
-            com_content=content,
-            com_approved=0,
-            com_date=timezone.now(),
-        )
-
-        url = reverse("article_detail", kwargs={"lg": lg, "slug": article_slug})
-        return redirect(f"{url}?msg=comment_added")
-
-    # return HttpResponse(f"[DEBUG]<br>L'article est : {article_id}<br>Le slug est : {article_slug}<br>L'auteur est : {author}<br>La langue est : {lg}<br>Le commentaire est : {content}")

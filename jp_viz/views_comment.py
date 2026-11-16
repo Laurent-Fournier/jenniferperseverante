@@ -17,6 +17,9 @@ def add_comment(request, lg):
         email = request.POST.get("email")
         content = request.POST.get("content")
 
+        if parent_id == "":
+            parent_id = None
+
         x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
         if x_forwarded_for:
             ip_address = x_forwarded_for.split(",")[0].strip()
@@ -40,4 +43,4 @@ def add_comment(request, lg):
         )
 
         url = reverse("article_detail", kwargs={"lg": lg, "slug": article_slug})
-        return redirect(f"{url}?msg=comment_added")
+        return redirect(f"{url}?message=comment_added")
