@@ -140,10 +140,11 @@ class Newsletter(models.Model):
 
 
 class Subscriber(models.Model):
+    language_code = models.CharField(max_length=2, blank=True, null=True)
     sub_pseudo = models.CharField(max_length=45, blank=True, null=True)
     sub_email = models.CharField(unique=True, max_length=255, blank=True, null=True)
     is_active = models.PositiveIntegerField(blank=True, null=True)
-    subscription_date = models.DateField(blank=True, null=True)
+    subscription_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False

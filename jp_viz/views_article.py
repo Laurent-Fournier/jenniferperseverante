@@ -33,6 +33,7 @@ signer = TimestampSigner()
 def article(request, lg, slug=""):
     # return HttpResponse(f"[DEBUG] le language est : {lg}")
     url = request.build_absolute_uri()
+    base_url = f"{request.scheme}://{request.get_host()}"
 
     # Read article data from database
     hero = None
@@ -62,8 +63,8 @@ def article(request, lg, slug=""):
     all_languages = ["fr", "en", "es"]
     other_languages = [lang for lang in all_languages if lang != lg]
 
-    parsed_url = urlparse(url)
-    base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
+    # parsed_url = urlparse(url)
+    # base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
 
     # Page 404 si l'article n'existe pas
     if article == {}:  # slug not found
@@ -119,9 +120,15 @@ def article(request, lg, slug=""):
         # Envoi d'un message
         r = Contact(lg, contact_type, url, no_section).process(request)
 
-    # Comment Added ?
+    # Comment alert ?
     if request.GET.get("message") == "comment_added":
         r = {"status": "SUCCESS", "message": "comment_added", "count": None}
+    # Subscription alert ?
+    elif request.GET.get("message") == "subscription_email_sent":
+        r = {"status": "SUCCESS", "message": "subscription_email_sent", "count": None}
+    # Subscription confirmed ?
+    elif request.GET.get("message") == "subscription_confirmed":
+        r = {"status": "SUCCESS", "message": "subscription_confirmed", "count": None}
 
     map = None
     if article["family"] is not None:

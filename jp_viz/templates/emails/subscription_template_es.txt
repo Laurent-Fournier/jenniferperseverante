@@ -1,0 +1,13 @@
+Bienvenido/a al universo Transbeauté
+
+Para confirmar tu dirección de correo electrónico y validar tu suscripción al boletín, haz clic en el siguiente enlace:
+
+{{ confirmation_url }}
+
+Así podrás recibir los próximos artículos, consejos, testimonios y novedades del blog Transbeauté.
+
+¡Hasta pronto!
+
+Jennifer
+Transbeauté
+Maquillaje - Cambio de imagen - Feminización

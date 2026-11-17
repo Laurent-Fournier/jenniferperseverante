@@ -1,0 +1,13 @@
+Bienvenue dans l’univers Transbeauté
+
+Pour confirmer votre adresse email et valider votre inscription à la newsletter, cliquez sur le lien suivant :
+
+{{ confirmation_url }}
+
+Vous pourrez ainsi recevoir les prochains articles, conseils, témoignages et actualités du blog Transbeauté.
+
+À bientôt,
+
+Jennifer
+Transbeauté
+Maquillage - Relooking - Féminisation

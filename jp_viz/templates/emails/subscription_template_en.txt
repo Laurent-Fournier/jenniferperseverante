@@ -1,0 +1,13 @@
+Welcome to the world of Transbeauté
+
+To confirm your email address and validate your subscription to the newsletter, please click the following link:
+
+{{ confirmation_url }}
+
+You will then be able to receive upcoming articles, tips, testimonials, and news from the Transbeauté blog.
+
+See you soon,
+
+Jennifer
+Transbeauté
+Makeup - Makeovers - Feminization
