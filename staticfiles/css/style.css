@@ -3597,10 +3597,11 @@ hr {
 	text-align: left;
 }
 
+/*
 .rd-form .button {
 	min-height: 60px;
 }
-
+*/
 *+.rd-form {
 	margin-top: 20px;
 }
@@ -14952,20 +14953,20 @@ Ordre dans la hero section
 
 .section-dark {
 	background-color: var(--section-dark-background-color);
+}
 
+.button-dark {
+	color: var(--principale-color) !important;
 }
 
 .section-medium {
 	background-color: var(--section-medium-background-color);
-
 }
 
 .section-light {
 	background-color: var(--section-light-background-color);
-
 }
 
 .section-main {
 	background-color: var(--hero-title-color2);
-
 }

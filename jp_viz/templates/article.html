@@ -55,8 +55,12 @@
 {% endif %}
 {% endif %}
 
-{% if project != 'TB' or article.id not in "1,4" %}
+{% if project == 'JP' %}
 {% if contact_form %}
+{% include "row_contact_form.html" %}
+{% endif %}
+{% else %}
+{% if article.id == 82 %}
 {% include "row_contact_form.html" %}
 {% endif %}
 {% endif %}

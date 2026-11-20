@@ -1,206 +1,123 @@
-<style>
-/* Retire la couleur par défaut des liens (noir par défaut) */
-a.nav-link {
-    color: #151515 !important;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-/* Retire la couleur au survol */
-a.nav-link:hover {
-    color: #151515 !important;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-/* Style pour l'onglet actif */
-.nav-tabs .nav-link.active {
-    background-color: #FF6E77;
-    color: white !important;
-    border-color: #FF6E77 #FF6E77 #fff;
-}
-/* Style au survol pour tous les onglets (optionnel) */
-.nav-tabs .nav-link:hover {
-    border-color: #FF6E77 #fff;
-    color: #FF6E77;
-    transition: color 0.3s ease, border-color 0.3s ease;
-}
-</style>
-
 <!-- Contact form -->
-<section class="section section-lg{% if contact_form.style == 'odd'%} bg-default bg-gray-light{% endif %}">
+<section class="section section-lg {% if section.style == 'odd'%}section-dark{% else %}section-light{% endif %}">
   <div class="container">
-    <div id="contact-section" class="row justify-content-md-center">
+    <div class="row justify-content-md-center">
       <div class="col-md-9 col-lg-7">
-        <h3 class="title-decorate title-decorate-center">{{contact_form.title}}</h3>
-        <!-- <p>{% autoescape off %}{{contact_form.subtitle}}{% endautoescape %}</p> -->
-        <!-- {% autoescape off %}{{contact_form.email_security}}{% endautoescape %} -->
+        <h3 class="title-decorate title-decorate-center">{{labels.CONTACT_TITLE}}</h3>
+        <p>{% autoescape off %}{{labels.CONTACT_CHAPO}}{% endautoescape %}</p>
+        <p>{% autoescape off %}{{labels.CONTACT_SECURITY}}{% endautoescape %}</p>
 
-        <p>{% autoescape off %}{{contact_form.chapo}}{% endautoescape %}</p><br>
-
-        <!-- Navigation par onglets -->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link{% if contact_form.contact_type != 'wedding' and contact_form.contact_type != 'studio' and contact_form.contact_type != 'at_home' %} active{% endif %}" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="{% if contact_form.contact_type != 'wedding' and contact_form.contact_type != 'studio' and contact_form.contact_type != 'at_home' %} true{% else %}false{% endif %}">{{contact_form.generic.tab}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link{% if contact_form.contact_type == 'wedding' %} active{% endif %}" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="{% if contact_form.contact_type == 'wedding' %}true{% else %}false{% endif %}">{{contact_form.wedding.tab}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link{% if contact_form.contact_type == 'studio' %} active{% endif %}" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="{% if contact_form.contact_type == 'studio' %}true{% else %}false{% endif %}">{{contact_form.studio.tab}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link{% if contact_form.contact_type == 'at_home' %} active{% endif %}" id="tab4-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="{% if contact_form.contact_type == 'at_home' %}true{% else %}false{% endif %}">{{contact_form.at_home.tab}}</a>
-            </li>
-        </ul>
-        <!-- Contenu des onglets -->
-        <div class="tab-content" id="myTabContent">
-
-            <!-- Onglet 1 : Renseignements -->
-            <div class="tab-pane fade{% if contact_form.contact_type != 'wedding' and contact_form.contact_type != 'studio' and contact_form.contact_type != 'at_home' %} show active{% endif %}" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                <div class="card-body">
-                    <p>{% autoescape off %}{{contact_form.generic.header}}{% endautoescape %}</p>
-                    <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
-                        {% csrf_token %}
-                        <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
-                        <div class="row" style="margin-top: 10px">
-                            <div class="col-md-6 form-input">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
-                            </div>
-                            <div class="col-md-6 form-input">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}" required>
-                            </div>
-                            <div class="col-md-12 form-input">
-                                <input type="text" class="form-control" id="subject" name="subject" placeholder="{{contact_form.subject_label}}">
-                            </div>
-                            <div class="col-md-12 form-textarea">
-                                <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.generic.message_label}}"></textarea>
-                            </div>
-                            <div class="col-md-12 form-btn text-center">
-                                <button class="btn btn-block button-lg" style="color: white; background-color: #FF6E77;" type="submit" name="submit">{{contact_form.send_label}}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <form id="contact-us" class="rd-form" data-form-output="form-output-global" data-form-type="contact"
+          method="post" action="/{{lg}}/add-contact">
+          {% csrf_token %}
+          <input type="hidden" id="contact_type" name="contact_type" value="generic">
+          <input type="hidden" id="art_id" name="art_id" value="{{article.id}}">
+          <input type="hidden" id="art_slug" name="art_slug" value="{{article.slug}}">
+          <div class="row">
+            <div class="col-md-6 form-input">
+              <input type="text" class="form-control" id="name" name="name" placeholder="{{labels.CONTACT_FIELD_NAME}}">
             </div>
-
-            <!-- Onglet 2 : Mariage -->
-            <div class="tab-pane fade{% if contact_form.contact_type == 'wedding' %} show active{% endif %}" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-                <div class="card-body">
-                    <p>{% autoescape off %}{{contact_form.wedding.header}}{% endautoescape %}</p>
-                    <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
-                        {% csrf_token %}
-                        <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
-                        <div class="row" style="margin-top: 10px">
-                            <div class="col-md-6 form-input">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
-                            </div>
-                            <div class="col-md-6 form-input">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}" required>
-                            </div>
-                            <div class="col-md-12 form-input">
-                                <input type="text" class="form-control" id="address" name="address" placeholder="{{contact_form.address_label}}">
-                            </div>
-                            <div class="col-md-4 form-input">
-                                <input type="text" class="form-control" id="date" name="date" placeholder="{{contact_form.wedding.date_label}}">
-                            </div>
-                            <div class="col-md-4 form-input">
-                                <input type="text" class="form-control" id="time" name="time" placeholder="{{contact_form.time_label}}">
-                            </div>
-                            <div class="col-md-4 form-input">
-                                <input type="text" class="form-control" id="people" name="people" placeholder="{{contact_form.people_label}}">
-                            </div> 
-                            <div class="col-md-12 form-textarea">
-                                <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.wedding.message_label}}"></textarea>
-                            </div>
-                            <div class="col-md-12 form-btn text-center">
-                                <button class="btn btn-block button-lg" style="color: white; background-color: #FF6E77;" type="submit" name="submit">{{contact_form.send_label}}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="col-md-6 form-input">
+              <input type="email" class="form-control" id="email" name="email"
+                placeholder="{{labels.CONTACT_FIELD_EMAIL}}" required>
             </div>
-
-            <!-- Onglet 3 : Studio de maquillage -->
-            <div class="tab-pane fade{% if contact_form.contact_type == 'studio' %} show active{% endif %}" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
-                <div class="card-body">
-                    <p>{% autoescape off %}{{contact_form.studio.header}}{% endautoescape %}</p>
-                    <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
-                        {% csrf_token %}
-                        <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
-                        <div class="row" style="margin-top: 10px">
-                            <div class="col-md-6 form-input">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
-                            </div>
-                            <div class="col-md-6 form-input">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}" required>
-                            </div>
-                            <div class="col-md-12 form-input">
-                                <input type="text" class="form-control" id="makeup" name="makeup" placeholder="{{contact_form.studio.makeup_label}}">
-                            </div>
-                            <div class="col-md-12 form-input">
-                                <input type="text" class="form-control" id="event" name="event" placeholder="{{contact_form.studio.event_label}}">
-                            </div>
-                            <div class="col-md-6 form-input">
-                                <input type="text" class="form-control" id="date" name="date" placeholder="{{contact_form.studio.date_label}}">
-                            </div>
-                            <div class="col-md-6 form-input">
-                                <input type="text" class="form-control" id="time" name="time" placeholder="{{contact_form.time_label}}">
-                            </div>
-                            <div class="col-md-12 form-textarea">
-                                <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.studio.message_label}}"></textarea>
-                            </div>
-                            <div class="col-md-12 form-btn text-center">
-                                <button class="btn btn-block button-lg" style="color: white; background-color: #FF6E77;" type="submit" name="submit">{{contact_form.send_label}}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="subject" name="subject"
+                placeholder="{{labels.CONTACT_FIELD_SUBJECT}}">
             </div>
-
-            <!-- Onglet 4 : Maquillage à domicile -->
-            <div class="tab-pane fade{% if contact_form.contact_type == 'at_home' %} show active{% endif %}" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
-                <div class="card-body">
-                    <p>{% autoescape off %}{{contact_form.at_home.header}}{% endautoescape %}</p>
-                    <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#" name="contact-us">
-                        {% csrf_token %}
-                        <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
-                        <div class="row" style="margin-top: 10px">
-                            <div class="col-md-6 form-input">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
-                            </div>
-                            <div class="col-md-6 form-input">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{contact_form.email_label}}" required>
-                            </div>
-                            <div class="col-md-12 form-input">
-                                <input type="text" class="form-control" id="address" name="address" placeholder="{{contact_form.address_label}}">
-                            </div>
-                            <div class="col-md-4 form-input">
-                                <input type="text" class="form-control" id="date" name="date" placeholder="{{contact_form.at_home.date_label}}">
-                            </div>
-                            <div class="col-md-4 form-input">
-                                <input type="text" class="form-control" id="time" name="time" placeholder="{{contact_form.time_label}}">
-                            </div>
-                            <div class="col-md-4 form-input">
-                                <input type="text" class="form-control" id="people" name="people" placeholder="{{contact_form.people_label}}">
-                            </div>                            
-                            <div class="col-md-12 form-input">
-                                <input type="text" class="form-control" id="makeup" name="makeup" placeholder="{{contact_form.at_home.makeup_label}}">
-                            </div>
-                            <div class="col-md-12 form-textarea">
-                                <textarea class="form-control" id="message" name="message" rows="6" placeholder="{{contact_form.at_home.message_label}}"></textarea>
-                            </div>
-                            <div class="col-md-12 form-btn text-center">
-                                <button class="btn btn-block button-lg" style="color: white; background-color: #FF6E77;" type="submit" name="submit">{{contact_form.send_label}}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="col-md-12 form-textarea">
+              <textarea class="form-control" id="message" name="message" rows="6"
+                placeholder="{{labels.CONTACT_FIELD_MESSAGE}}"></textarea>
             </div>
-
-            <!-- Fin Onglet -->
-        </div>
+            <div class="col-md-12 form-btn text-center">
+              <button type="submit" form="contact-us"
+                class="button button-lg button-block section-dark button-dark">{{labels.CONTACT_SEND}}</button>
+            </div>
+          </div>
+          <br>
+        </form>
       </div>
     </div>
   </div>
 </section>
+
+<!--
+<section class="section section-lg {% if section.style == 'odd'%}section-dark{% else %}section-light{% endif %}">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-9 col-lg-7">
+        <h3 class="title-decorate title-decorate-center">{{contact_form.title}}</h3>
+        <p>{% autoescape off %}{{contact_form.subtitle}}{% endautoescape %}</p>
+        {% autoescape off %}{{contact_form.email_security}}{% endautoescape %}
+
+        <form class="rd-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="#"
+          name="contact-us">
+          {% csrf_token %}
+          <input type="hidden" id="contact_type" name="contact_type" value="{{contact_form.contact_type}}">
+          <div class="row">
+            <div class="col-md-6 form-input">
+              <input type="text" class="form-control" id="name" name="name" placeholder="{{contact_form.name_label}}">
+            </div>
+            <div class="col-md-6 form-input">
+              <input type="email" class="form-control" id="email" name="email"
+                placeholder="{{contact_form.email_label}}">
+            </div>
+            {% if contact_form.contact_type == 'studio' %}
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="makeup" name="makeup"
+                placeholder="{{contact_form.makeup_label}}">
+            </div>
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="event" name="event"
+                placeholder="{{contact_form.event_label}}">
+            </div>
+            <div class="col-md-6 form-input">
+              <input type="text" class="form-control" id="date" name="date" placeholder="{{contact_form.date_label}}">
+            </div>
+            <div class="col-md-6 form-input">
+              <input type="text" class="form-control" id="time" name="time" placeholder="{{contact_form.time_label}}">
+            </div>
+            {% endif %}
+            {% if contact_form.contact_type == 'at_home' or contact_form.contact_type == 'wedding' %}
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="address" name="address"
+                placeholder="{{contact_form.address_label}}">
+            </div>
+            <div class="col-md-4 form-input">
+              <input type="text" class="form-control" id="date" name="date" placeholder="{{contact_form.date_label}}">
+            </div>
+            <div class="col-md-4 form-input">
+              <input type="text" class="form-control" id="time" name="time" placeholder="{{contact_form.time_label}}">
+            </div>
+            <div class="col-md-4 form-input">
+              <input type="text" class="form-control" id="people" name="people"
+                placeholder="{{contact_form.people_label}}">
+            </div>
+            {% endif %}
+            {% if contact_form.contact_type == 'at_home' %}
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="makeup" name="makeup"
+                placeholder="{{contact_form.makeup_label}}">
+            </div>
+            {% endif %}
+            {% if contact_form.contact_type == 'generic' %}
+            <div class="col-md-12 form-input">
+              <input type="text" class="form-control" id="subject" name="subject"
+                placeholder="{{contact_form.subject_label}}">
+            </div>
+            {% endif %}
+            <div class="col-md-12 form-textarea">
+              <textarea class="form-control" id="message" name="message" rows="6"
+                placeholder="{{contact_form.message_label}}"></textarea>
+            </div>
+            <div class="col-md-12 form-btn text-center">
+              <a class="button button-lg button-block section-dark button-dark">{{contact_form.send_label}}</a>
+            </div>
+          </div>
+          <br>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+-->

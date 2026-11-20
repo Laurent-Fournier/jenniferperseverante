@@ -1,0 +1,15 @@
+TRANSBEAUTÉ
+
+Hello!
+
+Discover our latest article published on the Transbeauté website:
+
+{{article_title}}
+
+{{article_description}}
+
+Read the article:
+{{article_url}}
+
+Unsubscribe:
+{{unsubscribe_url}}

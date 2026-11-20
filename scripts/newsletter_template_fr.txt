@@ -1,0 +1,18 @@
+TRANSBEAUTÉ
+
+Bonjour !
+
+Découvrez notre dernier article publié sur le site Transbeauté :
+
+{{article_title}}
+
+{{article_description}}
+
+Lire l’article :
+{{article_url}}
+
+
+----------------------------------------
+
+Se désinscrire :
+{{unsubscribe_url}}

@@ -103,22 +103,13 @@ def article(request, lg, slug=""):
             },
         )
 
-    contact_type = "generic"
-    if article["family"] is not None:
-        if article["family"][:7] == "AT_HOME":
-            contact_type = "at_home"
-        elif article["family"][:7] == "WEDDING":
-            contact_type = "wedding"
-        elif article["family"][:6] == "STUDIO":
-            contact_type = "studio"
-
     no_section = len(article["sections"])
 
     # Send email and save in DB ?
     r = None
-    if request.method == "POST":
-        # Envoi d'un message
-        r = Contact(lg, contact_type, url, no_section).process(request)
+    if request.method == "POST" and request.POST.get("contact_type"):
+        # Envoi d'un message pour contact
+        r = Contact(lg, "generic", url, no_section).process(request)
 
     # Comment alert ?
     if request.GET.get("message") == "comment_added":
@@ -129,6 +120,12 @@ def article(request, lg, slug=""):
     # Subscription confirmed ?
     elif request.GET.get("message") == "subscription_confirmed":
         r = {"status": "SUCCESS", "message": "subscription_confirmed", "count": None}
+    # Unsubscription confirmed ?""
+    elif request.GET.get("message") == "unsubscription_confirmed":
+        r = {"status": "SUCCESS", "message": "unsubscription_confirmed", "count": None}
+    # Contact message added ?""
+    elif request.GET.get("message") == "contact_added":
+        r = {"status": "SUCCESS", "message": "contact_added", "count": None}
 
     map = None
     if article["family"] is not None:
@@ -181,7 +178,7 @@ def article(request, lg, slug=""):
             "article": article,
             "with_article_date": int(os.getenv("DISPLAY_ARTICLE_DATE")),
             "map": map,
-            "contact_form": Contact(lg, contact_type, url, no_section).get_texts(),
+            "contact_form": Contact(lg, "generic", url, no_section).get_texts(),
             "response": r,
             "related_title_code": related_title_code,
             "related_articles": related_articles,

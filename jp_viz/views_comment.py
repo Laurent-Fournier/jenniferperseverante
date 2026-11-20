@@ -2,12 +2,15 @@ from django.utils import timezone
 from django.shortcuts import redirect
 from django.urls import reverse
 
+from django_ratelimit.decorators import ratelimit
+
 from .models import Comment
 
 
 # ------------------
 # Add comment
 # ------------------
+@ratelimit(key="ip", rate="3/m", method="POST", block=True)
 def add_comment(request, lg):
     if request.method == "POST":
         article_id = request.POST.get("art_id")

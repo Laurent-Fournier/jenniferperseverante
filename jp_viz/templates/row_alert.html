@@ -5,13 +5,17 @@
             {% if response.status == 'SUCCESS' %}
             <div style="background-color:#198754" class="col-md-12 text-white p-3 mt-5" role="alert">
                 {% if response.message == 'comment_added' %}
-                {{labels.MESSAGE_COMMENT_ADDED}}
+                {{labels.MESSAGE_COMMENT_ADDED|safe}}
                 {% elif response.message == 'subscription_email_sent' %}
-                {{labels.MESSAGE_SUBSCRIPTION_EMAIL_SENT}}
+                {{labels.MESSAGE_SUBSCRIPTION_EMAIL_SENT|safe}}
                 {% elif response.message == 'subscription_confirmed' %}
-                {{labels.MESSAGE_SUBSCRIPTION_CONFIRMED}}
+                {{labels.MESSAGE_SUBSCRIPTION_CONFIRMED|safe}}
+                {% elif response.message == 'unsubscription_confirmed' %}
+                {{labels.MESSAGE_UNSUBSCRIPTION_CONFIRMED|safe}}
+                {% elif response.message == 'contact_added' %}
+                {{labels.MESSAGE_CONTACT_ADDED|safe}}
                 {% else %}
-                {% autoescape off %}{{contact_form.success_text}}{% endautoescape %}
+                {% autoescape off %}{{contact_form.success_text|safe}}{% endautoescape %}
                 {% endif %}
             </div>
             {% elif response.status == 'ERROR' %}
