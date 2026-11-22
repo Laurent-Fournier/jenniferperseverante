@@ -1,9 +1,127 @@
-<!-- Date of the article -->
-<section class="section section-lg bg-default" style="padding:10px 30px 0 30px">
+<style>
+  .article-navigation {
+    padding: 25px 30px 15px;
+  }
+
+  .article-navigation__links {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .article-navigation__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 25px;
+    background: #f8f6f4;
+    border: 1px solid #eee8e3;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    min-width: 0;
+  }
+
+  .article-navigation__item:hover {
+    background: #f1eae5;
+    border-color: #d9c8bc;
+    text-decoration: none;
+  }
+
+  .article-navigation__previous {
+    text-align: left;
+  }
+
+  .article-navigation__next {
+    text-align: right;
+  }
+
+  .article-navigation__label {
+    display: block;
+    margin-bottom: 8px;
+    color: #96745f;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .article-navigation__title {
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .article-navigation__item:hover .article-navigation__title {
+    color: #96745f;
+  }
+
+  .article-navigation__date {
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+    font-size: 14px;
+  }
+
+  @media (max-width: 767px) {
+    .article-navigation {
+      padding: 20px 15px 10px;
+    }
+
+    .article-navigation__links {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .article-navigation__item {
+      padding: 16px 20px;
+    }
+
+    .article-navigation__next {
+      text-align: left;
+    }
+
+    .article-navigation__title {
+      font-size: 15px;
+    }
+  }
+</style>
+<!-- Previous / Next Article Navigation -->
+<section class="section section-lg bg-default article-navigation">
   <div class="container">
-    <div class="row row-50">
-          <h4>{{article.date_lg}}</h4>
+
+    <nav class="article-navigation__links" aria-label="Navigation entre les articles">
+
+      {% if previous_article %}
+      <a class="article-navigation__item article-navigation__previous" href="/{{lg}}/{{previous_article.slug}}">
+        <span class="article-navigation__label">
+          ← Article précédent
+        </span>
+        <span class="article-navigation__title">
+          {{previous_article.title}}
+        </span>
+      </a>
+      {% endif %}
+
+      {% if next_article %}
+      <a class="article-navigation__item article-navigation__next" href="/{{lg}}/{{next_article.slug}}">
+        <span class="article-navigation__label">
+          Article suivant →
+        </span>
+        <span class="article-navigation__title">
+          {{next_article.title}}
+        </span>
+      </a>
+      {% endif %}
+
+    </nav>
+
+    <div class="article-navigation__date">
+      {{article.date_lg}}
     </div>
+
   </div>
-</div>    
-</section>  
+</section>
