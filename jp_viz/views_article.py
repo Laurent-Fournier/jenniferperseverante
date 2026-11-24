@@ -48,17 +48,22 @@ def article(request, lg, slug=""):
     filter = request.GET.get("filter")
 
     related_title_code, related_articles = get_related_articles(article, lg, filter)
+    previous_article, next_article = get_adjacent_articles(article, lg, filter)
 
     # Article tracking.
     token = request.GET.get("token")
     if token:
-        subscriber_id = signer.unsign(token, max_age=60 * 60 * 24)
-        ArticleTracking.objects.create(
-            subscriber_id=subscriber_id,
-            article_id=article["id"],
-            language_code=lg,
-            tracking_date=timezone.now(),
-        )
+        try:
+            s = signer.unsign(token, max_age=60 * 60 * 24)
+            subscriber_id, article_id = s.split("|")
+            ArticleTracking.objects.create(
+                subscriber_id=subscriber_id,
+                article_id=article_id,
+                language_code=lg,
+                tracking_date=timezone.now(),
+            )
+        except (BadSignature, SignatureExpired, ValueError):
+            pass  # token invalide, expiré ou format incorrect : on ne fait rien
 
     all_languages = ["fr", "en", "es"]
     other_languages = [lang for lang in all_languages if lang != lg]
@@ -172,6 +177,7 @@ def article(request, lg, slug=""):
             "lg": lg,
             "other_languages": other_languages,
             "navbar": Navbar(lg).to_json(),
+            # "active": article["active"],
             "slug": slug,
             "hero": hero,
             "slugs_lg": ArticleService().get_slugs(article["id"]),
@@ -182,8 +188,9 @@ def article(request, lg, slug=""):
             "response": r,
             "related_title_code": related_title_code,
             "related_articles": related_articles,
-            # "related_articles": get_related_articles(article, lg, 6, filter),
-            # "last_articles": get_last_articles(lg, 3, filter),
+            "previous_article": previous_article,
+            "next_article": next_article,
+            "filter": filter,
             "families": get_families(lg),
             "root_comments": root_comments,
         },
@@ -332,12 +339,7 @@ def parse_sections(s, language_code):
 
     # No section
     if p == -1:
-        section = {}
-        section["no"] = 0
-        section["style"] = "even"
-        section["type"] = "TEXT"
-        section["markdown"] = s
-        return [section]
+        return []
 
     no = 0
     while p != -1:
@@ -498,50 +500,91 @@ def parse_images(text, language_code):
     )  # No title | No subtitle | No text | Many images | No video
 
 
-# def get_related_articles(article, lg, nb, filter):
-#     article_id = article["id"]
+def get_adjacent_articles(article, lg, filter=None):
 
-#     families = article["family"] if article["family"] is not None else ""
+    if not article or article.get("is_page"):
+        return None, None
 
-#     # family1, family2, family3 => "family1", "family2", "family3"
-#     tabs = families.split(",")
-#     sql_parts = []
-#     for tab in tabs:
-#         sql_parts.append(f"art_family LIKE '%%{tab}%%'")
-#     sql = " OR ".join(sql_parts)
+    article_id = article["id"]
+    article_date = article["date"]
 
-#     # Read Data
-#     rows = Article.objects.raw(
-#         f"""
-#         SELECT
-#             article.id,
-#             article.art_date, article.art_cover,
-#             art_slug, hero_title, hero_subtitle
-#         FROM article
-#         LEFT OUTER JOIN article_lg ON
-# 			article.id = article_lg.id AND language_code='{lg}'
-#         WHERE is_page=0 AND ({sql}) AND article.id<>{article_id}
-#         ORDER BY art_date DESC
-#         LIMIT {nb}
-#         """
-#     )
+    # Filtre de catégorie éventuel
+    family_sql = ""
+    params_base = [lg]
 
-#     related_articles = []
+    if filter:
+        family_sql = " AND a.art_family = %s"
+        params_base.append(filter.upper())
 
-#     # Add all related articles
-#     for row in rows:
-#         related_article = {
-#             "lg": lg,
-#             "slug": row.art_slug,
-#             "date": row.art_date,
-#             "date_lg": ArticleService().get_date_lg(row.art_date, lg, "SHORT"),
-#             "cover": row.art_cover.replace("1024", "230"),
-#             "hero": {"title": row.hero_title, "subtitle": row.hero_subtitle},
-#         }
+    def get_one(direction):
 
-#         related_articles.append(related_article)
+        if direction == "previous":
+            # Article plus récent
+            condition = """
+                AND (
+                    a.art_date > %s
+                    OR (a.art_date = %s AND a.id > %s)
+                )
+            """
+            ordering = "a.art_date ASC, a.id ASC"
 
-#     return related_articles
+        else:
+            # Article plus ancien
+            condition = """
+                AND (
+                    a.art_date < %s
+                    OR (a.art_date = %s AND a.id < %s)
+                )
+            """
+            ordering = "a.art_date DESC, a.id DESC"
+
+        sql = f"""
+            SELECT
+                a.id,
+                a.art_date,
+                a.art_cover,
+                a.art_family,
+                al.art_slug,
+                al.art_title,
+                al.hero_title,
+                al.hero_subtitle
+            FROM article a
+            INNER JOIN article_lg al
+                ON a.id = al.id
+                AND al.language_code = %s
+            WHERE
+                a.is_page = 0
+                AND al.art_slug IS NOT NULL
+                {family_sql}
+                {condition}
+            ORDER BY {ordering}
+            LIMIT 1
+        """
+
+        params = params_base + [article_date, article_date, article_id]
+
+        with connection.cursor() as cursor:
+            cursor.execute(sql, params)
+            row = cursor.fetchone()
+
+        if not row:
+            return None
+
+        return {
+            "id": row[0],
+            "date": row[1],
+            "cover": row[2],
+            "family": row[3],
+            "slug": row[4],
+            "title": row[5],
+            "hero_title": row[6],
+            "hero_subtitle": row[7],
+        }
+
+    previous_article = get_one("previous")
+    next_article = get_one("next")
+
+    return previous_article, next_article
 
 
 def get_related_articles(article, lg, filter):
