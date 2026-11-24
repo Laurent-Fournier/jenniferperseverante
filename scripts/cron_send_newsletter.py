@@ -216,13 +216,13 @@ def build_article(article_row, language_row):
     }
 
 
-def build_article_url(article):
+def build_article_url(article, token):
     """Construit l'URL de l'article dans la bonne langue."""
 
     if not article["slug"]:
         return ""
 
-    return f"{SITE_URL}/{article['language_code']}/{article['slug']}"
+    return f"{SITE_URL}/{article['language_code']}/{article['slug']}?token={token}"
 
 
 # ---------------------------------------------------------------------------
@@ -300,7 +300,7 @@ def create_subscriber_article(
     )
 
     # URL de l'article
-    personalized_article["url"] = build_article_url(article)
+    personalized_article["url"] = build_article_url(article, tracking_token)
 
     return personalized_article
 
