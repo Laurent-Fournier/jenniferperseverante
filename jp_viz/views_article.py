@@ -517,10 +517,15 @@ def get_adjacent_articles(article, lg, filter=None):
         params_base.append(filter.upper())
 
     def get_one(direction):
+        condition = ""
+
+        # All articles are displayed in DEV environment
+        if os.getenv("ENVIRONMENT") != "DEV":
+            condition += " AND is_displayed=1"
 
         if direction == "previous":
             # Article plus récent
-            condition = """
+            condition += """
                 AND (
                     a.art_date > %s
                     OR (a.art_date = %s AND a.id > %s)
@@ -530,7 +535,7 @@ def get_adjacent_articles(article, lg, filter=None):
 
         else:
             # Article plus ancien
-            condition = """
+            condition += """
                 AND (
                     a.art_date < %s
                     OR (a.art_date = %s AND a.id < %s)
@@ -591,27 +596,31 @@ def get_related_articles(article, lg, filter):
     article_id = article["id"]
     families = article["family"]
 
+    sql = ""
+
+    # All articles are displayed in DEV environment
+    if os.getenv("ENVIRONMENT") != "DEV":
+        sql += " AND is_displayed=1"
+
     if filter is not None:
         # a filter is defined = > use it
-        sql = f" AND art_family = '{filter.upper()}'"
+        sql += f" AND art_family = '{filter.upper()}'"
         nb = 24
         related_title_code = "LATEST_ARTICLES"
     else:
         if families is None:
             # The Home page  ou About page => 3 last articles
-            sql = ""
             nb = 3
             related_title_code = "LATEST_ARTICLES"
         elif families.upper() == "ALL":
             # The Blog generic page => no filter
-            sql = ""
             nb = 24
             related_title_code = "LATEST_ARTICLES"
         else:
             # family1, family2, family3 => "family1", "family2", "family3"
             tabs = families.split(",")
             if len(tabs) == 1:
-                sql = f" AND art_family = '{families.upper()}'"
+                sql += f" AND art_family = '{families.upper()}'"
             else:
                 sql_parts = []
                 for tab in tabs:
@@ -647,7 +656,7 @@ def get_related_articles(article, lg, filter):
             "slug": row.art_slug,
             "date": row.art_date,
             "date_lg": ArticleService().get_date_lg(row.art_date, lg, "SHORT"),
-            "cover": row.art_cover.replace("1024", "230"),
+            "cover": row.art_cover.replace("1024", "230") if row.art_cover else None,
             "hero": {"title": row.hero_title, "subtitle": row.hero_subtitle},
         }
 
@@ -681,41 +690,6 @@ def get_families(lg):
         families.append(family)
 
     return families
-
-
-# def get_last_articles(lg, nb, filter):
-#     # Blog section
-#     rows = Article.objects.raw(
-#         f"""
-#         SELECT
-#             article.id,
-#             article.art_date, article.art_cover,
-#             art_slug, hero_title, hero_subtitle
-#         FROM article
-#         LEFT OUTER JOIN article_lg ON
-# 			article.id = article_lg.id AND language_code='{lg}'
-#         WHERE is_page=0
-#         ORDER BY art_date DESC
-#         LIMIT {nb}
-#         """
-#     )
-
-#     last_articles = []
-
-#     # Add all related articles
-#     for row in rows:
-#         last_article = {
-#             "lg": lg,
-#             "slug": row.art_slug,
-#             "date": row.art_date,
-#             "date_lg": ArticleService().get_date_lg(row.art_date, lg, "SHORT"),
-#             "cover": row.art_cover.replace("1024", "230"),
-#             "hero": {"title": row.hero_title, "subtitle": row.hero_subtitle},
-#         }
-
-#         last_articles.append(last_article)
-
-#     return last_articles
 
 
 # ------------------
