@@ -39,6 +39,10 @@
                                         <a class="rd-dropdown-link"
                                             href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_INDIVIDUAL_LESSONS_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_INDIVIDUAL_LESSONS}}</a>
                                     </li>
+                                    <li class="rd-dropdown-item{% if active == 'visio' %} active{% endif %}">
+                                        <a class="rd-dropdown-link"
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_VISIO_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_VISIO}}</a>
+                                    </li>
                                     <li class="dropdown-separator"></li>
                                     <li>{{labels.NAVBAR_NAV_SERVICES_SHARE}}</li>
                                     <li
@@ -52,18 +56,17 @@
                                     </li>
                                     <li class="dropdown-separator"></li>
                                     <li>{{labels.NAVBAR_NAV_SERVICES_ACCOMPANIED}}</li>
-                                    <li class="rd-dropdown-item{% if active == 'makeover_day' %} active{% endif %}"><a
+                                    <li class="rd-dropdown-item{% if active == 'day' %} active{% endif %}"><a
                                             class="rd-dropdown-link"
                                             href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_DAY_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_DAY}}</a>
                                     </li>
-                                    <li class="rd-dropdown-item{% if active == 'guided_weekend' %} active{% endif %}"><a
+                                    <li class="rd-dropdown-item{% if active == 'perso' %} active{% endif %}"><a
                                             class="rd-dropdown-link"
-                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_WEEK_END_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_WEEK_END}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_PERSO_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_PERSO}}</a>
                                     </li>
-                                    <li
-                                        class="rd-dropdown-item{% if active == 'personalized_stay' %} active{% endif %}">
+                                    <li class="rd-dropdown-item{% if active == 'storage' %} active{% endif %}">
                                         <a class="rd-dropdown-link"
-                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_STAY_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_STAY}}</a>
+                                            href="/{{lg}}/{{labels.NAVBAR_NAV_SERVICES_STORAGE_SLUG}}">{{labels.NAVBAR_NAV_SERVICES_STORAGE}}</a>
                                     </li>
                                 </ul>
                             </li>
